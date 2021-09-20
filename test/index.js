@@ -7,7 +7,7 @@ describe("silex_socket_service", () => {
 
     before((done) => {
 
-        clientSocket = new Client(`http://localhost:${port}`)
+        clientSocket = new Client(`http://localhost:${port}/backend`)
         clientSocket.on("connect", () => {
             console.log("connected")
             // done()    <-- todo : need to find why this not work

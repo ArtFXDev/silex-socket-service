@@ -1,5 +1,5 @@
-const event = (socket, route) => {
-    socket.emit(route, "aaa")
+const event = (socket) => {
+    socket.emit("connected", "myData")
 }
 
 module.exports = event
