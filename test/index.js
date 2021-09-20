@@ -1,0 +1,28 @@
+const Client = require("socket.io-client")
+const assert = require("chai")
+
+describe("silex_socket_service", () => {
+    let io, serverSocket, clientSocket
+    const port = 3000
+
+    before((done) => {
+
+        clientSocket = new Client(`http://localhost:${port}`)
+        clientSocket.on("connect", () => {
+            console.log("connected")
+            // done()    <-- todo : need to find why this not work
+        })
+        done() 
+    })
+
+    after(() => {
+        clientSocket.close()
+    })
+
+    it("Test connection", (done) => {
+        clientSocket.on("connected", (arg) => {
+            done()
+        })
+        clientSocket.emit("connection")
+    })
+})

@@ -1,5 +1,8 @@
+const { connectedEvent } = require("../events")
+
 module.exports = function (io) {
     io.on("connection", function (socket) {
-        socket.emit("connected", socket)
+        //connectedEvent(socket)
+        socket.emit("connected")
     })
 }
