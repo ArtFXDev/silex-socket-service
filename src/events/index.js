@@ -1,4 +1,4 @@
-// pls not use this
+// pls dont use this
 /* todo
 module.exports = (io)  => {
     const fs = require("fs")

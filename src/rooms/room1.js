@@ -1,5 +1,10 @@
-const room = (socket) => {
+const room1Join = (socket) => {
     socket.join("room1")
 }
 
-module.exports = room
+const room1To = (socket) => {
+    socket.To("room1")
+}
+
+
+module.exports = { room1Join, room1To }
