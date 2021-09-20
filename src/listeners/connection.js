@@ -1,8 +1,7 @@
-const { connectedEvent } = require("../events")
+const connectedEvent = require("../events/connectedEvent.js")
 
-module.exports = function (io) {
-    io.on("connection", function (socket) {
-        //connectedEvent(socket)
-        socket.emit("connected")
-    })
-}
+module.exports = function(io) {
+  io.on("connection", function(socket) {
+    connectedEvent(socket, "connected")
+  });
+};
