@@ -1,6 +1,8 @@
 const Client = require("socket.io-client")
 const assert = require("chai")
 
+/** test cases */
+
 describe("silex_socket_service", () => {
     let io, serverSocket, clientSocket
     const port = 3000
