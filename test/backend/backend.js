@@ -4,7 +4,7 @@ const assert = require("chai")
 /** test cases */
 
 describe("silex_socket_service", () => {
-    let io, serverSocket, clientSocket
+    let clientSocket
     const port = 3000
 
     before((done) => {

@@ -1,5 +1,9 @@
 {
-  "name": "silex_socket_service",
+  "name": "@ArtFX/silex_socket_service",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ArtFX/silex-socket-service"
+  },
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,10 +12,7 @@
     "mocha": "mocha --recursive test/**/*.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ArtFXDev/Silex_Socket_Service.git"
-  },
+
   "keywords": [],
   "author": "",
   "license": "ISC",
