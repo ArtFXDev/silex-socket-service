@@ -22,6 +22,5 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           ls -l ./
-          npm i npm@latest -g
           npm i
           npm publish
