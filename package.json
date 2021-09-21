@@ -1,8 +1,8 @@
 {
-  "name": "@artfx/silex-socket-service",
+  "name": "@artfxdev/silex-socket-service",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ArtFX/silex-socket-service"
+    "url": "https://github.com/ArtFXDev/silex-socket-service"
   },
   "version": "1.0.0",
   "description": "",
