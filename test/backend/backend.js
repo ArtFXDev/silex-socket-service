@@ -1,5 +1,6 @@
 const Client = require("socket.io-client")
-// const assert = require("chai")
+
+const assert = require("chai").assert
 
 /** test cases */
 // eslint-disable-next-line no-undef
@@ -9,7 +10,7 @@ describe("silex_socket_service", () => {
 
   // eslint-disable-next-line no-undef
   before((done) => {
-    clientSocket = new Client(`http://localhost:${port}/backend`)
+    clientSocket = new Client(`http://localhost:${port}`)
     clientSocket.on("connect", () => {
       console.log("connected")
       // done()    <-- todo : need to find why this not work
@@ -23,10 +24,12 @@ describe("silex_socket_service", () => {
   })
 
   // eslint-disable-next-line no-undef
-  it("Test connection", (done) => {
-    clientSocket.on("connected", (arg) => {
+  it("Test connection backend", (done) => {
+    clientSocket.on("onbackend", (data) => {
+      console.log(data)
+      assert.equal(data, "myData")
       done()
     })
-    clientSocket.emit("connection")
+    clientSocket.emit("ebackend")
   })
 })

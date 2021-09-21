@@ -1,5 +1,5 @@
 const event = (socket) => {
-    socket.emit("connected", "myData")
+  socket.emit("onbackend", "myData")
 }
 
 module.exports = event

@@ -1,8 +1,11 @@
-const connectedEvent = require("../events/connectedEvent.js")
-const backendNamespace = require("../namespaces/backend")
+const connectedEvent = require("../events/connectedEvent")
+// const backendNamespace = require("../namespaces/backend")
 
 module.exports = function (io) {
-  backendNamespace(io).on("connection", function (socket) {
-    connectedEvent(socket, "connected")
+  io.on("connection", function (socket) {
+    socket.on("ebackend", function () {
+      console.log("aaaaa")
+      connectedEvent(socket, "connected")
+    })
   })
 }
