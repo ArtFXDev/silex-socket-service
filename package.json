@@ -1,5 +1,5 @@
 {
-  "name": "@artfx/silex_socket_service",
+  "name": "@artfx/silex-socket-service",
   "repository": {
     "type": "git",
     "url": "https://github.com/ArtFX/silex-socket-service"
