@@ -23,7 +23,7 @@ describe("silex_socket_service", () => {
   })
 
   // eslint-disable-next-line no-undef
-  it("Test dcc connection", (done) => {
+  it("Test dcc initializatiob", (done) => {
     clientSocket.on("ondcc", (arg) => {
       console.log(arg)
       done()

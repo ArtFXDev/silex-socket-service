@@ -1,5 +1,4 @@
-const dccEvent = require("../events/dccEvent")
-const dccNamespace = require("../namespaces/dcc")
+const dccNamespace = require("../namespaces/dcc/dcc")
 const { dccRoomJoin } = require("../rooms/dccRoom")
 
 module.exports = function (io) {
@@ -7,7 +6,6 @@ module.exports = function (io) {
     socket.on("edcc", function () {
       dccRoomJoin(socket)
       console.log("aaaaa")
-      dccEvent(dccNamespace(io))
     })
   })
 }

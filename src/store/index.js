@@ -1,3 +1,4 @@
-modules.exports = {
-    name = "aaaa"
+module.exports = {
+    name: "aaaa",
+    dccs: []
 }
