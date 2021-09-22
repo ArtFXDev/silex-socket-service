@@ -1,5 +1,5 @@
 const Client = require("socket.io-client")
-// const assert = require("chai")
+const assert = require("chai").assert
 
 /** test cases */
 // eslint-disable-next-line no-undef
@@ -23,11 +23,20 @@ describe("silex_socket_service", () => {
   })
 
   // eslint-disable-next-line no-undef
-  it("Test dcc initializatiob", (done) => {
-    clientSocket.on("ondcc", (arg) => {
-      console.log(arg)
+  it("Test dcc initialization ok", (done) => {
+    clientSocket.emit("initialization", { name: "untilted", dcc: "undefined", user: "undefined",
+      project: "undefined", asset: "undefined", uid: -1}, (response) => {
+      assert.equal(response.status, 200) // validate reception
       done()
     })
-    clientSocket.emit("edcc")
+  })
+  
+  // eslint-disable-next-line no-undef
+  it("Test dcc initialization error", (done) => {
+    clientSocket.emit("initialization", { name: "untilted", dcc: "undefined", user: "undefined",
+      project: "undefined", asset: "undefined"}, (response) => {
+      assert.equal(response.status, 500) // validate reception
+      done()
+    })
   })
 })
