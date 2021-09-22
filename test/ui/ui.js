@@ -27,7 +27,6 @@ describe("silex_socket_service_ui", () => {
   it("Test ui initialization", (done) => {
     clientUi.emit("initialization", { uid: -1 }, (response) => {
       assert.equal(response.status, 200) // validate reception
-      console.log(response.data)
       done()
     })
   })
@@ -36,7 +35,6 @@ describe("silex_socket_service_ui", () => {
   it("Test ui initialization error", (done) => {
     clientUi.emit("initialization", {}, (response) => {
       assert.equal(response.status, 500) // validate reception
-      console.log(response.data)
       done()
     })
   })
