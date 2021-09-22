@@ -40,8 +40,13 @@ describe("silex_socket_service_dcc", () => {
 
   // eslint-disable-next-line no-undef
   it("Test dcc initialization error", (done) => {
-    clientSocket.emit("initialization", { name: "untilted", dcc: "undefined", user: "undefined",
-      project: "undefined", asset: "undefined"}, (response) => {
+    clientSocket.emit("initialization", {
+      name: "untilted",
+      dcc: "undefined",
+      user: "undefined",
+      project: "undefined",
+      asset: "undefined"
+    }, (response) => {
       assert.equal(response.status, 500) // validate reception
       done()
     })

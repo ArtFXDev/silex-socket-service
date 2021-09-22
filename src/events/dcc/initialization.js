@@ -6,10 +6,13 @@ const initialization = (socket) => {
     const uid = data.uid
     if (uid !== undefined) {
       store.dccs[uid] = data
+
+      // eslint-disable-next-line node/no-callback-literal
       callback({
         status: 200 // ok
       })
     } else {
+      // eslint-disable-next-line node/no-callback-literal
       callback({
         status: 500 // error
       })
