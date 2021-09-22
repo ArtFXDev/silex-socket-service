@@ -9,7 +9,8 @@ const requestEvent = require("../events/dcc/actions/request")
 const updateEvent = require("../events/dcc/actions/update")
 
 /** ROOMS */
-const { dccRoomJoin } = require("../rooms/dccRoom")
+const { dccRoomJoin } = require("../rooms/dcc")
+
 module.exports = function (io) {
   dccNamespace(io).on("connection", function (socket) {
     initializationEvent(socket)

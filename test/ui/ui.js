@@ -12,21 +12,9 @@ describe("silex_socket_service_ui", () => {
     clientDcc = new Client(`http://localhost:${port}/dcc`)
     clientUi = new Client(`http://localhost:${port}/ui`)
     clientDcc.on("connect", () => {
-      console.log("connected")
-      clientDcc.emit("initialization", {
-        name: "untilted",
-        dcc: "undefined",
-        user: "undefined",
-        project: "undefined",
-        asset: "undefined",
-        uid: -2
-      },
-      (response) => {
-        assert.equal(response.status, 200)
-        done()
-      })
       // done()    <-- todo : need to find why this not work
     })
+    done()
   })
 
   // eslint-disable-next-line no-undef
@@ -36,7 +24,25 @@ describe("silex_socket_service_ui", () => {
   })
 
   // eslint-disable-next-line no-undef
-  it("Test dcc get clients", (done) => {
+  it("Test ui initialization", (done) => {
+    clientUi.emit("initialization", { uid: -1 }, (response) => {
+      assert.equal(response.status, 200) // validate reception
+      console.log(response.data)
+      done()
+    })
+  })
+
+  // eslint-disable-next-line no-undef
+  it("Test ui initialization error", (done) => {
+    clientUi.emit("initialization", {}, (response) => {
+      assert.equal(response.status, 500) // validate reception
+      console.log(response.data)
+      done()
+    })
+  })
+
+  // eslint-disable-next-line no-undef
+  it("Test ui get clients", (done) => {
     clientUi.emit("getclients", (response) => {
       assert.equal(response.status, 200) // validate reception
       console.log(response.data)

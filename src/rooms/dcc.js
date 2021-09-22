@@ -1,5 +1,4 @@
 const dccRoomJoin = (socket) => {
-  console.log("join dcc room")
   return socket.join("dccRoom")
 }
 
