@@ -1,9 +1,8 @@
-const store = require('../../../store')
+const store = require("../../../store")
 
-const request = (sockt) => {
+const request = (socket) => {
     console.log(store.dccs)
     socket.on("request", function () {
-    console.log("aaaaa")
   })
 }
 

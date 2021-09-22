@@ -1,4 +1,4 @@
-const store = require('../../../store')
+const store = require("../../../store")
 
 const query = (socket) => {
   socket.on("query", function () {
