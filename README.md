@@ -10,3 +10,7 @@ Socket-io bridge between front app and dccs
 @ArtFXDev:registry=https://npm.pkg.github.com/
 ```
 **Dont forget to replace <YOUR_GITHUB_TOKEN> woith your github access token**, ref : [here](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry)
+
+- And type:
+
+``` npm install @artfxdev/silex-socket-service ```
