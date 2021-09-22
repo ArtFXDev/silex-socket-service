@@ -1,4 +1,5 @@
 module.exports = {
   name: "aaaa",
-  dccs: {}
+  dccs: {},
+  uis: {}
 }

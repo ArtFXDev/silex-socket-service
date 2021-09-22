@@ -9,7 +9,7 @@ describe("silex_socket_service_dcc", () => {
 
   // eslint-disable-next-line no-undef
   before((done) => {
-    clientSocket = new Client(`http://localhost:${port}/dcc`)
+    clientSocket = new Client(`http://localhost:${port}/dcc/actions`)
     clientSocket.on("connect", () => {
       console.log("connected")
       // done()    <-- todo : need to find why this not work
@@ -23,31 +23,12 @@ describe("silex_socket_service_dcc", () => {
   })
 
   // eslint-disable-next-line no-undef
-  it("Test dcc initialization ok", (done) => {
-    clientSocket.emit("initialization", {
-      name: "untilted",
-      dcc: "undefined",
-      user: "undefined",
-      project: "undefined",
-      asset: "undefined",
-      uid: -1
-    },
-    (response) => {
-      assert.equal(response.status, 200) // validate reception
-      done()
-    })
-  })
-
-  // eslint-disable-next-line no-undef
-  it("Test dcc initialization error", (done) => {
-    clientSocket.emit("initialization", {
-      name: "untilted",
-      dcc: "undefined",
-      user: "undefined",
-      project: "undefined",
-      asset: "undefined"
+  it("Test dcc query", (done) => {
+    clientSocket.emit("query", {
+      aa: "undefined"
     }, (response) => {
-      assert.equal(response.status, 500) // validate reception
+      assert.equal(response.status, 200) // validate reception
+      console.log(response.msg)
       done()
     })
   })

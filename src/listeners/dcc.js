@@ -17,8 +17,8 @@ module.exports = function (io) {
   })
 
   dccActionsNamespace(io).on("connection", function (socket) {
-    queryEvent(socket)
-    requestEvent(socket)
-    updateEvent(socket)
+    queryEvent(socket, io)
+    requestEvent(socket, io)
+    updateEvent(socket, io)
   })
 }

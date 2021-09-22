@@ -1,6 +1,6 @@
 const store = require("../../../store")
 
-const update = (socket) => {
+const update = (socket, io) => {
   console.log(store.dccs)
   socket.on("update", function () {
     console.log("aaaaa")
