@@ -1,5 +1,5 @@
 const ui = (io) => {
-    return io.of("/ui")
-  }
-  
+  return io.of("/ui")
+}
+
 module.exports = ui
