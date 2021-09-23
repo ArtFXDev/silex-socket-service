@@ -14,12 +14,14 @@ const initialization = (socket, io) => {
     if (uid) {
       // eslint-disable-next-line node/no-callback-literal
       callback({
-        status: 200 // ok
+        status: 200, // ok
+        msg: "Ok"
       })
     } else {
       // eslint-disable-next-line node/no-callback-literal
       callback({
-        status: 500 // error
+        status: 500, // error
+        msg: "Missing uid in data."
       })
     }
     uiRoomTo(io).emit("/ui_connect", { uid: uid })
