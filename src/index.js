@@ -11,6 +11,10 @@ app.get("/", function (req, res) {
 // calls listeners
 initListeners(io)
 
-http.listen(3000, function () {
-  console.log("listening on *:3000")
-})
+if (require.main === module) {
+  http.listen(5118, function () {
+    console.log("listening on *:5118")
+  })
+}
+
+export { http }

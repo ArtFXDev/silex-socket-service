@@ -5,7 +5,7 @@ const assert = require("chai").assert
 // eslint-disable-next-line no-undef
 describe("silex_socket_service_dcc", () => {
   let clientSocket
-  const port = 3000
+  const port = 30511800
 
   // eslint-disable-next-line no-undef
   before((done) => {
