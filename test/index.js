@@ -6,6 +6,5 @@ describe("silex_socket_service INIT Server", () => {
   before((done) => {
     mainApp.run()
     done()
-    console.log("aaaa")
   })
 })
