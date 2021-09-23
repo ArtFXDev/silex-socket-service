@@ -1,5 +1,6 @@
 /** NAMEPSACE  */
 const uiNamespace = require("../namespaces/ui/ui")
+const uiActionNamespace = require("../namespaces/ui/action")
 
 /** EVENTS */
 const initializationEvent = require("../events/ui/initialization")
@@ -15,5 +16,7 @@ module.exports = function (io) {
     initializationEvent(socket, io)
     getclients(socket)
     disconnectEvent(socket, io)
+  })
+  uiActionNamespace(io).on("connection", function (socket) {
   })
 }

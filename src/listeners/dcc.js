@@ -1,6 +1,6 @@
 /** NAMEPSACE  */
 const dccNamespace = require("../namespaces/dcc/dcc")
-const dccActionsNamespace = require("../namespaces/dcc/actions")
+const dccActionNamespace = require("../namespaces/dcc/action")
 
 /** EVENTS */
 const initializationEvent = require("../events/dcc/initialization")
@@ -19,7 +19,7 @@ module.exports = function (io) {
     diconnectEvent(socket, io)
   })
 
-  dccActionsNamespace(io).on("connection", function (socket) {
+  dccActionNamespace(io).on("connection", function (socket) {
     queryEvent(socket, io)
     requestEvent(socket, io)
     updateEvent(socket, io)
