@@ -3,6 +3,10 @@ const { uiRoomTo } = require("../../rooms/ui")
 
 const initialization = (socket, io) => {
   socket.on("initialization", (data, callback) => {
+    if (typeof data === "string" || data instanceof String) {
+      data = JSON.parse(data)
+    }
+
     // get uid from data
     const uid = data.uid
     if (uid) {

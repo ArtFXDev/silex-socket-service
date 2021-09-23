@@ -3,6 +3,10 @@ const actionNamespace = require("../../../namespaces/ui/ui")
 
 const update = (socket, io) => {
   socket.on("update", (data, callback) => {
+    if (typeof data === "string" || data instanceof String) {
+      data = JSON.parse(data)
+    }
+
     actionNamespace(io).emit("update", { data: data })
     if (!callback) {
       return
