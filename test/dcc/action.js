@@ -9,7 +9,7 @@ describe("silex_socket_service_dcc", () => {
 
   // eslint-disable-next-line no-undef
   before((done) => {
-    clientSocket = new Client(`http://localhost:${port}/dcc/actions`)
+    clientSocket = new Client(`http://localhost:${port}/dcc/action`)
     clientSocket.on("connect", () => {
       console.log("connected")
       // done()    <-- todo : need to find why this not work

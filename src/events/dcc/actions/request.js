@@ -3,6 +3,10 @@ const actionNamespace = require("../../../namespaces/ui/ui")
 
 const request = (socket, io) => {
   socket.on("request", (data, callback) => {
+    actionNamespace(io).emit("request", { data: data })
+    if (!callback) {
+      return
+    }
     if (Object.keys(store.uis).length === 0) {
       // eslint-disable-next-line node/no-callback-literal
       callback({
@@ -15,7 +19,6 @@ const request = (socket, io) => {
         status: 200
       })
     }
-    actionNamespace(io).emit("request", { data: data })
   })
 }
 module.exports = request

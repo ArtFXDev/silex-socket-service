@@ -1,5 +1,5 @@
 const actions = (io) => {
-  return io.of("/ui/actions")
+  return io.of("/dcc/action")
 }
 
 module.exports = actions
