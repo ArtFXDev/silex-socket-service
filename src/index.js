@@ -16,5 +16,3 @@ if (require.main === module) {
     console.log("listening on *:5118")
   })
 }
-
-export { http }
