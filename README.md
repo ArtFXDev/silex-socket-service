@@ -7,7 +7,7 @@
 
 Socket-io bridge between front app and dccs
 
-See the [Wiki](https://github.com/ArtFXDev/silex-socket-service/wiki)
+Go to the [Wiki](https://github.com/ArtFXDev/silex-socket-service/wiki) !
 
 ## Get Started
 On standalone : 
