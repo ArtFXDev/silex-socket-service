@@ -4,7 +4,7 @@ const uiActionNamespace = require("../namespaces/ui/action")
 
 /** EVENTS */
 const initializationEvent = require("../events/ui/initialization")
-const getClients = require("../events/ui/getClients")
+const getClients = require("../events/ui/getclients")
 const disconnectEvent = require("../events/ui/disconnect")
 
 /** ROOMS */
