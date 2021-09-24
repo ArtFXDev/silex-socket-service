@@ -5,7 +5,9 @@
 [![CI](https://github.com/ArtFXDev/silex-socket-service/actions/workflows/mocha.yml/badge.svg)](https://github.com/ArtFXDev/silex-socket-service/actions/workflows/mocha.yml)
 
 
-Socket-io bridge between front app and dccs 
+Socket-io bridge between front app and dccs
+
+See the [Wiki](https://github.com/ArtFXDev/silex-socket-service/wiki)
 
 ## Get Started
 On standalone : 
