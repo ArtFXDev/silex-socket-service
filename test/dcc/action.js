@@ -13,7 +13,6 @@ describe("silex_socket_service_dcc", () => {
     clientSocket.on("connect", () => {
       console.log("connected")
       // done()    <-- todo : need to find why this not work
-      console.log("aaa")
     })
     done()
   })

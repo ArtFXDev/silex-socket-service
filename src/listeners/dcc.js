@@ -14,8 +14,8 @@ const { dccRoomJoin } = require("../rooms/dcc")
 
 module.exports = function (io) {
   dccNamespace(io).on("connection", function (socket) {
-    initializationEvent(socket, io)
     dccRoomJoin(socket)
+    initializationEvent(socket, io)
     diconnectEvent(socket, io)
   })
 

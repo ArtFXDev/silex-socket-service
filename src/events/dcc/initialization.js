@@ -12,9 +12,11 @@ const initialization = (socket, io) => {
     if (uid) {
       store.dccs[uid] = data
     }
+
     if (!callback) {
       return
     }
+
     if (uid) {
       // eslint-disable-next-line node/no-callback-literal
       callback({
@@ -28,7 +30,8 @@ const initialization = (socket, io) => {
         msg: "Missing uid in data."
       })
     }
-    dccRoomTo(io).emit("/dcc_connect", { uid: uid })
+    console.log(socket.rooms)
+    io.to("dccRoom").emit("test", { uid: uid })
   })
 }
 module.exports = initialization
