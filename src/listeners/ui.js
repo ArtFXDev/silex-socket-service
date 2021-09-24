@@ -4,7 +4,7 @@ const uiActionNamespace = require("../namespaces/ui/action")
 
 /** EVENTS */
 const initializationEvent = require("../events/ui/initialization")
-const getclients = require("../events/ui/getclients")
+const getClients = require("../events/ui/getClients")
 const disconnectEvent = require("../events/ui/disconnect")
 
 /** ROOMS */
@@ -14,7 +14,7 @@ module.exports = function (io) {
   uiNamespace(io).on("connection", function (socket) {
     uiRoomJoin(socket)
     initializationEvent(socket, io)
-    getclients(socket)
+    getClients(socket)
     disconnectEvent(socket, io)
   })
   uiActionNamespace(io).on("connection", function (socket) {
