@@ -51,4 +51,26 @@ describe("silex_socket_service_dcc", () => {
       done()
     })
   })
+
+  // eslint-disable-next-line no-undef
+  it("Test dcc broadcast room", (done) => {
+    clientSocket.on("test", (value) => {
+      console.log("ok ")
+      console.log(value)
+      done()
+    })
+    secondClient = new Client(`http://localhost:${port}/dcc`)
+    secondClient.on("connect", (value) => {
+      console.log("second connected")
+      secondClient.emit("initialization", {
+        name: "untilted",
+        dcc: "undefined",
+        user: "undefined",
+        project: "undefined",
+        asset: "undefined",
+        uid: -1
+      },
+      (response) => {})
+    })
+  })
 })

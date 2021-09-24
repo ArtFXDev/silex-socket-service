@@ -30,8 +30,7 @@ const initialization = (socket, io) => {
         msg: "Missing uid in data."
       })
     }
-    console.log(socket.rooms)
-    io.to("dccRoom").emit("test", { uid: uid })
+    dccRoomTo(io).emit("test", { uid: uid })
   })
 }
 module.exports = initialization
