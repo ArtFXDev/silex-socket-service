@@ -24,13 +24,13 @@ const initialization = (socket, io) => {
         status: 200, // ok
         msg: "Ok"
       })
+      uiRoomTo(io).emit("dccConnect", { uuid: uuid })
     } else {
       // eslint-disable-next-line node/no-callback-literal
       callback({
         status: 500, // error
         msg: "Missing uuid in data."
       })
-      uiRoomTo(io).emit("dccConnect", { uuid: uuid })
     }
   })
 }
