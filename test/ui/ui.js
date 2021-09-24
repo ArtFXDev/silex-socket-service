@@ -73,6 +73,6 @@ describe("silex_socket_service_ui", () => {
       console.log(value)
       done()
     })
-    clientDcc.close({ uuid: -1 })
+    clientDcc.close()
   })
 })
