@@ -1,6 +1,6 @@
 const store = require("../../store")
 
-const getclients = (socket) => {
+const getClients = (socket) => {
   socket.on("getClients", (callback) => {
     if (!callback) {
       return
@@ -12,4 +12,4 @@ const getclients = (socket) => {
     })
   })
 }
-module.exports = getclients
+module.exports = getClients
