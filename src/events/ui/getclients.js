@@ -1,7 +1,7 @@
 const store = require("../../store")
 
 const getclients = (socket) => {
-  socket.on("getclients", (callback) => {
+  socket.on("getClients", (callback) => {
     if (!callback) {
       return
     }

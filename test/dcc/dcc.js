@@ -4,7 +4,7 @@ const assert = require("chai").assert
 /** test cases */
 // eslint-disable-next-line no-undef
 describe("silex_socket_service_dcc", () => {
-  let clientSocket, secondClient
+  let clientSocket
   const port = 5118
 
   // eslint-disable-next-line no-undef
@@ -30,7 +30,7 @@ describe("silex_socket_service_dcc", () => {
       user: "undefined",
       project: "undefined",
       asset: "undefined",
-      uid: -1
+      uuid: -1
     },
     (response) => {
       assert.equal(response.status, 200) // validate reception
@@ -49,28 +49,6 @@ describe("silex_socket_service_dcc", () => {
     }, (response) => {
       assert.equal(response.status, 500) // validate reception
       done()
-    })
-  })
-
-  // eslint-disable-next-line no-undef
-  it("Test dcc broadcast room", (done) => {
-    clientSocket.on("test", (value) => {
-      console.log("ok ")
-      console.log(value)
-      done()
-    })
-    secondClient = new Client(`http://localhost:${port}/dcc`)
-    secondClient.on("connect", (value) => {
-      console.log("second connected")
-      secondClient.emit("initialization", {
-        name: "untilted",
-        dcc: "undefined",
-        user: "undefined",
-        project: "undefined",
-        asset: "undefined",
-        uid: -1
-      },
-      (response) => {})
     })
   })
 })

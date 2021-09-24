@@ -1,5 +1,5 @@
 const store = require("../../store")
-const { dccRoomTo } = require("../../rooms/dcc")
+const { uiRoomTo } = require("../../rooms/ui")
 
 const initialization = (socket, io) => {
   socket.on("initialization", (data, callback) => {
@@ -7,17 +7,18 @@ const initialization = (socket, io) => {
       data = JSON.parse(data)
     }
 
-    // get uid from data
-    const uid = data.uid
-    if (uid) {
-      store.dccs[uid] = data
+    // get uuid from data
+    const uuid = data.uuid
+    if (uuid) {
+      store.dccs[uuid] = data
+      socket.data.uuid = uuid
     }
 
     if (!callback) {
       return
     }
 
-    if (uid) {
+    if (uuid) {
       // eslint-disable-next-line node/no-callback-literal
       callback({
         status: 200, // ok
@@ -27,10 +28,10 @@ const initialization = (socket, io) => {
       // eslint-disable-next-line node/no-callback-literal
       callback({
         status: 500, // error
-        msg: "Missing uid in data."
+        msg: "Missing uuid in data."
       })
     }
-    dccRoomTo(io).emit("test", { uid: uid })
+    uiRoomTo(io).emit("dccConnect", { uuid: uuid })
   })
 }
 module.exports = initialization

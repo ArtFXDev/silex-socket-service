@@ -1,18 +1,14 @@
 const store = require("../../store")
-const { dccRoomTo } = require("../../rooms/dcc")
+const { uiRoomTo } = require("../../rooms/ui")
 
 const disconnect = (socket, io) => {
-  socket.on("initialization", (data) => {
-    if (typeof data === "string" || data instanceof String) {
-      data = JSON.parse(data)
+  socket.on("disconnect", (data) => {
+    // get uuid from data
+    const uuid = data.uuid
+    if (uuid && store.dccs[uuid]) {
+      delete store.dccs[uuid]
     }
-
-    // get uid from data
-    const uid = data.uid
-    if (uid && store.dccs[uid]) {
-      delete store.dccs[uid]
-    }
-    dccRoomTo(io).emit("/dcc_disconnect", { uid: uid })
+    uiRoomTo(io).emit("dccDisconnect", { uuid: socket.data.uuid })
   })
 }
 module.exports = disconnect

@@ -1,5 +1,4 @@
 const store = require("../../store")
-const { uiRoomTo } = require("../../rooms/ui")
 
 const initialization = (socket, io) => {
   socket.on("initialization", (data, callback) => {
@@ -7,15 +6,16 @@ const initialization = (socket, io) => {
       data = JSON.parse(data)
     }
 
-    // get uid from data
-    const uid = data.uid
-    if (uid) {
-      store.uis[uid] = data
+    // get uuid from data
+    const uuid = data.uuid
+    if (uuid) {
+      store.uis[uuid] = data
+      socket.data.uuid = uuid
     }
     if (!callback) {
       return
     }
-    if (uid) {
+    if (uuid) {
       // eslint-disable-next-line node/no-callback-literal
       callback({
         status: 200, // ok
@@ -25,10 +25,9 @@ const initialization = (socket, io) => {
       // eslint-disable-next-line node/no-callback-literal
       callback({
         status: 500, // error
-        msg: "Missing uid in data."
+        msg: "Missing uuid in data."
       })
     }
-    uiRoomTo(io).emit("/ui_connect", { uid: uid })
   })
 }
 module.exports = initialization

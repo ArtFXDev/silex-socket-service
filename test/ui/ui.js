@@ -25,7 +25,7 @@ describe("silex_socket_service_ui", () => {
 
   // eslint-disable-next-line no-undef
   it("Test ui initialization", (done) => {
-    clientUi.emit("initialization", { uid: -1 }, (response) => {
+    clientUi.emit("initialization", { uuid: -1 }, (response) => {
       assert.equal(response.status, 200) // validate reception
       done()
     })
@@ -41,10 +41,38 @@ describe("silex_socket_service_ui", () => {
 
   // eslint-disable-next-line no-undef
   it("Test ui get clients", (done) => {
-    clientUi.emit("getclients", (response) => {
+    clientUi.emit("getClients", (response) => {
       assert.equal(response.status, 200) // validate reception
       console.log(response.data)
       done()
     })
+  })
+
+  // eslint-disable-next-line no-undef
+  it("Test ui dccConnect", (done) => {
+    clientUi.on("dccConnect", (value) => {
+      console.log("ok ")
+      console.log(value)
+      done()
+    })
+    clientDcc.emit("initialization", {
+      name: "untilted",
+      dcc: "undefined",
+      user: "undefined",
+      project: "undefined",
+      asset: "undefined",
+      uuid: -1
+    },
+    (response) => {})
+  })
+
+  // eslint-disable-next-line no-undef
+  it("Test ui dccDisconnect", (done) => {
+    clientUi.on("dccDisconnect", (value) => {
+      console.log("ok ")
+      console.log(value)
+      done()
+    })
+    clientDcc.close({ uuid: -1 })
   })
 })
