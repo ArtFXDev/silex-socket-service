@@ -1,5 +1,9 @@
 # silex-socket-service
+![](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)
+![](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)
+
 [![CI](https://github.com/ArtFXDev/silex-socket-service/actions/workflows/mocha.yml/badge.svg)](https://github.com/ArtFXDev/silex-socket-service/actions/workflows/mocha.yml)
+
 
 Socket-io bridge between front app and dccs 
 
