@@ -30,8 +30,8 @@ const initialization = (socket, io) => {
         status: 500, // error
         msg: "Missing uuid in data."
       })
+      uiRoomTo(io).emit("dccConnect", { uuid: uuid })
     }
-    uiRoomTo(io).emit("dccConnect", { uuid: uuid })
   })
 }
 module.exports = initialization
