@@ -20,7 +20,8 @@ const query = (socket, io) => {
     } else {
       // eslint-disable-next-line node/no-callback-literal
       callback({
-        status: 200
+        status: 200,
+        msg: "Ok"
       })
     }
   })
