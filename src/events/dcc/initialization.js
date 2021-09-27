@@ -6,7 +6,7 @@ const initialization = (socket, io) => {
     if (typeof data === "string" || data instanceof String) {
       data = JSON.parse(data)
     }
-
+    data.socketID = socket.id
     // get uuid from data
     const uuid = data.uuid
     if (uuid) {

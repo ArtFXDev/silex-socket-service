@@ -31,7 +31,6 @@ describe("silex_socket_service_dcc", () => {
       console.log(response.msg)
       done()
     })
-    done()
   })
 
   // eslint-disable-next-line no-undef
