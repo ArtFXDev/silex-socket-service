@@ -24,7 +24,7 @@ const initialization = (socket, io) => {
         status: 200, // ok
         msg: "Ok"
       })
-      uiRoomTo(io).emit("dccConnect", { uuid: uuid })
+      uiRoomTo(io).emit("dccConnect", { uuid: uuid, context: store.dccs[uuid] })
     } else {
       // eslint-disable-next-line node/no-callback-literal
       callback({

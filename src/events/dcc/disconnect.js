@@ -2,9 +2,9 @@ const store = require("../../store")
 const { uiRoomTo } = require("../../rooms/ui")
 
 const disconnect = (socket, io) => {
-  socket.on("disconnect", (data) => {
+  socket.on("disconnect", () => {
     // get uuid from data
-    const uuid = data.uuid
+    const uuid = socket.data.uuid
     if (uuid && store.dccs[uuid]) {
       delete store.dccs[uuid]
     }
