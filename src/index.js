@@ -16,9 +16,10 @@ const run = async () => {
     console.log("listening on *:5118")
   })
 }
+if (require.main === module) {
+  run()
+}
 
-run()
-
-exports.run = {
+module.exports = {
   run
 }
