@@ -23,4 +23,4 @@ jobs:
         run: |
           ls -l ./
           npm i
-          npm publish
+          npm publish --access public
