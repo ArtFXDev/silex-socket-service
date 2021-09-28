@@ -16,7 +16,7 @@ const submit = (socket, io) => {
       status: 200, // ok
       msg: "Ok"
     })
-    io.sockets.socket(dcc.socketID).emit(data)
+    io.sockets.socket(dcc.socketID).emit("submit", data)
   })
 }
 module.exports = submit

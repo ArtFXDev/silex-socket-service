@@ -6,7 +6,7 @@ const query = (socket, io) => {
     if (typeof data === "string" || data instanceof String) {
       data = JSON.parse(data)
     }
-    actionNamespace(io).emit("query", { data: data, callback: callback })
+    actionNamespace(io).emit("query", { data: data })
     if (!callback) {
       return
     }

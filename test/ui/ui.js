@@ -4,12 +4,13 @@ const assert = require("chai").assert
 /** test cases */
 // eslint-disable-next-line no-undef
 describe("silex_socket_service_ui", () => {
-  let clientDcc, clientUi
+  let clientDcc, clientDccAction, clientUi
   const port = 5118
 
   // eslint-disable-next-line no-undef
   before((done) => {
     clientDcc = new Client(`http://localhost:${port}/dcc`)
+    clientDccAction = new Client(`http://localhost:${port}/dcc/action`)
     clientUi = new Client(`http://localhost:${port}/ui`)
     clientDcc.on("connect", () => {
       // done()    <-- todo : need to find why this not work
@@ -64,6 +65,27 @@ describe("silex_socket_service_ui", () => {
       uuid: -1
     },
     (response) => {})
+  })
+
+  // eslint-disable-next-line no-undef
+  it("Test ui submit", (done) => {
+    clientDccAction.on("submit", (data) => {
+      console.log("OK SUBMIT")
+      done()
+    })
+    clientUi.on("query", (data) => {
+      console.log("callback query")
+      console.log(data)
+      done()
+    })
+    clientDccAction.emit("query", { data: "data" }, (callbackData) => {
+      console.log(callbackData)
+      if (callbackData.status === 200) {
+        clientDcc.on("submit", (data) => {
+          console.log(data)
+        })
+      }
+    })
   })
 
   // eslint-disable-next-line no-undef
