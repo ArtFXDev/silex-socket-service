@@ -2,19 +2,17 @@ const store = require("../../store")
 
 const submit = (socket, io) => {
   socket.on("submit", (data, callback) => {
-    const dccID = data.dccid
+    const uuid = data.uuid
     let dcc = {}
     console.log("AAAA")
-    console.log(data.dccid)
-    if (dccID) {
-      dcc = store.dccs[dccID]
+    console.log(data.uuid)
+    if (uuid) {
+      dcc = store.dccs[uuid]
     }
     if (!dcc) {
       return
     }
-    console.log(dcc.socketID)
-    io.to(dcc.socketID).emit("submit", data)
-    io.to(dcc.socketID).emit("submit", data)
+    io.of("/dcc").to(dcc.socketID).emit("submit", data)
     if (!callback) {
       return
     }

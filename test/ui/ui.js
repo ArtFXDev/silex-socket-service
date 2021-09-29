@@ -69,17 +69,12 @@ describe("silex_socket_service_ui", () => {
 
   // eslint-disable-next-line no-undef
   it("Test ui submit", (done) => {
-    console.log(clientDcc.id)
     clientDcc.on("submit", (data) => {
-      console.log("OK SUBMIT")
       done()
     })
 
     clientUi.on("query", (data) => {
-      console.log("callback query")
-      console.log(data)
-      clientUi.emit("submit", { dccid: -1 })
-      done()
+      clientUi.emit("submit", { uuid: -1 })
     })
 
     clientDccAction.emit("query", { data: "data" }, (callbackData) => {
