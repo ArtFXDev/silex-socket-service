@@ -1,5 +1,5 @@
 const store = require("../../store")
-
+const dccNamespace = require("../../namespaces/dcc/dcc")
 const submit = (socket, io) => {
   socket.on("submit", (data, callback) => {
     const uuid = data.uuid
@@ -12,7 +12,7 @@ const submit = (socket, io) => {
     if (!dcc) {
       return
     }
-    io.of("/dcc").to(dcc.socketID).emit("submit", data)
+    dccNamespace(io).to(dcc.socketID).emit("submit", data)
     if (!callback) {
       return
     }
