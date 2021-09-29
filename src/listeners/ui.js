@@ -17,6 +17,7 @@ module.exports = function (io) {
     initializationEvent(socket, io)
     getClients(socket)
     disconnectEvent(socket, io)
+    submit(socket, io)
   })
   uiActionNamespace(io).on("connection", function (socket) {
     submit(socket, io)

@@ -52,7 +52,7 @@ describe("silex_socket_service_ui", () => {
   // eslint-disable-next-line no-undef
   it("Test ui dccConnect", (done) => {
     clientUi.on("dccConnect", (value) => {
-      console.log("ok ")
+      console.log("ok")
       console.log(value)
       done()
     })
@@ -69,15 +69,19 @@ describe("silex_socket_service_ui", () => {
 
   // eslint-disable-next-line no-undef
   it("Test ui submit", (done) => {
-    clientDccAction.on("submit", (data) => {
+    console.log(clientDcc.id)
+    clientDcc.on("submit", (data) => {
       console.log("OK SUBMIT")
       done()
     })
+
     clientUi.on("query", (data) => {
       console.log("callback query")
       console.log(data)
+      clientUi.emit("submit", { dccid: -1 })
       done()
     })
+
     clientDccAction.emit("query", { data: "data" }, (callbackData) => {
       console.log(callbackData)
       if (callbackData.status === 200) {
