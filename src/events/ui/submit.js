@@ -2,10 +2,8 @@ const store = require("../../store")
 const dccNamespace = require("../../namespaces/dcc/dcc")
 const submit = (socket, io) => {
   socket.on("submit", (data, callback) => {
-    const uuid = data.uuid
+    const uuid = data.data.uuid
     let dcc = {}
-    console.log("AAAA")
-    console.log(data.uuid)
     if (uuid) {
       dcc = store.dccs[uuid]
     }

@@ -74,10 +74,10 @@ describe("silex_socket_service_ui", () => {
     })
 
     clientUi.on("query", (data) => {
-      clientUi.emit("submit", { uuid: -1 })
+      clientUi.emit("submit", data)
     })
 
-    clientDccAction.emit("query", { data: "data" }, (callbackData) => {
+    clientDccAction.emit("query", { uuid: -1 }, (callbackData) => {
       console.log(callbackData)
       if (callbackData.status === 200) {
         clientDcc.on("submit", (data) => {
