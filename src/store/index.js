@@ -1,5 +1,6 @@
 module.exports = {
   name: "aaaa",
   dccs: {},
-  uis: {}
+  uis: {},
+  kitsuToken: ""
 }

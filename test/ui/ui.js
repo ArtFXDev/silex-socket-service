@@ -88,10 +88,24 @@ describe("silex_socket_service_ui", () => {
   })
 
   // eslint-disable-next-line no-undef
+  it("Test ui set token", (done) => {
+    clientUi.emit("setAuthKitsu", { token: "MyToken" }, (response) => {
+      assert.equal(response.status, 200)
+      done()
+    })
+  })
+  // eslint-disable-next-line no-undef
+  it("Test ui get token", (done) => {
+    clientUi.emit("getAuthKitsu", (response) => {
+      assert.equal(response.status, 200)
+      assert.equal(response.data, "MyToken")
+      done()
+    })
+  })
+
+  // eslint-disable-next-line no-undef
   it("Test ui dccDisconnect", (done) => {
     clientUi.on("dccDisconnect", (value) => {
-      console.log("ok ")
-      console.log(value)
       done()
     })
     clientDcc.close()
