@@ -87,6 +87,7 @@ describe("silex_socket_service_ui", () => {
     })
   })
 
+  /*
   // eslint-disable-next-line no-undef
   it("Test ui login kitsu", (done) => {
     clientUi.emit("loginKitsu", { email: "admin@example.com", password: "mysecretpassword" }, (response) => {
@@ -102,19 +103,11 @@ describe("silex_socket_service_ui", () => {
       assert.equal(response.status, 500)
       done()
     })
-  })
+  })*/
 
   // eslint-disable-next-line no-undef
   it("Test ui get token", (done) => {
     clientUi.emit("getAuthKitsu", (response) => {
-      assert.equal(response.status, 200)
-      done()
-    })
-  })
-
-  // eslint-disable-next-line no-undef
-  it("Test persist store", (done) => {
-    clientUi.emit("persistStore", (response) => {
       assert.equal(response.status, 200)
       done()
     })
