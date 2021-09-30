@@ -14,17 +14,16 @@ const initialization = (socket, io) => {
       socket.data.uuid = uuid
     }
 
-    if (!callback) {
-      return
-    }
-
     if (uuid) {
+      uiRoomTo(io).emit("dccConnect", { context: store.dccs[uuid] })
+      if (!callback) {
+        return
+      }
       // eslint-disable-next-line node/no-callback-literal
       callback({
         status: 200, // ok
         msg: "Ok"
       })
-      uiRoomTo(io).emit("dccConnect", { uuid: uuid, context: store.dccs[uuid] })
     } else {
       // eslint-disable-next-line node/no-callback-literal
       callback({
