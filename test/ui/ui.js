@@ -104,6 +104,14 @@ describe("silex_socket_service_ui", () => {
   })
 
   // eslint-disable-next-line no-undef
+  it("Test persist store", (done) => {
+    clientUi.emit("persistStore", (response) => {
+      assert.equal(response.status, 200)
+      done()
+    })
+  })
+
+  // eslint-disable-next-line no-undef
   it("Test ui dccDisconnect", (done) => {
     clientUi.on("dccDisconnect", (value) => {
       done()
