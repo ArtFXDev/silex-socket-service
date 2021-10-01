@@ -23,7 +23,7 @@ describe("silex_socket_service_auth", () => {
 
   /*
   // eslint-disable-next-line no-undef
-  it("Test ui login kitsu", (done) => {
+  it("Test auth login kitsu", (done) => {
     clientAuth.emit("login", { email: "admin@example.com", password: "mysecretpassword" }, (response) => {
       assert.equal(response.status, 200)
       done()
@@ -31,7 +31,7 @@ describe("silex_socket_service_auth", () => {
   })
 
   // eslint-disable-next-line no-undef
-  it("Test error login kitsu", (done) => {
+  it("Test error auth login kitsu", (done) => {
     clientAuth.emit("login", { email: "admin@example.com", password: "mybadsecretpassword" }, (response) => {
       console.log(response)
       assert.equal(response.status, 500)
