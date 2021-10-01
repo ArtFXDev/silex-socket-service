@@ -1,5 +1,5 @@
 const store = require("../../../store")
-const actionNamespace = require("../../../namespaces/ui/ui")
+const uiNamespace = require("../../../namespaces/ui/ui")
 
 const request = (socket, io) => {
   socket.on("request", (data, callback) => {
@@ -7,7 +7,7 @@ const request = (socket, io) => {
       data = JSON.parse(data)
     }
 
-    actionNamespace(io).emit("request", { data: data })
+    uiNamespace(io).emit("request", { data: data })
     if (!callback) {
       return
     }
