@@ -1,6 +1,6 @@
 const store = require("../../store")
 
-const initialization = (socket, io) => {
+const initialization = (socket) => {
   socket.on("initialization", (data, callback) => {
     if (typeof data === "string" || data instanceof String) {
       data = JSON.parse(data)

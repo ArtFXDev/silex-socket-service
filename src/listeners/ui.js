@@ -7,8 +7,6 @@ const initializationEvent = require("../events/ui/initialization")
 const getClients = require("../events/ui/getclients")
 const disconnectEvent = require("../events/ui/disconnect")
 const submit = require("../events/ui/submit")
-const auth = require("../events/ui/auth")
-const persistStore = require("../events/ui/persistStore")
 
 /** ROOMS */
 const { uiRoomJoin } = require("../rooms/ui")
@@ -20,8 +18,7 @@ module.exports = function (io) {
     getClients(socket)
     disconnectEvent(socket, io)
     submit(socket, io)
-    auth(socket)
-    persistStore(socket)
+    // persistStore(socket)
   })
   uiActionNamespace(io).on("connection", function (socket) {
     submit(socket, io)
