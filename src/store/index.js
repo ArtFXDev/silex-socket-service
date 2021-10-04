@@ -3,5 +3,6 @@ module.exports = {
   dccs: {},
   uis: {},
   kitsuToken: "",
-  kitsuApi: "http://192.168.2.30/api"
+  kitsuApi: "http://192.168.2.30/api",
+  currentAction: ""
 }

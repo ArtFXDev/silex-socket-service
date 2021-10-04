@@ -6,6 +6,7 @@ const query = (socket, io) => {
     if (typeof data === "string" || data instanceof String) {
       data = JSON.parse(data)
     }
+    store.currentAction = data
     uiNamespace(io).emit("query", { data: data })
     if (!callback) {
       return
