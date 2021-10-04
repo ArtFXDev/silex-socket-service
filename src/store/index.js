@@ -1,5 +1,7 @@
 module.exports = {
   name: "aaaa",
+  storeFolder: "sss_data",
+  storeFile: "userStore.json",
   dccs: {},
   uis: {},
   kitsuToken: "",

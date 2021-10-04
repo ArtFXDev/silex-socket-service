@@ -12,10 +12,9 @@ const persistStore = (socket) => {
       }
       console.log(`${dataDir}/${fileName}`)
       fs.writeFileSync(`${dataDir}/${fileName}`, JSON.stringify(store))
-      if (!callback || typeof callback !== "function") {
+      if (!callback) {
         return
       }
-
       // eslint-disable-next-line node/no-callback-literal
       callback({
         status: 200, // ok
