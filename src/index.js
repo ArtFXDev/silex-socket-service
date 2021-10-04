@@ -2,7 +2,9 @@ const initListeners = require("./listeners")
 const app = require("express")()
 const http = require("http").createServer(app)
 
-const io = require("socket.io")(http)
+const io = require("socket.io")(http, {
+  cors: { origins: ["http://localhost:3000"] }
+})
 
 const run = async () => {
   app.get("/", function (req, res) {
@@ -17,6 +19,7 @@ const run = async () => {
   })
   console.log("aaa")
 }
+
 if (require.main === module) {
   run()
 }
