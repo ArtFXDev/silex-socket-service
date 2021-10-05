@@ -1,7 +1,7 @@
-const store = require("../../../store")
+const store = require("../../store")
 
-const getCurrentAction = (socket, io) => {
-  socket.on("query", (data, callback) => {
+const getCurrentAction = (socket) => {
+  socket.on("getCurrentAction", (callback) => {
     if (!callback) {
       return
     }
@@ -9,7 +9,7 @@ const getCurrentAction = (socket, io) => {
     callback({
       status: 200,
       msg: "ok",
-      data: store.currentAction
+      data: store.instance.data.currentAction
     })
   })
 }

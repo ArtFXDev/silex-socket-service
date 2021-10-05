@@ -9,7 +9,7 @@ const initialization = (socket) => {
     // get uuid from data
     const uuid = data.uuid
     if (uuid) {
-      store.uis[uuid] = data
+      store.instance.data.uis[uuid] = data
       socket.data.uuid = uuid
     }
     if (!callback) {

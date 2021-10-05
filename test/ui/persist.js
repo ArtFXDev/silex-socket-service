@@ -18,7 +18,7 @@ describe("silex_socket_service_ui_persist", () => {
     clientUi.close()
   })
 
-  it("Test ui persist", (done) => {
+  it("Test ui restore", (done) => {
     clientUi.emit("restoreStore", (response) => {
       assert.equal(response.status, 200) // validate reception
       done()

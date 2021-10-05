@@ -5,7 +5,7 @@ const submit = (socket, io) => {
     const uuid = data.data.uuid
     let dcc = {}
     if (uuid) {
-      dcc = store.dccs[uuid]
+      dcc = store.instance.data.dccs[uuid]
     }
     if (!dcc) {
       return

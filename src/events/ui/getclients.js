@@ -8,7 +8,7 @@ const getClients = (socket) => {
     // eslint-disable-next-line node/no-callback-literal
     callback({
       status: 200, // ok
-      data: store.dccs
+      data: store.instance.data.dccs
     })
   })
 }

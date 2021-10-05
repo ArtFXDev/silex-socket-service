@@ -10,12 +10,12 @@ const initialization = (socket, io) => {
     // get uuid from data
     const uuid = data.uuid
     if (uuid) {
-      store.dccs[uuid] = data
+      store.instance.data.dccs[uuid] = data
       socket.data.uuid = uuid
     }
 
     if (uuid) {
-      uiRoomTo(io).emit("dccConnect", { context: store.dccs[uuid] })
+      uiRoomTo(io).emit("dccConnect", { context: store.instance.data.dccs[uuid] })
       if (!callback) {
         return
       }

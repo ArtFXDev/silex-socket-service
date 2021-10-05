@@ -8,6 +8,7 @@ const getClients = require("../events/ui/getclients")
 const disconnectEvent = require("../events/ui/disconnect")
 const submit = require("../events/ui/submit")
 const { persistStore, restoreStore } = require("../events/ui/persistStore")
+const getCurrentActionEvent = require("../events/ui/getcurrentaction")
 
 /** ROOMS */
 const { uiRoomJoin } = require("../rooms/ui")
@@ -21,6 +22,7 @@ module.exports = function (io) {
     submit(socket, io)
     persistStore(socket)
     restoreStore(socket)
+    getCurrentActionEvent(socket)
   })
   uiActionNamespace(io).on("connection", function (socket) {
     submit(socket, io)

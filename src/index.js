@@ -17,7 +17,6 @@ const run = async () => {
   http.listen(5118, function () {
     console.log("listening on *:5118")
   })
-  console.log("aaa")
 }
 
 if (require.main === module) {

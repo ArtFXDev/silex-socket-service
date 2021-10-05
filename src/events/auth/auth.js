@@ -6,7 +6,7 @@ const auth = (socket) => {
     // get token from data
     const credentials = data
     if (credentials.email && credentials.password) {
-      axios.post(`${store.kitsuApi}/auth/login`, credentials)
+      axios.post(`${store.instance.kitsuApi}/auth/login`, credentials)
         .then((res) => {
           if (!callback) {
             return
@@ -17,7 +17,7 @@ const auth = (socket) => {
               status: 200,
               msg: "Ok"
             })
-            store.kitsuToken = res.access_token
+            store.instance.data.kitsuToken = res.access_token
           }
         })
         .catch(() => {
@@ -50,7 +50,7 @@ const auth = (socket) => {
     callback({
       status: 200, // ok
       msg: "Ok",
-      data: store.kitsuToken
+      data: store.instance.data.kitsuToken
     })
   })
 }

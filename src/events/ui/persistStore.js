@@ -1,16 +1,18 @@
-const store = require("../../store")
 const fs = require("fs")
 const os = require("os")
-const dataDir = `${os.homedir()}/${store.storeFolder}`
-const fileName = `${store.storeFile}`
+const store = require("../../store")
+const merge = require("deepmerge")
+
+const dataDir = `${os.homedir()}/${store.instance.data.storeFolder}`
+const fileName = `${store.instance.data.storeFile}`
+
 const persistStore = (socket) => {
   socket.on("persistStore", (callback) => {
     try {
-      console.log("aaa")
       if (!fs.existsSync(dataDir)) {
         fs.mkdirSync(dataDir)
       }
-      fs.writeFileSync(`${dataDir}/${fileName}`, JSON.stringify(store))
+      fs.writeFileSync(`${dataDir}/${fileName}`, JSON.stringify(store.instance.data))
       if (!callback || typeof callback !== "function") {
         return
       }
@@ -37,7 +39,6 @@ const persistStore = (socket) => {
 const restoreStore = (socket) => {
   socket.on("restoreStore", (callback) => {
     try {
-      console.log("aaa")
       if (!fs.existsSync(`${dataDir}/${fileName}`)) {
         if (callback && typeof callback === "function") {
           // eslint-disable-next-line node/no-callback-literal
@@ -49,7 +50,7 @@ const restoreStore = (socket) => {
         return
       }
       const rawdata = fs.readFileSync(`${dataDir}/${fileName}`)
-      Object.assign(store, JSON.parse(rawdata))
+      store.instance.data = merge(store.instance.data, JSON.parse(rawdata))
       if (!callback || typeof callback !== "function") {
         return
       }
