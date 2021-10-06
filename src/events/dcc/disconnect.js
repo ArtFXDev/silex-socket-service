@@ -8,6 +8,9 @@ const disconnect = (socket, io) => {
     if (uuid && store.instance.data.dccs[uuid]) {
       delete store.instance.data.dccs[uuid]
     }
+    if (!socket.data.uuid) {
+      return
+    }
     uiRoomTo(io).emit("dccDisconnect", { uuid: socket.data.uuid })
   })
 }
