@@ -3,7 +3,7 @@ const logger = require("../../plugins/logger")
 
 const initialization = (socket) => {
   socket.on("initialization", (data, callback) => {
-    logger.info(" => [RECEIVED on initialization]")
+    logger.info(" => [RECEIVED on /ui initialization]")
 
     if (typeof data === "string" || data instanceof String) {
       data = JSON.parse(data)

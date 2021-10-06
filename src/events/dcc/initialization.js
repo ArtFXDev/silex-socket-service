@@ -4,7 +4,7 @@ const logger = require("../../plugins/logger")
 
 const initialization = (socket, io) => {
   socket.on("initialization", (data, callback) => {
-    logger.info(` => [RECEIVED on initilization] ${socket.data.uuid}`)
+    logger.info(" => [RECEIVED on /dcc initialization]")
     if (typeof data === "string" || data instanceof String) {
       data = JSON.parse(data)
     }
@@ -14,6 +14,7 @@ const initialization = (socket, io) => {
     if (uuid) {
       store.instance.data.dccs[uuid] = data
       socket.data.uuid = uuid
+      logger.info(`Register dcc: ${socket.data.uuid}`)
     }
 
     if (uuid) {

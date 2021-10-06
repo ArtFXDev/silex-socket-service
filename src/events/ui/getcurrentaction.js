@@ -3,7 +3,7 @@ const logger = require("../../plugins/logger")
 
 const getCurrentAction = (socket) => {
   socket.on("getCurrentAction", (callback) => {
-    logger.info(` => [RECEIVED on getCLients] socketID: ${socket.data.uuid}`)
+    logger.info(` => [RECEIVED on /ui getCLients] socketID: ${socket.data.uuid}`)
     if (!callback) {
       return
     }

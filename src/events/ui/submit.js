@@ -4,7 +4,7 @@ const logger = require("../../plugins/logger")
 
 const submit = (socket, io) => {
   socket.on("submit", (data, callback) => {
-    logger.info(" => [RECEIVED on submit]")
+    logger.info(" => [RECEIVED on /ui submit]")
     const uuid = data.data.uuid
     let dcc = {}
     if (uuid) {
@@ -16,7 +16,7 @@ const submit = (socket, io) => {
     }
 
     dccNamespace(io).to(dcc.socketID).emit("submit", data)
-    logger.info(` <= [SEND data] to ${dcc.socketID}`)
+    logger.info(` <= [SEND data] to /dcc ${dcc.socketID}`)
     if (!callback) {
       return
     }

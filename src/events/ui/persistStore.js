@@ -9,13 +9,13 @@ const fileName = `${store.instance.data.storeFile}`
 
 const persistStore = (socket) => {
   socket.on("persistStore", (callback) => {
-    logger.info(" => [RECEIVED on persistStore]")
+    logger.info(" => [RECEIVED on /ui persistStore]")
     try {
       if (!fs.existsSync(dataDir)) {
         fs.mkdirSync(dataDir)
       }
       fs.writeFileSync(`${dataDir}/${fileName}`, JSON.stringify(store.instance.data))
-      logger.info(`Write successfully to :${dataDir}/${fileName}`)
+      logger.info(`Write successfully to: ${dataDir}/${fileName}`)
       if (!callback || typeof callback !== "function") {
         return
       }
@@ -41,7 +41,7 @@ const persistStore = (socket) => {
 
 const restoreStore = (socket) => {
   socket.on("restoreStore", (callback) => {
-    logger.info(" => [RECEIVED on restoreStore]")
+    logger.info(" => [RECEIVED on /ui restoreStore]")
     try {
       if (!fs.existsSync(`${dataDir}/${fileName}`)) {
         if (callback && typeof callback === "function") {
