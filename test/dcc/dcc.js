@@ -9,7 +9,6 @@ describe("silex_socket_service_dcc", () => {
   before((done) => {
     clientSocket = new Client(`http://localhost:${port}/dcc`)
     clientSocket.on("connect", () => {
-      console.log("connected")
       // done()    <-- todo : need to find why this not work
     })
     done()

@@ -1,12 +1,13 @@
 const store = require("../../../store")
 const uiNamespace = require("../../../namespaces/ui/ui")
+const merge = require("deepmerge")
 
 const update = (socket, io) => {
   socket.on("update", (data, callback) => {
     if (typeof data === "string" || data instanceof String) {
       data = JSON.parse(data)
     }
-
+    store.instance.data.currentAction = merge(store.instance.data.currentAction, data)
     uiNamespace(io).emit("update", { data: data })
     if (!callback) {
       return

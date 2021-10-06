@@ -1,7 +1,6 @@
 const dccNamespace = require("../namespaces/dcc/dcc")
 
 const dccRoomJoin = (socket) => {
-  console.log("join dccRoom")
   return socket.join("dccRoom")
 }
 

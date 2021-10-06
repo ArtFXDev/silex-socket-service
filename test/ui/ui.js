@@ -38,15 +38,12 @@ describe("silex_socket_service_ui", () => {
   it("Test ui get clients", (done) => {
     clientUi.emit("getClients", (response) => {
       assert.equal(response.status, 200) // validate reception
-      console.log(response.data)
       done()
     })
   })
 
   it("Test ui dccConnect", (done) => {
     clientUi.on("dccConnect", (value) => {
-      console.log("ok")
-      console.log(value)
       done()
     })
     clientDcc.emit("initialization", {
@@ -70,10 +67,8 @@ describe("silex_socket_service_ui", () => {
     })
 
     clientDccAction.emit("query", { uuid: -1 }, (callbackData) => {
-      console.log(callbackData)
       if (callbackData.status === 200) {
         clientDcc.on("submit", (data) => {
-          console.log(data)
         })
       }
     })

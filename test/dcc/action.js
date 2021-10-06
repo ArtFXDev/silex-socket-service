@@ -9,7 +9,6 @@ describe("silex_socket_service_dcc", () => {
   before((done) => {
     clientSocket = new Client(`http://localhost:${port}/dcc/action`)
     clientSocket.on("connect", () => {
-      console.log("connected")
       // done()    <-- todo : need to find why this not work
     })
     done()
@@ -24,7 +23,6 @@ describe("silex_socket_service_dcc", () => {
       myData: "undefined"
     }, (response) => {
       assert.equal(response.status, 200) // validate reception
-      console.log(response.msg)
       done()
     })
   })
@@ -34,7 +32,6 @@ describe("silex_socket_service_dcc", () => {
       myData: "undefined"
     }, (response) => {
       assert.equal(response.status, 200) // validate reception
-      console.log(response.msg)
       done()
     })
   })
@@ -44,7 +41,6 @@ describe("silex_socket_service_dcc", () => {
       myData: "undefined"
     }, (response) => {
       assert.equal(response.status, 200) // validate reception
-      console.log(response.msg)
       done()
     })
   })
