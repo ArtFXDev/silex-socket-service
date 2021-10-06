@@ -74,8 +74,15 @@ describe("silex_socket_service_ui", () => {
     })
   })
 
+  it("Test ls", (done) => {
+    clientUi.emit("ls", "C:/", (value) => {
+      console.log(value)
+      done()
+    })
+  })
+
   it("Test ui dccDisconnect", (done) => {
-    clientUi.on("dccDisconnect", (value) => {
+    clientUi.on("dccDisconnect", () => {
       done()
     })
     clientDcc.close()
