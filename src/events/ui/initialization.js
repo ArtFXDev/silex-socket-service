@@ -1,7 +1,10 @@
 const store = require("../../store")
+const logger = require("../../plugins/logger")
 
 const initialization = (socket) => {
   socket.on("initialization", (data, callback) => {
+    logger.info(" => [RECEIVED on initialization]")
+
     if (typeof data === "string" || data instanceof String) {
       data = JSON.parse(data)
     }
@@ -11,6 +14,7 @@ const initialization = (socket) => {
     if (uuid) {
       store.instance.data.uis[uuid] = data
       socket.data.uuid = uuid
+      logger.info(`Register socketClient: ${socket.data.uuid}`)
     }
     if (!callback) {
       return

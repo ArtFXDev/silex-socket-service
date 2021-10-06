@@ -2,17 +2,20 @@ const fs = require("fs")
 const os = require("os")
 const store = require("../../store")
 const merge = require("deepmerge")
+const logger = require("../../plugins/logger")
 
 const dataDir = `${os.homedir()}/${store.instance.data.storeFolder}`
 const fileName = `${store.instance.data.storeFile}`
 
 const persistStore = (socket) => {
   socket.on("persistStore", (callback) => {
+    logger.info(" => [RECEIVED on persistStore]")
     try {
       if (!fs.existsSync(dataDir)) {
         fs.mkdirSync(dataDir)
       }
       fs.writeFileSync(`${dataDir}/${fileName}`, JSON.stringify(store.instance.data))
+      logger.info(`Write successfully to :${dataDir}/${fileName}`)
       if (!callback || typeof callback !== "function") {
         return
       }
@@ -23,7 +26,7 @@ const persistStore = (socket) => {
         msg: "Ok"
       })
     } catch (err) {
-      console.error(err)
+      logger.error(`Error: ${err}`)
       if (!callback || typeof callback !== "function") {
         return
       }
@@ -38,6 +41,7 @@ const persistStore = (socket) => {
 
 const restoreStore = (socket) => {
   socket.on("restoreStore", (callback) => {
+    logger.info(" => [RECEIVED on restoreStore]")
     try {
       if (!fs.existsSync(`${dataDir}/${fileName}`)) {
         if (callback && typeof callback === "function") {
