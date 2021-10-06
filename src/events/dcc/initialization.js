@@ -1,8 +1,10 @@
 const store = require("../../store")
 const { uiRoomTo } = require("../../rooms/ui")
+const logger = require("../../plugins/logger")
 
 const initialization = (socket, io) => {
   socket.on("initialization", (data, callback) => {
+    logger.info(` => [RECEIVED on initilization] ${socket.data.uuid}`)
     if (typeof data === "string" || data instanceof String) {
       data = JSON.parse(data)
     }

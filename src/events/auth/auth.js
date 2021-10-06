@@ -6,7 +6,7 @@ const auth = (socket) => {
     // get token from data
     const credentials = data
     if (credentials.email && credentials.password) {
-      axios.post(`${store.instance.kitsuApi}/auth/login`, credentials)
+      axios.post(`${store.instance.data.kitsuApi}/auth/login`, credentials)
         .then((res) => {
           if (!callback) {
             return
