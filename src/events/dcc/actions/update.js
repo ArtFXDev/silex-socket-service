@@ -8,7 +8,7 @@ const update = (socket, io) => {
       data = JSON.parse(data)
     }
     store.instance.data.currentAction = merge(store.instance.data.currentAction, data)
-    uiNamespace(io).emit("update", { data: data })
+    uiNamespace(io).emit("update", { data: store.instance.data.currentAction })
     if (!callback) {
       return
     }
