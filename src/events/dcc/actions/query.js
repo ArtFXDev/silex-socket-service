@@ -11,8 +11,8 @@ const query = (socket, io) => {
 
     store.instance.data.currentAction = data
 
-    uiNamespace(io).emit("query", { data: data })
-    logger.info(" <= [SEND data] to /ui query")
+    uiNamespace(io).emit("actionQuery", { data: data })
+    logger.info(" <= [SEND data] to /ui actionQuery")
 
     if (!callback) {
       return

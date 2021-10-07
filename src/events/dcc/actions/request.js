@@ -9,7 +9,7 @@ const request = (socket, io) => {
       data = JSON.parse(data)
     }
 
-    uiNamespace(io).emit("request", { data: data })
+    uiNamespace(io).emit("actionRequest", { data: data })
     logger.info(" <= [SEND data] to /ui request")
 
     if (!callback) {

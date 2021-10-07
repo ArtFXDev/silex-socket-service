@@ -12,7 +12,7 @@ const auth = (socket) => {
       axios
         .post(`${store.instance.data.kitsuApi}/auth/login`, credentials)
         .then((res) => {
-          if (!callback) {
+          if (!callback || typeof callback !== "function") {
             return
           }
           if (res.data.login) {
@@ -26,7 +26,7 @@ const auth = (socket) => {
           }
         })
         .catch(() => {
-          if (!callback) {
+          if (!callback || typeof callback !== "function") {
             return
           }
           // eslint-disable-next-line node/no-callback-literal
@@ -36,7 +36,7 @@ const auth = (socket) => {
           })
         })
     } else {
-      if (!callback) {
+      if (!callback || typeof callback !== "function") {
         return
       }
       // eslint-disable-next-line node/no-callback-literal
@@ -49,7 +49,7 @@ const auth = (socket) => {
 
   socket.on("token", (callback) => {
     logger.info(" => [RECEIVED on /auth token]")
-    if (!callback) {
+    if (!callback || typeof callback !== "function") {
       return
     }
     // eslint-disable-next-line node/no-callback-literal

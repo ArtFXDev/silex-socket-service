@@ -65,15 +65,20 @@ describe("silex_socket_service_ui", () => {
       done()
     })
 
-    clientUi.on("query", (data) => {
+    clientUi.on("actionQuery", (data) => {
       clientUi.emit("submit", data)
     })
 
     clientDccAction.emit("query", { uuid: -1 }, (callbackData) => {
-      if (callbackData.status === 200) {
-        clientDcc.on("submit", (data) => {})
-      }
     })
+  })
+
+  it("Test ui update", (done) => {
+    clientDccAction.on("update", (data) => {
+      done()
+    })
+
+    clientUi.emit("actionUpdate", { uuid: -1 }, (callbackData) => {})
   })
 
   it("Test ls", (done) => {

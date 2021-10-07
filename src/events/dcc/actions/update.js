@@ -14,7 +14,7 @@ const update = (socket, io) => {
       store.instance.data.currentAction,
       data
     )
-    uiNamespace(io).emit("update", { data: store.instance.data.currentAction })
+    uiNamespace(io).emit("actionUpdate", { data: store.instance.data.currentAction })
     logger.info(" <= [SEND data] to /ui update]")
     if (!callback) {
       return
