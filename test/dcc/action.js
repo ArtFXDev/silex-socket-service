@@ -19,29 +19,41 @@ describe("silex_socket_service_dcc", () => {
   })
 
   it("Test action query", (done) => {
-    clientSocket.emit("query", {
-      myData: "undefined"
-    }, (response) => {
-      assert.equal(response.status, 200) // validate reception
-      done()
-    })
+    clientSocket.emit(
+      "query",
+      {
+        myData: "undefined"
+      },
+      (response) => {
+        assert.equal(response.status, 200) // validate reception
+        done()
+      }
+    )
   })
 
   it("Test action request", (done) => {
-    clientSocket.emit("request", {
-      myData: "undefined"
-    }, (response) => {
-      assert.equal(response.status, 200) // validate reception
-      done()
-    })
+    clientSocket.emit(
+      "request",
+      {
+        myData: "undefined"
+      },
+      (response) => {
+        assert.equal(response.status, 200) // validate reception
+        done()
+      }
+    )
   })
 
   it("Test action update", (done) => {
-    clientSocket.emit("update", {
-      myData: "undefined"
-    }, (response) => {
-      assert.equal(response.status, 200) // validate reception
-      done()
-    })
+    clientSocket.emit(
+      "update",
+      {
+        myData: "undefined"
+      },
+      (response) => {
+        assert.equal(response.status, 200) // validate reception
+        done()
+      }
+    )
   })
 })

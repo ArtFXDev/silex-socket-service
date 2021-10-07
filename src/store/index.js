@@ -1,7 +1,7 @@
 /* PROPS */
 const STORE_KEY = Symbol.for("silex_socket_service.store")
 const globalSymbols = Object.getOwnPropertySymbols(global)
-const hasStore = (globalSymbols.indexOf(STORE_KEY) > -1)
+const hasStore = globalSymbols.indexOf(STORE_KEY) > -1
 
 const store = {
   name: "aaaa",

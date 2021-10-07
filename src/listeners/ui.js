@@ -4,11 +4,11 @@ const uiActionNamespace = require("../namespaces/ui/action")
 
 /** EVENTS */
 const initializationEvent = require("../events/ui/initialization")
-const getClients = require("../events/ui/getclients")
+const getClients = require("../events/ui/getClients")
 const disconnectEvent = require("../events/ui/disconnect")
 const submit = require("../events/ui/submit")
 const { persistStore, restoreStore } = require("../events/ui/persistStore")
-const getCurrentActionEvent = require("../events/ui/getcurrentaction")
+const getCurrentActionEvent = require("../events/ui/getCurrentAction")
 const ls = require("../events/ui/ls")
 
 /** ROOMS */

@@ -1,13 +1,17 @@
 const store = require("../../../store")
 const uiNamespace = require("../../../namespaces/ui/ui")
+const logger = require("../../../plugins/logger")
 
 const request = (socket, io) => {
   socket.on("request", (data, callback) => {
+    logger.info(" => [RECEIVED on /dcc/actions request]")
     if (typeof data === "string" || data instanceof String) {
       data = JSON.parse(data)
     }
 
     uiNamespace(io).emit("request", { data: data })
+    logger.info(" <= [SEND data] to /ui request")
+
     if (!callback) {
       return
     }

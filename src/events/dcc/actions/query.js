@@ -1,8 +1,10 @@
 const store = require("../../../store")
 const uiNamespace = require("../../../namespaces/ui/ui")
+const logger = require("../../../plugins/logger")
 
 const query = (socket, io) => {
   socket.on("query", (data, callback) => {
+    logger.info(" => [RECEIVED on /dcc/actions query]")
     if (typeof data === "string" || data instanceof String) {
       data = JSON.parse(data)
     }
@@ -10,6 +12,8 @@ const query = (socket, io) => {
     store.instance.data.currentAction = data
 
     uiNamespace(io).emit("query", { data: data })
+    logger.info(" <= [SEND data] to /ui query")
+
     if (!callback) {
       return
     }

@@ -1,12 +1,16 @@
 const store = require("../../store")
 const axios = require("axios")
+const logger = require("../../plugins/logger")
 
 const auth = (socket) => {
   socket.on("login", (data, callback) => {
+    logger.info(" => [RECEIVED on /auth login]")
+
     // get token from data
     const credentials = data
     if (credentials.email && credentials.password) {
-      axios.post(`${store.instance.data.kitsuApi}/auth/login`, credentials)
+      axios
+        .post(`${store.instance.data.kitsuApi}/auth/login`, credentials)
         .then((res) => {
           if (!callback) {
             return
@@ -18,6 +22,7 @@ const auth = (socket) => {
               msg: "Ok"
             })
             store.instance.data.kitsuToken = res.access_token
+            logger.info("Refresh kitsuToken in store from api]")
           }
         })
         .catch(() => {
@@ -37,12 +42,13 @@ const auth = (socket) => {
       // eslint-disable-next-line node/no-callback-literal
       callback({
         status: 500,
-        msg: "Requires credentials: { email: \"myemail@mail.com\", password: \"mypassword\" }"
+        msg: 'Requires credentials: { email: "myemail@mail.com", password: "mypassword" }'
       })
     }
   })
 
   socket.on("token", (callback) => {
+    logger.info(" => [RECEIVED on /auth token]")
     if (!callback) {
       return
     }

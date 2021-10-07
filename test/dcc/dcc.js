@@ -19,30 +19,37 @@ describe("silex_socket_service_dcc", () => {
   })
 
   it("Test dcc initialization ok", (done) => {
-    clientSocket.emit("initialization", {
-      name: "untilted",
-      dcc: "undefined",
-      user: "undefined",
-      project: "undefined",
-      asset: "undefined",
-      uuid: -1
-    },
-    (response) => {
-      assert.equal(response.status, 200) // validate reception
-      done()
-    })
+    clientSocket.emit(
+      "initialization",
+      {
+        name: "untilted",
+        dcc: "undefined",
+        user: "undefined",
+        project: "undefined",
+        asset: "undefined",
+        uuid: -1
+      },
+      (response) => {
+        assert.equal(response.status, 200) // validate reception
+        done()
+      }
+    )
   })
 
   it("Test dcc initialization error", (done) => {
-    clientSocket.emit("initialization", {
-      name: "untilted",
-      dcc: "undefined",
-      user: "undefined",
-      project: "undefined",
-      asset: "undefined"
-    }, (response) => {
-      assert.equal(response.status, 500) // validate reception
-      done()
-    })
+    clientSocket.emit(
+      "initialization",
+      {
+        name: "untilted",
+        dcc: "undefined",
+        user: "undefined",
+        project: "undefined",
+        asset: "undefined"
+      },
+      (response) => {
+        assert.equal(response.status, 500) // validate reception
+        done()
+      }
+    )
   })
 })

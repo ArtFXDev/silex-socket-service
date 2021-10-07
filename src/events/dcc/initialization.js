@@ -18,7 +18,11 @@ const initialization = (socket, io) => {
     }
 
     if (uuid) {
-      uiRoomTo(io).emit("dccConnect", { context: store.instance.data.dccs[uuid] })
+      uiRoomTo(io).emit("dccConnect", {
+        context: store.instance.data.dccs[uuid]
+      })
+      logger.info(" <= [BROADCAST context] on /ui dccConnect")
+
       if (!callback) {
         return
       }

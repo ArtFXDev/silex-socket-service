@@ -14,7 +14,10 @@ const persistStore = (socket) => {
       if (!fs.existsSync(dataDir)) {
         fs.mkdirSync(dataDir)
       }
-      fs.writeFileSync(`${dataDir}/${fileName}`, JSON.stringify(store.instance.data))
+      fs.writeFileSync(
+        `${dataDir}/${fileName}`,
+        JSON.stringify(store.instance.data)
+      )
       logger.info(`Write successfully to: ${dataDir}/${fileName}`)
       if (!callback || typeof callback !== "function") {
         return

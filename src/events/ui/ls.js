@@ -21,6 +21,7 @@ const ls = (socket) => {
       if (!callback || typeof callback !== "function") {
         return
       }
+
       // eslint-disable-next-line node/no-callback-literal
       callback({
         status: 200, // ok
@@ -30,7 +31,9 @@ const ls = (socket) => {
     } catch (err) {
       console.error(err)
 
-      if (!callback || typeof callback !== "function") { return }
+      if (!callback || typeof callback !== "function") {
+        return
+      }
       // eslint-disable-next-line node/no-callback-literal
       callback({
         status: 200, // ok

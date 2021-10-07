@@ -46,15 +46,18 @@ describe("silex_socket_service_ui", () => {
     clientUi.on("dccConnect", (value) => {
       done()
     })
-    clientDcc.emit("initialization", {
-      name: "untilted",
-      dcc: "undefined",
-      user: "undefined",
-      project: "undefined",
-      asset: "undefined",
-      uuid: -1
-    },
-    (response) => {})
+    clientDcc.emit(
+      "initialization",
+      {
+        name: "untilted",
+        dcc: "undefined",
+        user: "undefined",
+        project: "undefined",
+        asset: "undefined",
+        uuid: -1
+      },
+      (response) => {}
+    )
   })
 
   it("Test ui submit", (done) => {
@@ -68,15 +71,13 @@ describe("silex_socket_service_ui", () => {
 
     clientDccAction.emit("query", { uuid: -1 }, (callbackData) => {
       if (callbackData.status === 200) {
-        clientDcc.on("submit", (data) => {
-        })
+        clientDcc.on("submit", (data) => {})
       }
     })
   })
 
   it("Test ls", (done) => {
     clientUi.emit("ls", "C:/", (value) => {
-      console.log(value)
       done()
     })
   })
