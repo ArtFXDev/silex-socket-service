@@ -11,6 +11,7 @@ const getCurrentActionEvent = require("../events/ui/getCurrentAction")
 const ls = require("../events/ui/ls")
 const submit = require("../events/ui/submit")
 const update = require("../events/ui/update")
+const exec = require("../events/ui/exec")
 
 /** ROOMS */
 const { uiRoomJoin } = require("../rooms/ui")
@@ -27,6 +28,7 @@ module.exports = function (io) {
     getCurrentActionEvent(socket)
     submit(socket, io)
     update(socket, io)
+    exec(socket)
   })
 
   uiActionNamespace(io).on("connection", function (socket) {

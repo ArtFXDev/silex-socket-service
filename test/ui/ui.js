@@ -87,6 +87,14 @@ describe("silex_socket_service_ui", () => {
     })
   })
 
+  it("Test exec", (done) => {
+    // clientUi.emit("exec", "rez env djv2 -- djv", (value) => {
+    clientUi.emit("exec", "echo 'aaaa'", (value) => {
+      console.log(value)
+      done()
+    })
+  })
+
   it("Test ui dccDisconnect", (done) => {
     clientUi.on("dccDisconnect", () => {
       done()
