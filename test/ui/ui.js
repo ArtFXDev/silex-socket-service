@@ -69,8 +69,7 @@ describe("silex_socket_service_ui", () => {
       clientUi.emit("submit", data)
     })
 
-    clientDccAction.emit("query", { uuid: -1 }, (callbackData) => {
-    })
+    clientDccAction.emit("query", { uuid: -1 }, (callbackData) => {})
   })
 
   it("Test ui update", (done) => {

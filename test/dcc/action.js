@@ -44,6 +44,13 @@ describe("silex_socket_service_dcc", () => {
     )
   })
 
+  it("Test action clearCurrentAction", (done) => {
+    clientSocket.emit("clearCurrentAction", (response) => {
+      assert.equal(response.status, 200) // validate reception
+      done()
+    })
+  })
+
   it("Test action update", (done) => {
     clientSocket.emit(
       "update",

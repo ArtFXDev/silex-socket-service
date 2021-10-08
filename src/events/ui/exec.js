@@ -5,7 +5,11 @@ const execEvent = (socket) => {
   socket.on("exec", (command, callback) => {
     logger.info(" => [RECEIVED on /ui exec]")
 
-    if ((!command || typeof command !== "string") && callback && typeof callback !== "function") {
+    if (
+      (!command || typeof command !== "string") &&
+      callback &&
+      typeof callback !== "function"
+    ) {
       // eslint-disable-next-line node/no-callback-literal
       callback({
         status: 500,
@@ -14,7 +18,9 @@ const execEvent = (socket) => {
       return
     }
 
-    if (!command || typeof command !== "string") { return }
+    if (!command || typeof command !== "string") {
+      return
+    }
     // todo get output of command in /emit
     exec(command, (err, stdout, stderr) => {
       if (!callback || typeof callback !== "function") {

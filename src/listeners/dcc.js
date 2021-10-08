@@ -8,6 +8,7 @@ const queryEvent = require("../events/dcc/actions/query")
 const requestEvent = require("../events/dcc/actions/request")
 const updateEvent = require("../events/dcc/actions/update")
 const diconnectEvent = require("../events/dcc/disconnect")
+const clearCurrentAction = require("../events/dcc/actions/clearCurrentAction")
 
 /** ROOMS */
 const { dccRoomJoin } = require("../rooms/dcc")
@@ -23,5 +24,6 @@ module.exports = function (io) {
     queryEvent(socket, io)
     requestEvent(socket, io)
     updateEvent(socket, io)
+    clearCurrentAction(socket)
   })
 }

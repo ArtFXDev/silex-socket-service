@@ -31,6 +31,5 @@ module.exports = function (io) {
     exec(socket)
   })
 
-  uiActionNamespace(io).on("connection", function (socket) {
-  })
+  uiActionNamespace(io).on("connection", function (socket) {})
 }

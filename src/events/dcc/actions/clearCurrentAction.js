@@ -1,7 +1,7 @@
 const store = require("../../../store")
 const logger = require("../../../plugins/logger")
 
-const clearCurrentAction = (socket, io) => {
+const clearCurrentAction = (socket) => {
   socket.on("clearCurrentAction", (callback) => {
     logger.info(" => [RECEIVED on /dcc/actions clearCurrentAction]")
     if (!callback || typeof callback !== "function") {
