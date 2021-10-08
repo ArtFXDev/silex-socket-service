@@ -1,5 +1,6 @@
 const fs = require("fs")
 const logger = require("../../plugins/logger")
+const path = require("path")
 
 const ls = (socket) => {
   socket.on("ls", (data, callback) => {
@@ -21,7 +22,11 @@ const ls = (socket) => {
       if (!callback || typeof callback !== "function") {
         return
       }
-
+      for (const filesIndex in files) {
+        const item = files[filesIndex]
+        files[filesIndex] = path.join(data, item)
+      }
+      console.log(files)
       // eslint-disable-next-line node/no-callback-literal
       callback({
         status: 200, // ok
