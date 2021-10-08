@@ -34,7 +34,7 @@ describe("silex_socket_service_auth", () => {
       assert.equal(response.status, 500)
       done()
     })
-  })*/
+  }) */
 
   // eslint-disable-next-line no-undef
   it("Test auth get token", (done) => {
