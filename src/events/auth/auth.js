@@ -21,7 +21,7 @@ const auth = (socket) => {
               status: 200,
               msg: "Ok"
             })
-            store.instance.data.kitsuToken = res.access_token
+            store.instance.data.kitsuToken = res.data.access_token
             logger.info("Refresh kitsuToken in store from api]")
           }
         })
