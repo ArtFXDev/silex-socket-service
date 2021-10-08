@@ -4,7 +4,7 @@
     "type": "git",
     "url": "https://github.com/ArtFXDev/silex-socket-service"
   },
-  "version": "1.0.5",
+  "version": "1.1.5",
   "description": "",
   "main": "index.js",
   "scripts": {
