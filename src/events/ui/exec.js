@@ -6,10 +6,7 @@ const execEvent = (socket) => {
     logger.info(" => [RECEIVED on /ui exec]")
 
     if (
-      (!command || typeof command !== "string") &&
-      callback &&
-      typeof callback !== "function"
-    ) {
+      (!command || typeof command !== "string") && callback && typeof callback !== "function") {
       // eslint-disable-next-line node/no-callback-literal
       callback({
         status: 500,
@@ -49,6 +46,9 @@ const execEvent = (socket) => {
       }
     })
     logger.info(`[EXEC] ${command}`)
+    if (!callback || typeof callback !== "function") {
+      return
+    }
     // eslint-disable-next-line node/no-callback-literal
     callback({
       status: 200,
