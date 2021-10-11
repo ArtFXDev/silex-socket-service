@@ -6,10 +6,16 @@ const getClients = (socket) => {
     logger.info(
       ` => [RECEIVED on /ui getCLients] socketID: ${socket.data.uuid}`
     )
+
     if (!callback) {
       return
     }
+
+    callback({
+      status: 200, // ok
+      data: store.instance.data.dccs
     })
   })
 }
+
 module.exports = getClients
