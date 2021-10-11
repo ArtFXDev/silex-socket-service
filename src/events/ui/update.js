@@ -17,7 +17,6 @@ const update = (socket, io) => {
     if (!callback || typeof callback !== "function") {
       return
     }
-    // eslint-disable-next-line node/no-callback-literal
     callback({
       status: 200,
       msg: "Empty clients !"

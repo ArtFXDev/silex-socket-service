@@ -9,7 +9,6 @@ const clearCurrentAction = (socket) => {
     }
     store.instance.data.currentAction = undefined
     logger.info("currentAction cleared")
-    // eslint-disable-next-line node/no-callback-literal
     callback({
       status: 200,
       msg: "ok"

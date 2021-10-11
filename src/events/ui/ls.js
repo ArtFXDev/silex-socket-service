@@ -8,7 +8,6 @@ const ls = (socket) => {
     try {
       if (!fs.existsSync(`${data}`)) {
         if (callback && typeof callback === "function") {
-          // eslint-disable-next-line node/no-callback-literal
           callback({
             status: 500, // ok
             msg: "path doesn't exist",
@@ -27,7 +26,6 @@ const ls = (socket) => {
         files[filesIndex] = path.join(data, item)
       }
       console.log(files)
-      // eslint-disable-next-line node/no-callback-literal
       callback({
         status: 200, // ok
         msg: "Ok",
@@ -39,7 +37,6 @@ const ls = (socket) => {
       if (!callback || typeof callback !== "function") {
         return
       }
-      // eslint-disable-next-line node/no-callback-literal
       callback({
         status: 200, // ok
         msg: "Ok",

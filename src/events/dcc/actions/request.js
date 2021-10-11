@@ -17,13 +17,11 @@ const request = (socket, io) => {
     }
 
     if (Object.keys(store.instance.data.uis).length === 0) {
-      // eslint-disable-next-line node/no-callback-literal
       callback({
         status: 200,
         msg: "Empty clients !"
       })
     } else {
-      // eslint-disable-next-line node/no-callback-literal
       callback({
         status: 200,
         msg: "Ok"

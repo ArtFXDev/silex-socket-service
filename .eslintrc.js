@@ -10,6 +10,7 @@ module.exports = {
     sourceType: "module"
   },
   rules: {
-    quotes: [2, "double", { avoidEscape: true }]
+    quotes: [2, "double", { avoidEscape: true }],
+    "node/no-callback-literal": "off"
   }
 }

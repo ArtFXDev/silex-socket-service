@@ -20,13 +20,11 @@ const initialization = (socket) => {
       return
     }
     if (uuid) {
-      // eslint-disable-next-line node/no-callback-literal
       callback({
         status: 200, // ok
         msg: "Ok"
       })
     } else {
-      // eslint-disable-next-line node/no-callback-literal
       callback({
         status: 500, // error
         msg: "Missing uuid in data."

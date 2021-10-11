@@ -16,7 +16,6 @@ const auth = (socket) => {
             return
           }
           if (res.data.login) {
-            // eslint-disable-next-line node/no-callback-literal
             callback({
               status: 200,
               msg: "Ok"
@@ -29,7 +28,6 @@ const auth = (socket) => {
           if (!callback || typeof callback !== "function") {
             return
           }
-          // eslint-disable-next-line node/no-callback-literal
           callback({
             status: 500,
             msg: "Bad credentials"
@@ -39,7 +37,6 @@ const auth = (socket) => {
       if (!callback || typeof callback !== "function") {
         return
       }
-      // eslint-disable-next-line node/no-callback-literal
       callback({
         status: 500,
         msg: 'Requires credentials: { email: "myemail@mail.com", password: "mypassword" }'
@@ -52,7 +49,6 @@ const auth = (socket) => {
     if (!callback || typeof callback !== "function") {
       return
     }
-    // eslint-disable-next-line node/no-callback-literal
     callback({
       status: 200, // ok
       msg: "Ok",
