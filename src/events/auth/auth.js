@@ -10,7 +10,7 @@ const auth = (socket) => {
     const credentials = data
     if (credentials.email && credentials.password) {
       axios
-        .post(`${store.instance.data.kitsuApi}/auth/login`, credentials)
+        .post(`${process.env.ZOU_API_URL}/api/auth/login`, credentials)
         .then((res) => {
           if (!callback || typeof callback !== "function") {
             return
@@ -21,7 +21,7 @@ const auth = (socket) => {
               msg: "Ok"
             })
             store.instance.data.kitsuToken = res.data.access_token
-            logger.info("Refresh kitsuToken in store from api]")
+            logger.info("Refresh kitsuToken in store from api")
           }
         })
         .catch(() => {
