@@ -9,7 +9,8 @@ const store = {
   storeFile: "userStore.json",
   dccs: {},
   uis: {},
-  kitsuToken: "",
+  user: undefined,
+  access_token: undefined,
   currentAction: undefined
 }
 
