@@ -19,7 +19,9 @@ const initialization = (socket, io) => {
 
     if (uuid) {
       uiRoomTo(io).emit("dccConnect", {
-        context: store.instance.data.dccs[uuid]
+        data: {
+          context: store.instance.data.dccs[uuid]
+        }
       })
       logger.info(" <= [BROADCAST context] on /ui dccConnect")
 

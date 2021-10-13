@@ -8,29 +8,20 @@ authRouter.post("/login", async (req, res) => {
     const response = await axios.post(
       `${process.env.ZOU_API_URL}/api/auth/login`,
       req.body,
-      { timeout: 1500 }
+      {
+        timeout: 1500
+      }
     )
 
-    store.instance.data.user = response.data.user
+    // Store the token
     store.instance.data.access_token = response.data.access_token
+
+    // Return the data
     res.json(response.data)
   } catch (err) {
     res.status(404)
-    res.send(err)
+    res.json(err)
   }
-})
-
-authRouter.get("/authenticated", (req, res) => {
-  const user = store.instance.data.user
-
-  if (!user) {
-    res.status(404)
-    res.send("")
-  }
-
-  res.json({
-    user
-  })
 })
 
 authRouter.get("/token", (req, res) => {
@@ -39,6 +30,7 @@ authRouter.get("/token", (req, res) => {
   if (!token) {
     res.status(404)
     res.send("No token")
+    return
   }
 
   res.json({
