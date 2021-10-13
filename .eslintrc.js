@@ -11,6 +11,7 @@ module.exports = {
   },
   rules: {
     quotes: [2, "double", { avoidEscape: true }],
-    "node/no-callback-literal": "off"
+    "node/no-callback-literal": "off",
+    "space-before-function-paren": "off"
   }
 }
