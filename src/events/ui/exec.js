@@ -6,8 +6,10 @@ const execEvent = (socket) => {
     logger.info(" => [RECEIVED on /ui exec]")
 
     if (
-      (!command || typeof command !== "string") && callback && typeof callback !== "function") {
-      // eslint-disable-next-line node/no-callback-literal
+      (!command || typeof command !== "string") &&
+      callback &&
+      typeof callback !== "function"
+    ) {
       callback({
         status: 500,
         msg: "Invalid type of command params"
@@ -24,21 +26,18 @@ const execEvent = (socket) => {
         return
       }
       if (err) {
-        // eslint-disable-next-line node/no-callback-literal
         callback({
           status: 500,
           msg: err
         })
       }
       if (stderr) {
-        // eslint-disable-next-line node/no-callback-literal
         callback({
           status: 500,
           msg: stderr
         })
       }
       if (stdout) {
-        // eslint-disable-next-line node/no-callback-literal
         callback({
           status: 200,
           msg: stdout
@@ -49,7 +48,6 @@ const execEvent = (socket) => {
     if (!callback || typeof callback !== "function") {
       return
     }
-    // eslint-disable-next-line node/no-callback-literal
     callback({
       status: 200,
       msg: "ok"

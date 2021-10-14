@@ -1,7 +1,8 @@
-module.exports = (io) => {
-  const fs = require("fs")
-  const path = require("path")
+const logger = require("../plugins/logger")
+const fs = require("fs")
+const path = require("path")
 
+module.exports = (io) => {
   // link listeners
   const listenersPath = path.resolve(__dirname)
 
@@ -13,7 +14,7 @@ module.exports = (io) => {
 
     files.forEach((fileName) => {
       if (fileName !== "index.js") {
-        console.debug("Initializing listener at: %s", fileName)
+        logger.info("Initializing listener at: %s", fileName)
 
         // Requires file
         const listener = require(path.resolve(__dirname, fileName))

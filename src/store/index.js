@@ -9,8 +9,7 @@ const store = {
   storeFile: "userStore.json",
   dccs: {},
   uis: {},
-  kitsuToken: "",
-  kitsuApi: "http://192.168.2.30/api",
+  access_token: undefined,
   currentAction: undefined
 }
 

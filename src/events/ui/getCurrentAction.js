@@ -9,7 +9,6 @@ const getCurrentAction = (socket) => {
     if (!callback) {
       return
     }
-    // eslint-disable-next-line node/no-callback-literal
     callback({
       status: 200,
       msg: "ok",

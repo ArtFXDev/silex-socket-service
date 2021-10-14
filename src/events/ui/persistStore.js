@@ -23,7 +23,6 @@ const persistStore = (socket) => {
         return
       }
 
-      // eslint-disable-next-line node/no-callback-literal
       callback({
         status: 200, // ok
         msg: "Ok"
@@ -33,7 +32,6 @@ const persistStore = (socket) => {
       if (!callback || typeof callback !== "function") {
         return
       }
-      // eslint-disable-next-line node/no-callback-literal
       callback({
         status: 500, // ok
         msg: err
@@ -48,7 +46,6 @@ const restoreStore = (socket) => {
     try {
       if (!fs.existsSync(`${dataDir}/${fileName}`)) {
         if (callback && typeof callback === "function") {
-          // eslint-disable-next-line node/no-callback-literal
           callback({
             status: 200, // ok
             msg: "Ok but file doesn't exist"
@@ -61,7 +58,6 @@ const restoreStore = (socket) => {
       if (!callback || typeof callback !== "function") {
         return
       }
-      // eslint-disable-next-line node/no-callback-literal
       callback({
         status: 200, // ok
         msg: "Ok"

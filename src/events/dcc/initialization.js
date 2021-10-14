@@ -19,20 +19,20 @@ const initialization = (socket, io) => {
 
     if (uuid) {
       uiRoomTo(io).emit("dccConnect", {
-        context: store.instance.data.dccs[uuid]
+        data: {
+          context: store.instance.data.dccs[uuid]
+        }
       })
       logger.info(" <= [BROADCAST context] on /ui dccConnect")
 
       if (!callback) {
         return
       }
-      // eslint-disable-next-line node/no-callback-literal
       callback({
         status: 200, // ok
         msg: "Ok"
       })
     } else {
-      // eslint-disable-next-line node/no-callback-literal
       callback({
         status: 500, // error
         msg: "Missing uuid in data."

@@ -1,18 +1,33 @@
-const initListeners = require("./listeners")
-const app = require("express")()
+// Read the .env file
+require("dotenv-safe").config()
+
+const express = require("express")
+const cors = require("cors")
+
+const app = express()
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+app.use(cors())
+
 const http = require("http").createServer(app)
+
 const logger = require("./plugins/logger")
+const initListeners = require("./listeners")
+const authRoutes = require("./routes/auth")
 
 const io = require("socket.io")(http, {
-  cors: { origins: ["http://localhost:3000"] }
+  cors: { origins: [process.env.SILEX_FRONT_URL] }
 })
 
 const run = async () => {
   // calls listeners
   initListeners(io)
 
-  http.listen(5118, function () {
-    logger.info("listening on *:5118")
+  logger.info("Registering /auth routes")
+  app.use("/auth", authRoutes)
+
+  http.listen(process.env.PORT, function () {
+    logger.info(`listening on *:${process.env.PORT}`)
   })
 }
 

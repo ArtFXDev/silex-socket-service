@@ -29,6 +29,13 @@ jobs:
       - name: Init project
         run: npm i
 
+      - name: Create .env file
+        run: |
+          touch .env
+          echo SILEX_FRONT_URL="http://localhost:3000" >> .env
+          echo ZOU_API_URL="http://localhost" >> .env
+          echo PORT="5118" >> .env
+
       - name: Run test Mocha
         run: |
           npm run mocha
