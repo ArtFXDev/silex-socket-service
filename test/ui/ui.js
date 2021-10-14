@@ -80,12 +80,6 @@ describe("silex_socket_service_ui", () => {
     clientUi.emit("actionUpdate", { uuid: -1 }, (callbackData) => {})
   })
 
-  it("Test ls", (done) => {
-    clientUi.emit("ls", "C:/", (value) => {
-      done()
-    })
-  })
-
   it("Test exec", (done) => {
     // clientUi.emit("exec", "rez env djv2 -- djv", (value) => {
     clientUi.emit("exec", "echo 'aaaa'", (value) => {
