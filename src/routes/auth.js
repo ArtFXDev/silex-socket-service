@@ -3,15 +3,13 @@ const store = require("../store")
 const express = require("express")
 const authRouter = express.Router()
 
+const { zouAPIURL } = require("../utils/zou")
+
 authRouter.post("/login", async (req, res) => {
   try {
-    const response = await axios.post(
-      `${process.env.ZOU_API_URL}/api/auth/login`,
-      req.body,
-      {
-        timeout: 1500
-      }
-    )
+    const response = await axios.post(zouAPIURL("auth/login"), req.body, {
+      timeout: 1500
+    })
 
     // Store the token
     store.instance.data.access_token = response.data.access_token
