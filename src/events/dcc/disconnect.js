@@ -13,7 +13,7 @@ const disconnect = (socket, io) => {
     if (!socket.data.uuid) {
       return
     }
-    uiRoomTo(io).emit("dccDisconnect", { uuid: socket.data.uuid })
+    uiRoomTo(io).emit("dccDisconnect", { data: { uuid: socket.data.uuid } })
     logger.info(" <= [BROADCAST uuid] on /ui dccDisconnect")
   })
 }
