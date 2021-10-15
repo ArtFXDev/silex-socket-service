@@ -1,5 +1,4 @@
 const Client = require("socket.io-client")
-const assert = require("chai").assert
 
 /** test cases */
 describe("silex_socket_service_ui_persist", () => {
@@ -16,19 +15,5 @@ describe("silex_socket_service_ui_persist", () => {
 
   after(() => {
     clientUi.close()
-  })
-
-  it("Test ui restore", (done) => {
-    clientUi.emit("restoreStore", (response) => {
-      assert.equal(response.status, 200) // validate reception
-      done()
-    })
-  })
-
-  it("Test ui persist", (done) => {
-    clientUi.emit("persistStore", (response) => {
-      assert.equal(response.status, 200) // validate reception
-      done()
-    })
   })
 })

@@ -4,7 +4,6 @@ const globalSymbols = Object.getOwnPropertySymbols(global)
 const hasStore = globalSymbols.indexOf(STORE_KEY) > -1
 
 const store = {
-  name: "aaaa",
   storeFolder: "sss_data",
   storeFile: "userStore.json",
   dccs: {},
