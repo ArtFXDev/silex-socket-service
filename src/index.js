@@ -50,24 +50,30 @@ const run = async () => {
 }
 
 /**
- * Called on process exit
+ * Handle process exit events
+ * Only when running in standalone
  */
-const onExit = () => {
-  logger.info("Exiting application...")
-  persistStore()
-  throw new Error("Silex socket service exited")
-}
+const handleExit = () => {
+  const onExit = () => {
+    logger.info("Exiting application...")
+    persistStore()
+    // eslint-disable-next-line no-process-exit
+    process.exit(0)
+  }
 
-// Suscribe on process signals
-process.on("SIGTERM", onExit)
-process.on("SIGINT", onExit)
-process.on("SIGQUIT", onExit)
+  // Suscribe to process signals
+  process.on("SIGTERM", onExit)
+  process.on("SIGINT", onExit)
+  process.on("SIGQUIT", onExit)
+}
 
 // When this module is run directly from the command line
 if (require.main === module) {
+  handleExit()
   run()
 }
 
 module.exports = {
-  run
+  run,
+  persistStore
 }
