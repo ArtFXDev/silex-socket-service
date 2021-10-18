@@ -1,11 +1,8 @@
-/* PROPS */
 const STORE_KEY = Symbol.for("silex_socket_service.store")
 const globalSymbols = Object.getOwnPropertySymbols(global)
 const hasStore = globalSymbols.indexOf(STORE_KEY) > -1
 
 const store = {
-  storeFolder: "sss_data",
-  storeFile: "userStore.json",
   dccs: {},
   uis: {},
   access_token: undefined,

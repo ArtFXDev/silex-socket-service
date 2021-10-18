@@ -3,34 +3,67 @@ require("dotenv-safe").config()
 
 const express = require("express")
 const cors = require("cors")
+const http = require("http")
+const socketio = require("socket.io")
+const logger = require("./plugins/logger")
+const initListeners = require("./listeners")
+const authRoutes = require("./routes/auth")
+const { persistStore, restoreStore } = require("./store/persistence")
 
+// Create the express app
 const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cors())
 
-const http = require("http").createServer(app)
+// Create the http server
+const httpServer = http.createServer(app)
 
-const logger = require("./plugins/logger")
-const initListeners = require("./listeners")
-const authRoutes = require("./routes/auth")
-
-const io = require("socket.io")(http, {
+// Initialize socket.io on that server
+const io = socketio(httpServer, {
   cors: { origins: [process.env.SILEX_FRONT_URL] }
 })
 
+/**
+ * Main function, runs the server
+ */
 const run = async () => {
-  // calls listeners
+  // Restore the store if any
+  restoreStore()
+
+  // Initialize socketio event listeners
   initListeners(io)
 
+  // Register routes
   logger.info("Registering /auth routes")
   app.use("/auth", authRoutes)
 
-  http.listen(process.env.PORT, function () {
+  // Start listening
+  httpServer.listen(process.env.PORT, () => {
     logger.info(`listening on *:${process.env.PORT}`)
+  })
+
+  // Catch potential errors
+  httpServer.on("error", (err) => {
+    logger.error(`Server error: ${err}`)
   })
 }
 
+/**
+ * Called on process exit
+ */
+const onExit = () => {
+  logger.info("Exiting application...")
+  persistStore()
+  throw new Error("Silex socket service exited")
+}
+
+// Suscribe on process signals
+process.on("SIGTERM", onExit)
+process.on("SIGINT", onExit)
+process.on("SIGQUIT", onExit)
+
+// When this module is run directly from the command line
 if (require.main === module) {
   run()
 }
