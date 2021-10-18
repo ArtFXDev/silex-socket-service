@@ -4,9 +4,9 @@
     "type": "git",
     "url": "https://github.com/ArtFXDev/silex-socket-service"
   },
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "format": "npx prettier --write .",
     "start": "node src/index.js",
@@ -19,22 +19,25 @@
   "bugs": {
     "url": "https://github.com/ArtFXDev/Silex_Socket_Service/issues"
   },
+  "engines": {
+    "node": ">15"
+  },
   "homepage": "https://github.com/ArtFXDev/Silex_Socket_Service#readme",
   "dependencies": {
     "axios": "^0.21.4",
+    "cors": "^2.8.5",
     "deepmerge": "^4.2.2",
     "dotenv-safe": "^8.2.0",
     "express": "^4.17.1",
     "pino": "^6.13.3",
     "pino-pretty": "^7.0.1",
-    "socket.io": "^4.2.0",
-    "socket.io-client": "^4.2.0"
+    "socket.io": "^4.2.0"
   },
   "devDependencies": {
+    "socket.io-client": "^4.2.0",
     "chai": "^4.3.4",
     "eslint": "^7.32.0",
     "eslint-config-standard": "^16.0.3",
-    "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.0",
     "mocha": "^9.1.1",
