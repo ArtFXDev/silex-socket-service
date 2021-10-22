@@ -25,10 +25,10 @@ const launchScene = (socket) => {
 
     const ls = spawn("rez", args)
 
-    console.log(`Launching: rez ${args.join(" ")}`)
+    logger.info(`Launching: rez ${args.join(" ")}`)
 
     ls.stdout.on("data", (data) => {
-      console.log(`stdout: ${data}`)
+      logger.debug(`stdout: ${data}`)
     })
 
     callback({

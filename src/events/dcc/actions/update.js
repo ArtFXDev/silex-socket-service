@@ -14,13 +14,17 @@ const update = (socket, io) => {
       store.instance.data.currentAction,
       data
     )
+
     uiNamespace(io).emit("actionUpdate", {
       data: store.instance.data.currentAction
     })
+
     logger.info(" <= [SEND data] to /ui update]")
+
     if (!callback) {
       return
     }
+
     if (Object.keys(store.instance.data.uis).length === 0) {
       callback({
         status: 200,

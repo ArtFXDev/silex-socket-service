@@ -1,5 +1,6 @@
 const Client = require("socket.io-client")
 const assert = require("chai").assert
+const { it, describe, before, after } = require("mocha")
 
 /** test cases */
 describe("silex_socket_service_dcc", () => {
@@ -35,6 +36,7 @@ describe("silex_socket_service_dcc", () => {
     clientSocket.emit(
       "request",
       {
+        uuid: "uuid",
         myData: "undefined"
       },
       (response) => {
@@ -44,8 +46,8 @@ describe("silex_socket_service_dcc", () => {
     )
   })
 
-  it("Test action clearCurrentAction", (done) => {
-    clientSocket.emit("clearCurrentAction", (response) => {
+  it("Test action clearAction", (done) => {
+    clientSocket.emit("clearAction", { uuid: "uuid" }, (response) => {
       assert.equal(response.status, 200) // validate reception
       done()
     })

@@ -1,6 +1,5 @@
 /** NAMEPSACE  */
 const uiNamespace = require("../namespaces/ui/ui")
-const uiActionNamespace = require("../namespaces/ui/action")
 
 /** EVENTS */
 const initializationEvent = require("../events/ui/initialization")
@@ -12,7 +11,6 @@ const launchAction = require("../events/ui/launchAction")
 const launchScene = require("../events/ui/launchScene")
 const submit = require("../events/ui/submit")
 const update = require("../events/ui/update")
-const exec = require("../events/ui/exec")
 
 /** ROOMS */
 const { uiRoomJoin } = require("../rooms/ui")
@@ -29,8 +27,5 @@ module.exports = function (io) {
     getCurrentActionEvent(socket)
     submit(socket, io)
     update(socket, io)
-    exec(socket)
   })
-
-  uiActionNamespace(io).on("connection", function (socket) {})
 }
