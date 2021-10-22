@@ -2,7 +2,7 @@ const logger = require("../../plugins/logger")
 const { spawn } = require("child_process")
 
 const launchAction = (socket) => {
-  socket.on("launchAction", (data, callback) => {
+  socket.on("launchAction", (data) => {
     logger.info(" => [RECEIVED launchAction on /ui]")
 
     const args = [

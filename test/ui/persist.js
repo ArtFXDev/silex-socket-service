@@ -1,4 +1,5 @@
 const Client = require("socket.io-client")
+const { describe, before, after } = require("mocha")
 
 /** test cases */
 describe("silex_socket_service_ui_persist", () => {

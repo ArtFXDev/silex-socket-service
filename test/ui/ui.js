@@ -1,5 +1,7 @@
+/* eslint-disable no-unused-vars */
 const Client = require("socket.io-client")
 const assert = require("chai").assert
+const { it, describe, before, after } = require("mocha")
 
 /** test cases */
 describe("silex_socket_service_ui", () => {
@@ -43,7 +45,7 @@ describe("silex_socket_service_ui", () => {
   })
 
   it("Test ui dccConnect", (done) => {
-    clientUi.on("dccConnect", (value) => {
+    clientUi.on("dccConnect", (_value) => {
       done()
     })
     clientDcc.emit(
@@ -56,12 +58,12 @@ describe("silex_socket_service_ui", () => {
         asset: "undefined",
         uuid: -1
       },
-      (response) => {}
+      (_response) => {}
     )
   })
 
   it("Test ui submit", (done) => {
-    clientDcc.on("submit", (data) => {
+    clientDcc.on("submit", (_data) => {
       done()
     })
 
@@ -69,23 +71,15 @@ describe("silex_socket_service_ui", () => {
       clientUi.emit("submit", data)
     })
 
-    clientDccAction.emit("query", { uuid: -1 }, (callbackData) => {})
+    clientDccAction.emit("query", { uuid: -1 }, (_callbackData) => {})
   })
 
   it("Test ui update", (done) => {
-    clientDccAction.on("update", (data) => {
+    clientDccAction.on("update", (_data) => {
       done()
     })
 
-    clientUi.emit("actionUpdate", { uuid: -1 }, (callbackData) => {})
-  })
-
-  it("Test exec", (done) => {
-    // clientUi.emit("exec", "rez env djv2 -- djv", (value) => {
-    clientUi.emit("exec", "echo 'aaaa'", (value) => {
-      console.log(value)
-      done()
-    })
+    clientUi.emit("actionUpdate", { uuid: -1 }, (_callbackData) => {})
   })
 
   it("Test ui dccDisconnect", (done) => {

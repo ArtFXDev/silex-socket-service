@@ -1,5 +1,6 @@
 const Client = require("socket.io-client")
 const assert = require("chai").assert
+const { it, describe, before, after } = require("mocha")
 
 /** test cases */
 describe("silex_socket_service_dcc", () => {
