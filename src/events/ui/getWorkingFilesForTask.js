@@ -21,6 +21,7 @@ const getWorkingFilesForTask = (socket) => {
           )
         }
 
+        logger.info(`Looking for working files in ${folderPath}`)
         const files = fs.readdirSync(folderPath)
 
         callback({
