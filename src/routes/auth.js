@@ -21,6 +21,9 @@ authRouter.post("/login", async (req, res) => {
       // Store the token
       store.instance.data.access_token = response.data.access_token
 
+      // Save the store
+      persistStore()
+
       // Return the data
       res.json(response.data)
 
@@ -61,6 +64,13 @@ authRouter.post("/login", async (req, res) => {
     logger.warn("There is no token saved in the store, logging...")
     await login()
   }
+})
+
+authRouter.post("/logout", async (req, res) => {
+  logger.info("Received POST on /auth/logout")
+  store.instance.data.access_token = undefined
+  logger.info("Clearing access_token from the store...")
+  persistStore()
 })
 
 authRouter.get("/token", async (req, res) => {

@@ -5,6 +5,7 @@ const launchAction = (socket) => {
   socket.on("launchAction", (data) => {
     logger.info(" => [RECEIVED launchAction on /ui]")
 
+    // TODO: conform with specific dcc or none
     const args = [
       "env",
       "silex_client",
