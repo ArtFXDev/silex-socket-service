@@ -6,6 +6,7 @@ const launchScene = (socket) => {
   socket.on("launchScene", (data, callback) => {
     logger.info(" => [RECEIVED launchScene on /ui]")
 
+    // ex: rez env silex_houdini -- silex launch --task-id id --dcc houdini
     let args = [
       "env",
       `silex_${data.dcc}`,
@@ -23,11 +24,11 @@ const launchScene = (socket) => {
       args = args.concat(["--file", path.join(data.path, data.scene)])
     }
 
-    const ls = spawn("rez", args)
+    const launch = spawn("rez", args)
 
     logger.info(`Launching: rez ${args.join(" ")}`)
 
-    ls.stdout.on("data", (data) => {
+    launch.stdout.on("data", (data) => {
       logger.debug(`stdout: ${data}`)
     })
 
@@ -35,8 +36,6 @@ const launchScene = (socket) => {
       status: 200,
       msg: "Ok"
     })
-
-    // const cmd = `rez env silex_client -- silex --task-id ${data.taskId} ${data.dcc}`
   })
 }
 
