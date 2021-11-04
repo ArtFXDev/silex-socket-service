@@ -1,6 +1,3 @@
-// Read the .env file
-require("dotenv-safe").config()
-
 const express = require("express")
 const cors = require("cors")
 const http = require("http")
@@ -23,6 +20,11 @@ const httpServer = http.createServer(app)
 const io = socketio(httpServer, {
   cors: { origins: [process.env.SILEX_FRONT_URL] }
 })
+
+// test env
+process.env.SILEX_FRONT_URL="http://front.prod.silex.artfx.fr"
+process.env.SILEX_FRONT_URLZOU_API_URL="http://kitsu.prod.silex.artfx.fr"
+process.env.PORT=5118
 
 /**
  * Main function, runs the server
