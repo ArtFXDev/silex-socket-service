@@ -27,7 +27,7 @@ authRouter.post("/login", async (req, res) => {
       // Return the data
       res.json(response.data)
 
-      logger.info("Logging successfull!")
+      logger.info("Logging successful!")
     } catch (err) {
       logger.error(`/auth/login error: ${err}`)
       res.status(404)
@@ -71,6 +71,20 @@ authRouter.post("/logout", async (req, res) => {
   store.instance.data.access_token = undefined
   logger.info("Clearing access_token from the store...")
   persistStore()
+})
+
+authRouter.post("/refresh-token", async (req, res) => {
+  logger.info("Received POST on /auth/refresh-token")
+  const response = await axios.get(zouAPIURL("auth/authenticated"), {
+    headers: {
+      Authorization: `Bearer ${store.instance.data.refresh_token}`
+    }
+  })
+
+  logger.info("Setting a new access_token...")
+  store.instance.data.access_token = response.data.access_token
+  persistStore()
+  res.send("Token refresh ok")
 })
 
 authRouter.get("/token", async (req, res) => {

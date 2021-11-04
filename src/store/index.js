@@ -6,6 +6,7 @@ const store = {
   dccs: {},
   uis: {},
   access_token: undefined,
+  refresh_token: undefined,
   currentAction: undefined
 }
 
