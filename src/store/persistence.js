@@ -1,18 +1,17 @@
 const fs = require("fs")
-const os = require("os")
 const merge = require("deepmerge")
 const logger = require("../plugins/logger")
 const store = require("./index")
 const path = require("path")
 
-const storeFile = path.join(os.homedir(), ".silex_socket_service")
+
+const storeFile = path.join(process.env.SILEXDIR, ".silex_socket_service")
 
 /**
  * Write the store in json format on the disk
  */
 const persistStore = () => {
   const { access_token, refresh_token } = store.instance.data
-
   try {
     fs.writeFileSync(storeFile, JSON.stringify({ access_token, refresh_token }))
     logger.info(`Written store to ${storeFile}`)

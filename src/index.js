@@ -1,3 +1,20 @@
+const path = require("path")
+const homedir = require("os").homedir()
+const fs = require("fs")
+
+// test env
+process.env.SILEX_FRONT_URL="http://front.prod.silex.artfx.fr"
+process.env.SILEX_FRONT_URLZOU_API_URL="http://kitsu.prod.silex.artfx.fr"
+process.env.PORT=5118
+process.env.SILEXDIR=path.join(homedir, "silex")
+
+
+if (!fs.existsSync(process.env.SILEXDIR)) {
+  fs.mkdirSync(process.env.SILEXDIR, { recursive: true })
+}
+
+
+
 const express = require("express")
 const cors = require("cors")
 const http = require("http")
@@ -21,10 +38,8 @@ const io = socketio(httpServer, {
   cors: { origins: [process.env.SILEX_FRONT_URL] }
 })
 
-// test env
-process.env.SILEX_FRONT_URL="http://front.prod.silex.artfx.fr"
-process.env.SILEX_FRONT_URLZOU_API_URL="http://kitsu.prod.silex.artfx.fr"
-process.env.PORT=5118
+
+
 
 /**
  * Main function, runs the server
@@ -51,27 +66,8 @@ const run = async () => {
   })
 }
 
-/**
- * Handle process exit events
- * Only when running in standalone
- */
-const handleExit = () => {
-  const onExit = () => {
-    logger.info("Exiting application...")
-    persistStore()
-    // eslint-disable-next-line no-process-exit
-    process.exit(0)
-  }
-
-  // Suscribe to process signals
-  process.on("SIGTERM", onExit)
-  process.on("SIGINT", onExit)
-  process.on("SIGQUIT", onExit)
-}
-
 // When this module is run directly from the command line
 if (require.main === module) {
-  handleExit()
   run()
 }
 
