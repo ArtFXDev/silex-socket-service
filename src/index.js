@@ -1,12 +1,11 @@
-const path = require("path")
-const homedir = require("os").homedir()
-const fs = require("fs")
+// Shoul ALWAYS be first
+require("./plugins/set-env")
 
-// test env
-process.env.SILEX_FRONT_URL="http://front.prod.silex.artfx.fr"
-process.env.SILEX_FRONT_URLZOU_API_URL="http://kitsu.prod.silex.artfx.fr"
-process.env.PORT=5118
-process.env.SILEXDIR=path.join(homedir, "silex")
+const fs = require("fs")
+const express = require("express")
+const cors = require("cors")
+const http = require("http")
+const socketio = require("socket.io")
 
 
 if (!fs.existsSync(process.env.SILEXDIR)) {
@@ -14,11 +13,6 @@ if (!fs.existsSync(process.env.SILEXDIR)) {
 }
 
 
-
-const express = require("express")
-const cors = require("cors")
-const http = require("http")
-const socketio = require("socket.io")
 const logger = require("./plugins/logger")
 const initListeners = require("./listeners")
 const authRoutes = require("./routes/auth")
@@ -38,9 +32,6 @@ const io = socketio(httpServer, {
   cors: { origins: [process.env.SILEX_FRONT_URL] }
 })
 
-
-
-
 /**
  * Main function, runs the server
  */
@@ -54,7 +45,6 @@ const run = async () => {
   // Register routes
   logger.info("Registering /auth routes")
   app.use("/auth", authRoutes)
-
   // Start listening
   httpServer.listen(process.env.PORT, () => {
     logger.info(`listening on *:${process.env.PORT}`)
