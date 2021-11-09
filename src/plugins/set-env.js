@@ -1,7 +1,15 @@
 const path = require("path")
 const homedir = require("os").homedir()
+
+function setEnv(env, value) {
+  if (!process.env[env]) {
+    console.log("setting ", env)
+    process.env[env] = value
+  }
+}
+
 // test env
-process.env.SILEX_FRONT_URL="http://front.prod.silex.artfx.fr"
-process.env.ZOU_API_URL="http://kitsu.prod.silex.artfx.fr"
-process.env.PORT=5118
-process.env.SILEXDIR=path.join(homedir, "silex")
+setEnv("SILEX_FRONT_URL", "http://front.prod.silex.artfx.fr")
+setEnv("ZOU_API_URL", "http://kitsu.prod.silex.artfx.fr")
+setEnv("PORT", 5118)
+setEnv("SILEXDIR", path.join(homedir, "silex"))

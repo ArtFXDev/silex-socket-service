@@ -7,11 +7,9 @@ const cors = require("cors")
 const http = require("http")
 const socketio = require("socket.io")
 
-
 if (!fs.existsSync(process.env.SILEXDIR)) {
   fs.mkdirSync(process.env.SILEXDIR, { recursive: true })
 }
-
 
 const logger = require("./plugins/logger")
 const initListeners = require("./listeners")
@@ -45,6 +43,7 @@ const run = async () => {
   // Register routes
   logger.info("Registering /auth routes")
   app.use("/auth", authRoutes)
+
   // Start listening
   httpServer.listen(process.env.PORT, () => {
     logger.info(`listening on *:${process.env.PORT}`)
