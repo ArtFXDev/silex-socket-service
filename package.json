@@ -24,13 +24,13 @@
   },
   "homepage": "https://github.com/ArtFXDev/Silex_Socket_Service#readme",
   "dependencies": {
-    "axios": "^0.21.4",
+    "axios": "^0.24.0",
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
     "deepmerge": "^4.2.2",
     "express": "^4.17.1",
-    "pino": "^6.13.3",
-    "pino-pretty": "^7.0.1",
+    "pino": "^7.1.0",
+    "pino-pretty": "^7.2.0",
     "socket.io": "^4.2.0"
   },
   "devDependencies": {
