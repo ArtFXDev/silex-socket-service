@@ -9,7 +9,8 @@ const launchAction = (socket) => {
     const args = [
       "env",
       "silex_client",
-      "houdini",
+      data.dcc || "",
+      data.projectName.toLowerCase(),
       "--",
       "silex",
       "action",
@@ -22,7 +23,7 @@ const launchAction = (socket) => {
     logger.info(`Launching action with: rez ${args.join(" ")}`)
 
     action.stdout.on("data", (data) => {
-      logger.debug(`stdout: ${data}`)
+      logger.info(`stdout: ${data}`)
     })
 
     action.stderr.on("data", (data) => {

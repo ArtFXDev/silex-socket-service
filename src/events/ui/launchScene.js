@@ -10,6 +10,7 @@ const launchScene = (socket) => {
     let args = [
       "env",
       `silex_${data.dcc}`,
+      data.projectName.toLowerCase(),
       "--",
       "silex",
       "launch",
@@ -29,7 +30,11 @@ const launchScene = (socket) => {
     logger.info(`Launching: rez ${args.join(" ")}`)
 
     launch.stdout.on("data", (data) => {
-      logger.debug(`stdout: ${data}`)
+      logger.info(`stdout: ${data}`)
+    })
+
+    launch.stderr.on("data", (data) => {
+      logger.error(`stderr: ${data}`)
     })
 
     callback({
