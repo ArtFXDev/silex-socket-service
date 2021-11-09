@@ -5,11 +5,12 @@ const launchAction = (socket) => {
   socket.on("launchAction", (data) => {
     logger.info(" => [RECEIVED launchAction on /ui]")
 
-    // TODO: conform with specific dcc or none
-    const args = [
-      "env",
-      "silex_client",
-      data.dcc || "",
+    let args = ["env", "silex_client"]
+
+    // Add a dcc if we are launching the action from a dcc
+    if (data.dcc) args.push(data.dcc)
+
+    args = args.concat([
       data.projectName.toLowerCase(),
       "--",
       "silex",
@@ -17,8 +18,9 @@ const launchAction = (socket) => {
       data.action,
       "--task-id",
       data.taskId
-    ]
+    ])
 
+    // Spawn a rez env with a silex action
     const action = spawn("rez", args)
     logger.info(`Launching action with: rez ${args.join(" ")}`)
 
