@@ -4,8 +4,10 @@ const logger = require("../plugins/logger")
 const store = require("./index")
 const path = require("path")
 
-
-const storeFile = path.join(process.env.SILEXDIR, ".silex_socket_service")
+const storeFile = path.join(
+  process.env.SILEX_LOG_DIR,
+  ".silex_socket_service_store"
+)
 
 /**
  * Write the store in json format on the disk

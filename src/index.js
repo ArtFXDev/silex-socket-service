@@ -1,15 +1,10 @@
-// Shoul ALWAYS be first
+// Set environment variables (must be called at first)
 require("./plugins/set-env")
 
-const fs = require("fs")
 const express = require("express")
 const cors = require("cors")
 const http = require("http")
 const socketio = require("socket.io")
-
-if (!fs.existsSync(process.env.SILEXDIR)) {
-  fs.mkdirSync(process.env.SILEXDIR, { recursive: true })
-}
 
 const logger = require("./plugins/logger")
 const initListeners = require("./listeners")
