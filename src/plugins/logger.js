@@ -8,18 +8,15 @@ if (!fs.existsSync(process.env.SILEX_LOG_DIR)) {
   fs.mkdirSync(process.env.SILEX_LOG_DIR, { recursive: true })
 }
 
-const transport = pino.transport({
-  target: "pino-pretty",
-  options: {
+const logger = pino(
+  {
+    prettyPrint: true,
     colorize: process.env.NODE_ENV === "development",
-    translateTime: true,
-    destination:
-      process.env.NODE_ENV === "development"
-        ? undefined
-        : path.join(process.env.SILEX_LOG_DIR, ".silex_socket_service_log")
-  }
-})
-
-const logger = pino(transport)
+    translateTime: true
+  },
+  process.env.NODE_ENV === "development"
+    ? undefined
+    : path.join(process.env.SILEX_LOG_DIR, ".silex_socket_service_log")
+)
 
 module.exports = logger

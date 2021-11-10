@@ -1,12 +1,12 @@
 // Set environment variables (must be called at first)
 require("./plugins/set-env")
+const logger = require("./plugins/logger")
 
 const express = require("express")
 const cors = require("cors")
 const http = require("http")
 const socketio = require("socket.io")
 
-const logger = require("./plugins/logger")
 const initListeners = require("./listeners")
 const { persistStore, restoreStore } = require("./store/persistence")
 
