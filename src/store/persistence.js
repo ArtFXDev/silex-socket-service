@@ -3,9 +3,10 @@ const merge = require("deepmerge")
 const logger = require("../plugins/logger")
 const store = require("./index")
 const path = require("path")
+const os = require("os")
 
 const storeFile = path.join(
-  process.env.SILEX_LOG_DIR,
+  process.env.SILEX_LOG_DIR || path.join(os.homedir(), "silex"),
   ".silex_socket_service_store"
 )
 

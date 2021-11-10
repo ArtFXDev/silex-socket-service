@@ -9,7 +9,7 @@ module.exports = (io) => {
   // reads found files
   fs.readdir(listenersPath, (err, files) => {
     if (err) {
-      process.exit(1)
+      console.log("Couldn't read listener path")
     }
 
     files.forEach((fileName) => {
