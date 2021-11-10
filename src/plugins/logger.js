@@ -11,7 +11,7 @@ if (!fs.existsSync(process.env.SILEX_LOG_DIR)) {
 const transport = pino.transport({
   target: "pino-pretty",
   options: {
-    colorize: true,
+    colorize: process.env.NODE_ENV === "development",
     translateTime: true,
     destination:
       process.env.NODE_ENV === "development"

@@ -1,4 +1,4 @@
-const axios = require("axios")
+const axios = require("axios").default
 const store = require("../store")
 const express = require("express")
 const logger = require("../plugins/logger")
@@ -66,7 +66,7 @@ authRouter.post("/login", async (req, res) => {
   }
 })
 
-authRouter.post("/logout", async (req, res) => {
+authRouter.post("/logout", async () => {
   logger.info("Received POST on /auth/logout")
   store.instance.data.access_token = undefined
   logger.info("Clearing access_token from the store...")

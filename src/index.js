@@ -8,8 +8,11 @@ const socketio = require("socket.io")
 
 const logger = require("./plugins/logger")
 const initListeners = require("./listeners")
-const authRoutes = require("./routes/auth")
 const { persistStore, restoreStore } = require("./store/persistence")
+
+// Express HTTP Routes
+const authRoutes = require("./routes/auth")
+const logRoutes = require("./routes/log")
 
 // Create the express app
 const app = express()
@@ -25,6 +28,11 @@ const io = socketio(httpServer, {
   cors: { origins: [process.env.SILEX_FRONT_URL] }
 })
 
+function registerRoutes(baseURL, routes) {
+  logger.info(`Registering ${baseURL} routes`)
+  app.use(baseURL, routes)
+}
+
 /**
  * Main function, runs the server
  */
@@ -36,8 +44,8 @@ const run = async () => {
   initListeners(io)
 
   // Register routes
-  logger.info("Registering /auth routes")
-  app.use("/auth", authRoutes)
+  registerRoutes("/auth", authRoutes)
+  registerRoutes("/log", logRoutes)
 
   // Start listening
   httpServer.listen(process.env.PORT, () => {
