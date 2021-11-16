@@ -7,7 +7,7 @@ const homedir = require("os").homedir()
  * @param {*} value the value to set
  */
 function setEnv(env, value) {
-  if (!process.env[env]) {
+  if (typeof process.env[env] === "undefined") {
     console.log(`Env variable ${env} is not set. Setting it to ${value}`)
     process.env[env] = value
   }
