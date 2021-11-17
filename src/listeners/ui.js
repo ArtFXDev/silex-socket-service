@@ -11,6 +11,7 @@ const launchAction = require("../events/ui/launchAction")
 const launchScene = require("../events/ui/launchScene")
 const submit = require("../events/ui/submit")
 const update = require("../events/ui/update")
+const clearAction = require("../events/ui/clearAction")
 
 /** ROOMS */
 const { uiRoomJoin } = require("../rooms/ui")
@@ -27,5 +28,6 @@ module.exports = function (io) {
     getCurrentActionEvent(socket)
     submit(socket, io)
     update(socket, io)
+    clearAction(socket, io)
   })
 }
