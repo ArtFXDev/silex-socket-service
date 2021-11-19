@@ -2,10 +2,10 @@ const axios = require("axios").default
 const store = require("../store")
 const express = require("express")
 const logger = require("../plugins/logger")
-const { persistStore } = require("../store/persistence")
+const {persistStore} = require("../store/persistence")
 const authRouter = express.Router()
 
-const { zouAPIURL } = require("../utils/zou")
+const {zouAPIURL} = require("../utils/zou")
 
 authRouter.post("/login", async (req, res) => {
   logger.info("Received GET on /auth/login")
@@ -20,6 +20,7 @@ authRouter.post("/login", async (req, res) => {
 
       // Store the token
       store.instance.data.access_token = response.data.access_token
+      store.instance.data.refresh_token = response.data.refresh_token
 
       // Save the store
       persistStore()
@@ -75,7 +76,7 @@ authRouter.post("/logout", async () => {
 
 authRouter.post("/refresh-token", async (req, res) => {
   logger.info("Received POST on /auth/refresh-token")
-  const response = await axios.get(zouAPIURL("auth/authenticated"), {
+  const response = await axios.get(zouAPIURL("auth/refresh-token"), {
     headers: {
       Authorization: `Bearer ${store.instance.data.refresh_token}`
     }
@@ -84,7 +85,9 @@ authRouter.post("/refresh-token", async (req, res) => {
   logger.info("Setting a new access_token...")
   store.instance.data.access_token = response.data.access_token
   persistStore()
-  res.send("Token refresh ok")
+  res.json({
+    access_token: store.instance.data.access_token
+  })
 })
 
 authRouter.get("/token", async (req, res) => {
