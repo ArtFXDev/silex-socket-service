@@ -96,12 +96,12 @@ authRouter.post("/logout", async () => {
 });
 
 /**
- * POST /auth/refresh-token
+ * GET /auth/refresh-token
  *
  * Logout route that clear the tokens from the store
  */
-authRouter.post("/refresh-token", async (req, res) => {
-  logger.infoHTTPMessage("POST", "/auth/refresh-token");
+authRouter.get("/refresh-token", async (req, res) => {
+  logger.infoHTTPMessage("GET", "/auth/refresh-token");
 
   // Refresh the access token from the API
   const response = await axios.get(zouAPIURL("auth/refresh-token"), {
@@ -117,9 +117,7 @@ authRouter.post("/refresh-token", async (req, res) => {
   persistStore();
 
   // Return the new access_token
-  res.json({
-    access_token: store.instance.data.access_token,
-  });
+  res.json(response.data);
 });
 
 /**
