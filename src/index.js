@@ -28,8 +28,11 @@ const io = socketio(httpServer, {
   cors: { origins: [process.env.SILEX_FRONT_URL] }
 })
 
+/**
+ * Register HTTP routes with a base url
+ */
 function registerRoutes(baseURL, routes) {
-  logger.info(`Registering ${baseURL} routes`)
+  logger.info(`Registering HTTP ${baseURL} routes`)
   app.use(baseURL, routes)
 }
 
@@ -43,13 +46,13 @@ const run = async () => {
   // Initialize socketio event listeners
   initListeners(io)
 
-  // Register routes
+  // Register HTTP routes
   registerRoutes("/auth", authRoutes)
   registerRoutes("/log", logRoutes)
 
   // Start listening
   httpServer.listen(process.env.PORT, () => {
-    logger.info(`listening on *:${process.env.PORT}`)
+    logger.info(`Server listening on port ${process.env.PORT}...`)
   })
 
   // Catch potential errors

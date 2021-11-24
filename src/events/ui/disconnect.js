@@ -1,12 +1,14 @@
-const store = require("../../store")
+const logger = require("../../plugins/logger")
 
+/**
+ * /ui disconnect
+ *
+ * Called when a UI client is disconnected
+ */
 const disconnect = (socket) => {
   socket.on("disconnect", () => {
-    // get uuid from data
-    const uuid = socket.data.uuid
-    if (uuid && store.instance.data.uis[uuid]) {
-      delete store.instance.data.uis[uuid]
-    }
+    logger.infoReceiveMessage("/ui", "disconnect", socket.data.uuid)
   })
 }
+
 module.exports = disconnect

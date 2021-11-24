@@ -3,25 +3,22 @@ const fs = require("fs")
 const path = require("path")
 
 module.exports = (io) => {
-  // link listeners
+  // Get the current directory
   const listenersPath = path.resolve(__dirname)
 
-  // reads found files
-  fs.readdir(listenersPath, (err, files) => {
-    if (err) {
-      console.log("Couldn't read listener path")
+  // Read files in that directory
+  const listenerFiles = fs.readdirSync(listenersPath)
+
+  listenerFiles.forEach((listenerFile) => {
+    // Prevent from reading the current file
+    if (listenerFile !== "index.js") {
+      logger.info("Initializing WS message listener in: %s", listenerFile)
+
+      // Requires file
+      const listener = require(path.resolve(__dirname, listenerFile))
+
+      // Register listener
+      listener(io)
     }
-
-    files.forEach((fileName) => {
-      if (fileName !== "index.js") {
-        logger.info("Initializing listener at: %s", fileName)
-
-        // Requires file
-        const listener = require(path.resolve(__dirname, fileName))
-
-        // execs listener
-        listener(io)
-      }
-    })
   })
 }

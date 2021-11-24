@@ -2,42 +2,38 @@ const store = require("../../store")
 const { uiRoomTo } = require("../../rooms/ui")
 const logger = require("../../plugins/logger")
 
+/**
+ * /dcc initialization
+ *
+ * Event sent by a dcc with it's resolved context.
+ * The DCC information is then stored in the store.
+ */
 const initialization = (socket, io) => {
-  socket.on("initialization", (data, callback) => {
-    logger.info(" => [RECEIVED on /dcc initialization]")
-    if (typeof data === "string" || data instanceof String) {
-      data = JSON.parse(data)
-    }
-    data.socketID = socket.id
-    // get uuid from data
-    const uuid = data.uuid
-    if (uuid) {
-      store.instance.data.dccs[uuid] = data
-      socket.data.uuid = uuid
-      logger.info(`Register dcc: ${socket.data.uuid}`)
-    }
+  socket.on("initialization", (dccContext, callback) => {
+    logger.infoReceiveMessage("/dcc", "initialization", dccContext.uuid)
 
-    if (uuid) {
-      uiRoomTo(io).emit("dccConnect", {
-        data: {
-          context: store.instance.data.dccs[uuid]
-        }
-      })
-      logger.info(" <= [BROADCAST context] on /ui dccConnect")
+    // Make the socket join a room with its id
+    socket.join(dccContext.uuid)
 
-      if (!callback) {
-        return
+    // Add that new client to the store
+    store.instance.data.dccs[dccContext.uuid] = dccContext
+
+    // Store its uuid in the socket data itself (for reuse later)
+    socket.data.uuid = dccContext.uuid
+
+    // Broadcast that event to the UIs
+    logger.infoSendMessage("/ui", "dccConnect", dccContext.uuid)
+    uiRoomTo(io).emit("dccConnect", {
+      data: {
+        context: dccContext
       }
-      callback({
-        status: 200, // ok
-        msg: "Ok"
-      })
-    } else {
-      callback({
-        status: 500, // error
-        msg: "Missing uuid in data."
-      })
-    }
+    })
+
+    callback({
+      status: 200, // ok
+      msg: "Ok"
+    })
   })
 }
+
 module.exports = initialization

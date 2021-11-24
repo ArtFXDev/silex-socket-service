@@ -38,7 +38,7 @@ describe("silex_socket_service_ui", () => {
   })
 
   it("Test ui get clients", (done) => {
-    clientUi.emit("getClients", (response) => {
+    clientUi.emit("getConnectedDccs", (response) => {
       assert.equal(response.status, 200) // validate reception
       done()
     })

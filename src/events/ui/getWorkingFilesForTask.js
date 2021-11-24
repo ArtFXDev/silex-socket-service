@@ -4,12 +4,18 @@ const fs = require("fs")
 const path = require("path")
 const os = require("os")
 
+/**
+ * /ui getWorkingFilesForTask
+ *
+ * Used to get the files for a specific task in the pipeline
+ */
 const getWorkingFilesForTask = (socket) => {
-  socket.on("getWorkingFilesForTask", (data, callback) => {
-    logger.info(" => [RECEIVED getWorkingFilesForTask on /ui]")
+  socket.on("getWorkingFilesForTask", (request, callback) => {
+    logger.infoReceiveMessage("/ui", "getWorkingFilesForTask", request)
 
+    // Get the working file path from the API
     zou
-      .buildWorkingFilePath(data.taskId)
+      .buildWorkingFilePath(request.taskId)
       .then((response) => {
         let folderPath = response.data.path
 
@@ -22,6 +28,8 @@ const getWorkingFilesForTask = (socket) => {
         }
 
         logger.info(`Looking for working files in ${folderPath}`)
+
+        // Read the files in the folder
         const files = fs.readdirSync(folderPath)
 
         callback({

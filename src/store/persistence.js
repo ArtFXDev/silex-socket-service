@@ -15,6 +15,7 @@ const storeFile = path.join(
  */
 const persistStore = () => {
   const { access_token, refresh_token } = store.instance.data
+
   try {
     fs.writeFileSync(storeFile, JSON.stringify({ access_token, refresh_token }))
     logger.info(`Written store to ${storeFile}`)
@@ -28,7 +29,7 @@ const persistStore = () => {
  */
 const restoreStore = () => {
   try {
-    const rawdata = fs.readFileSync(storeFile)
+    const rawdata = fs.readFileSync(storeFile, { encoding: "utf8", flag: "r" })
     store.instance.data = merge(store.instance.data, JSON.parse(rawdata))
     logger.info(`Loaded store from ${storeFile}`)
   } catch (err) {

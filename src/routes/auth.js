@@ -2,16 +2,24 @@ const axios = require("axios").default
 const store = require("../store")
 const express = require("express")
 const logger = require("../plugins/logger")
-const {persistStore} = require("../store/persistence")
+const { persistStore } = require("../store/persistence")
 const authRouter = express.Router()
 
-const {zouAPIURL} = require("../utils/zou")
+const { zouAPIURL } = require("../utils/zou")
 
+/**
+ * POST /auth/login
+ *
+ * Login route used by the UI to authenticate.
+ * We need to store tokens inside the browser with cookies and also in the socket server
+ * for the dcc to have access to authentication.
+ */
 authRouter.post("/login", async (req, res) => {
-  logger.info("Received GET on /auth/login")
+  logger.infoHTTPMessage("POST", "/auth/login")
 
-  const token = store.instance.data.access_token
-
+  /**
+   * Login to the backend API
+   */
   const login = async () => {
     try {
       const response = await axios.post(zouAPIURL("auth/login"), req.body, {
@@ -36,12 +44,15 @@ authRouter.post("/login", async (req, res) => {
     }
   }
 
-  // If there is a token, try to check if authenticated with that token
-  if (token) {
+  // Get the access token in the store
+  const storedAccessToken = store.instance.data.access_token
+
+  // If there is a token in the store, try to check if auth works with this token
+  if (storedAccessToken) {
     try {
       await axios.get(zouAPIURL("auth/authenticated"), {
         headers: {
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${storedAccessToken}`
         }
       })
 
@@ -67,15 +78,32 @@ authRouter.post("/login", async (req, res) => {
   }
 })
 
+/**
+ * POST /auth/logout
+ *
+ * Logout route that clear the tokens from the store
+ */
 authRouter.post("/logout", async () => {
-  logger.info("Received POST on /auth/logout")
+  logger.infoHTTPMessage("POST", "/auth/logout")
+
+  // Clear both tokens
+  logger.info("Clearing access_token and refresh_token from the store")
   store.instance.data.access_token = undefined
-  logger.info("Clearing access_token from the store...")
+  store.instance.data.refresh_token = undefined
+
+  // Write changes to the store file
   persistStore()
 })
 
+/**
+ * POST /auth/refresh-token
+ *
+ * Logout route that clear the tokens from the store
+ */
 authRouter.post("/refresh-token", async (req, res) => {
-  logger.info("Received POST on /auth/refresh-token")
+  logger.infoHTTPMessage("POST", "/auth/refresh-token")
+
+  // Refresh the access token from the API
   const response = await axios.get(zouAPIURL("auth/refresh-token"), {
     headers: {
       Authorization: `Bearer ${store.instance.data.refresh_token}`
@@ -84,24 +112,38 @@ authRouter.post("/refresh-token", async (req, res) => {
 
   logger.info("Setting a new access_token...")
   store.instance.data.access_token = response.data.access_token
+
+  // Write changes to store
   persistStore()
+
+  // Return the new access_token
   res.json({
     access_token: store.instance.data.access_token
   })
 })
 
+/**
+ * GET /auth/token
+ *
+ * Return the access_token from the store
+ */
 authRouter.get("/token", async (req, res) => {
-  logger.info("Received GET on /auth/token")
+  logger.infoHTTPMessage("GET", "/auth/token")
 
+  // Get that token
   const token = store.instance.data.access_token
 
   if (!token) {
-    logger.error("/auth/token error: There's no token saved in the store")
+    const message = "There is no token saved in the store"
+    logger.error(message)
+
     res.status(404)
-    res.send("No token")
+    res.send(message)
+
     return
   }
 
+  // Send the token
   res.json({
     access_token: token
   })

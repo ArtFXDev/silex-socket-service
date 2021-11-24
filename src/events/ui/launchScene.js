@@ -2,9 +2,14 @@ const logger = require("../../plugins/logger")
 const { spawn } = require("child_process")
 const path = require("path")
 
+/**
+ * /ui launchScene
+ *
+ * Called when the UI wants
+ */
 const launchScene = (socket) => {
   socket.on("launchScene", (data, callback) => {
-    logger.info(" => [RECEIVED launchScene on /ui]")
+    logger.infoReceiveMessage("/ui", "launchScene", data)
 
     // ex: rez env silex_houdini -- silex launch --task-id id --dcc houdini
     let args = [
@@ -25,9 +30,10 @@ const launchScene = (socket) => {
       args = args.concat(["--file", path.join(data.path, data.scene)])
     }
 
+    // Spawn a rez subprocess
     const launch = spawn("rez", args)
 
-    logger.info(`Launching: rez ${args.join(" ")}`)
+    logger.info(`Launching scene with command: rez ${args.join(" ")}`)
 
     launch.stdout.on("data", (data) => {
       logger.info(`stdout: ${data}`)

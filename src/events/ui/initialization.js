@@ -1,35 +1,19 @@
-const store = require("../../store")
 const logger = require("../../plugins/logger")
 
+/**
+ * /ui initialization
+ *
+ * Called when a UI client initializes itself
+ */
 const initialization = (socket) => {
   socket.on("initialization", (data, callback) => {
-    logger.info(" => [RECEIVED on /ui initialization]")
+    logger.infoReceiveMessage("/ui", "initialization", socket.id)
 
-    if (typeof data === "string" || data instanceof String) {
-      data = JSON.parse(data)
-    }
-
-    // get uuid from data
-    const uuid = data.uuid
-    if (uuid) {
-      store.instance.data.uis[uuid] = data
-      socket.data.uuid = uuid
-      logger.info(`Register socketClient: ${socket.data.uuid}`)
-    }
-    if (!callback) {
-      return
-    }
-    if (uuid) {
-      callback({
-        status: 200, // ok
-        msg: "Ok"
-      })
-    } else {
-      callback({
-        status: 500, // error
-        msg: "Missing uuid in data."
-      })
-    }
+    callback({
+      status: 200,
+      msg: "Ok"
+    })
   })
 }
+
 module.exports = initialization
