@@ -1,4 +1,4 @@
-const logger = require("../../plugins/logger")
+const logger = require("../../plugins/logger");
 
 /**
  * /ui initialization
@@ -7,13 +7,13 @@ const logger = require("../../plugins/logger")
  */
 const initialization = (socket) => {
   socket.on("initialization", (data, callback) => {
-    logger.infoReceiveMessage("/ui", "initialization", socket.id)
+    logger.infoReceiveMessage("/ui", "initialization", socket.id);
 
     callback({
       status: 200,
-      msg: "Ok"
-    })
-  })
-}
+      msg: "Ok",
+    });
+  });
+};
 
-module.exports = initialization
+module.exports = initialization;

@@ -1,6 +1,6 @@
-const store = require("../../../store")
-const logger = require("../../../plugins/logger")
-const uiNamespace = require("../../../namespaces/ui/ui")
+const store = require("../../../store");
+const logger = require("../../../plugins/logger");
+const uiNamespace = require("../../../namespaces/ui/ui");
 
 /**
  * /dcc/action clearAction
@@ -10,20 +10,20 @@ const uiNamespace = require("../../../namespaces/ui/ui")
  */
 const clearAction = (socket, io) => {
   socket.on("clearAction", (data, callback) => {
-    logger.infoReceiveMessage("/dcc/action", "clearAction", `${data.uuid}`)
+    logger.infoReceiveMessage("/dcc/action", "clearAction", `${data.uuid}`);
 
     // Delete the action from the store
-    delete store.instance.data.runningActions[data.uuid]
+    delete store.instance.data.runningActions[data.uuid];
 
     // Forward the request to the UI
-    logger.infoSendMessage("/ui", "clearAction", data.uuid)
-    uiNamespace(io).emit("clearAction", { data })
+    logger.infoSendMessage("/ui", "clearAction", data.uuid);
+    uiNamespace(io).emit("clearAction", { data });
 
     callback({
       status: 200,
-      msg: "ok"
-    })
-  })
-}
+      msg: "ok",
+    });
+  });
+};
 
-module.exports = clearAction
+module.exports = clearAction;

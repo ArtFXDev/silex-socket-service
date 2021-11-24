@@ -1,5 +1,5 @@
-const store = require("../../store")
-const logger = require("../../plugins/logger")
+const store = require("../../store");
+const logger = require("../../plugins/logger");
 
 /**
  * /ui getRunningActions
@@ -8,15 +8,15 @@ const logger = require("../../plugins/logger")
  */
 const getRunningActions = (socket) => {
   socket.on("getRunningActions", (callback) => {
-    logger.infoReceiveMessage("/ui", "getRunningActions")
+    logger.infoReceiveMessage("/ui", "getRunningActions");
 
     // Send the stored actions to the UI
     callback({
       status: 200,
       msg: "ok",
-      data: store.instance.data.runningActions
-    })
-  })
-}
+      data: store.instance.data.runningActions,
+    });
+  });
+};
 
-module.exports = getRunningActions
+module.exports = getRunningActions;

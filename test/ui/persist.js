@@ -1,20 +1,20 @@
-const Client = require("socket.io-client")
-const { describe, before, after } = require("mocha")
+const Client = require("socket.io-client");
+const { describe, before, after } = require("mocha");
 
 /** test cases */
 describe("silex_socket_service_ui_persist", () => {
-  let clientUi
-  const port = 5118
+  let clientUi;
+  const port = 5118;
 
   before((done) => {
-    clientUi = new Client(`http://localhost:${port}/ui`)
+    clientUi = new Client(`http://localhost:${port}/ui`);
     clientUi.on("connect", () => {
       // done()    <-- todo : need to find why this not work
-    })
-    done()
-  })
+    });
+    done();
+  });
 
   after(() => {
-    clientUi.close()
-  })
-})
+    clientUi.close();
+  });
+});

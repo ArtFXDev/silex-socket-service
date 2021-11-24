@@ -1,6 +1,6 @@
-const store = require("../../../store")
-const uiNamespace = require("../../../namespaces/ui/ui")
-const logger = require("../../../plugins/logger")
+const store = require("../../../store");
+const uiNamespace = require("../../../namespaces/ui/ui");
+const logger = require("../../../plugins/logger");
 
 /**
  * /dcc/action query
@@ -9,20 +9,20 @@ const logger = require("../../../plugins/logger")
  */
 const query = (socket, io) => {
   socket.on("query", (newAction, callback) => {
-    logger.infoReceiveMessage("/dcc/action", "query", `${newAction.uuid}`)
+    logger.infoReceiveMessage("/dcc/action", "query", `${newAction.uuid}`);
 
     // Storing the action in a dict
-    store.instance.data.runningActions[newAction.uuid] = newAction
+    store.instance.data.runningActions[newAction.uuid] = newAction;
 
     // Send that action to the UI
-    logger.infoSendMessage("/ui", "actionQuery", newAction.uuid)
-    uiNamespace(io).emit("actionQuery", { data: newAction })
+    logger.infoSendMessage("/ui", "actionQuery", newAction.uuid);
+    uiNamespace(io).emit("actionQuery", { data: newAction });
 
     callback({
       status: 200,
-      msg: "Ok"
-    })
-  })
-}
+      msg: "Ok",
+    });
+  });
+};
 
-module.exports = query
+module.exports = query;

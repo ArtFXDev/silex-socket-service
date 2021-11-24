@@ -1,6 +1,6 @@
-const logger = require("../../plugins/logger")
-const { spawn } = require("child_process")
-const path = require("path")
+const logger = require("../../plugins/logger");
+const { spawn } = require("child_process");
+const path = require("path");
 
 /**
  * /ui launchScene
@@ -9,7 +9,7 @@ const path = require("path")
  */
 const launchScene = (socket) => {
   socket.on("launchScene", (data, callback) => {
-    logger.infoReceiveMessage("/ui", "launchScene", data)
+    logger.infoReceiveMessage("/ui", "launchScene", data);
 
     // ex: rez env silex_houdini -- silex launch --task-id id --dcc houdini
     let args = [
@@ -22,32 +22,32 @@ const launchScene = (socket) => {
       "--task-id",
       data.taskId,
       "--dcc",
-      data.dcc
-    ]
+      data.dcc,
+    ];
 
     // If we pass a file
     if (data.scene && data.path) {
-      args = args.concat(["--file", path.join(data.path, data.scene)])
+      args = args.concat(["--file", path.join(data.path, data.scene)]);
     }
 
     // Spawn a rez subprocess
-    const launch = spawn("rez", args)
+    const launch = spawn("rez", args);
 
-    logger.info(`Launching scene with command: rez ${args.join(" ")}`)
+    logger.info(`Launching scene with command: rez ${args.join(" ")}`);
 
     launch.stdout.on("data", (data) => {
-      logger.info(`stdout: ${data}`)
-    })
+      logger.info(`stdout: ${data}`);
+    });
 
     launch.stderr.on("data", (data) => {
-      logger.error(`stderr: ${data}`)
-    })
+      logger.error(`stderr: ${data}`);
+    });
 
     callback({
       status: 200,
-      msg: "Ok"
-    })
-  })
-}
+      msg: "Ok",
+    });
+  });
+};
 
-module.exports = launchScene
+module.exports = launchScene;

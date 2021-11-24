@@ -1,5 +1,5 @@
-const store = require("../../store")
-const logger = require("../../plugins/logger")
+const store = require("../../store");
+const logger = require("../../plugins/logger");
 
 /**
  * /ui getConnectedDccs
@@ -8,14 +8,14 @@ const logger = require("../../plugins/logger")
  */
 const getConnectedDccs = (socket) => {
   socket.on("getConnectedDccs", (callback) => {
-    logger.infoReceiveMessage("/ui", "getConnectedDccs")
+    logger.infoReceiveMessage("/ui", "getConnectedDccs");
 
-    logger.infoSendMessage("/ui", "getConnectedDccs")
+    logger.infoSendMessage("/ui", "getConnectedDccs");
     callback({
       status: 200, // ok
-      data: store.instance.data.dccs
-    })
-  })
-}
+      data: store.instance.data.dccs,
+    });
+  });
+};
 
-module.exports = getConnectedDccs
+module.exports = getConnectedDccs;

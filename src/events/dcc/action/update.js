@@ -1,7 +1,7 @@
-const store = require("../../../store")
-const uiNamespace = require("../../../namespaces/ui/ui")
-const logger = require("../../../plugins/logger")
-const merge = require("deepmerge")
+const store = require("../../../store");
+const uiNamespace = require("../../../namespaces/ui/ui");
+const logger = require("../../../plugins/logger");
+const merge = require("deepmerge");
 
 /**
  * /dcc/action - update
@@ -11,34 +11,34 @@ const merge = require("deepmerge")
  */
 const update = (socket, io) => {
   socket.on("update", (actionDiff, callback) => {
-    const { uuid } = actionDiff
+    const { uuid } = actionDiff;
 
-    logger.infoReceiveMessage("/dcc/action", "update", uuid)
+    logger.infoReceiveMessage("/dcc/action", "update", uuid);
 
     // Apply the diff to the proper action
     const mergedAction = merge(
       store.instance.data.runningActions[uuid],
       actionDiff
-    )
+    );
 
     // Save it in the store
-    store.instance.data.runningActions[uuid] = mergedAction
+    store.instance.data.runningActions[uuid] = mergedAction;
 
     // Forward the update to the UI
-    logger.infoSendMessage("/ui", "actionUpdate", actionDiff.uuid)
+    logger.infoSendMessage("/ui", "actionUpdate", actionDiff.uuid);
     uiNamespace(io).emit("actionUpdate", {
-      data: actionDiff
-    })
+      data: actionDiff,
+    });
 
     if (!callback) {
-      return
+      return;
     }
 
     callback({
       status: 200,
-      msg: "Ok"
-    })
-  })
-}
+      msg: "Ok",
+    });
+  });
+};
 
-module.exports = update
+module.exports = update;

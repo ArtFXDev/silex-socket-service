@@ -2,7 +2,7 @@
  * Shorthand for the dcc namespace
  */
 const dcc = (io) => {
-  return io.of("/dcc")
-}
+  return io.of("/dcc");
+};
 
-module.exports = dcc
+module.exports = dcc;

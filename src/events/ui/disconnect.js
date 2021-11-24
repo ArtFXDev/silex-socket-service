@@ -1,4 +1,4 @@
-const logger = require("../../plugins/logger")
+const logger = require("../../plugins/logger");
 
 /**
  * /ui disconnect
@@ -7,8 +7,8 @@ const logger = require("../../plugins/logger")
  */
 const disconnect = (socket) => {
   socket.on("disconnect", () => {
-    logger.infoReceiveMessage("/ui", "disconnect", socket.data.uuid)
-  })
-}
+    logger.infoReceiveMessage("/ui", "disconnect", socket.data.uuid);
+  });
+};
 
-module.exports = disconnect
+module.exports = disconnect;

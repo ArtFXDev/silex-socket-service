@@ -12,26 +12,26 @@ const store = {
   access_token: undefined,
 
   /** Refresh token for refreshing the auth token */
-  refresh_token: undefined
-}
+  refresh_token: undefined,
+};
 
 // ----------------------------------------------------
 // Singleton boring stuff for NodeJS...
 
-const STORE_KEY = Symbol.for("silex_socket_service.store")
-const globalSymbols = Object.getOwnPropertySymbols(global)
-const hasStore = globalSymbols.indexOf(STORE_KEY) > -1
+const STORE_KEY = Symbol.for("silex_socket_service.store");
+const globalSymbols = Object.getOwnPropertySymbols(global);
+const hasStore = globalSymbols.indexOf(STORE_KEY) > -1;
 
 if (!hasStore) {
-  global[STORE_KEY] = { data: store }
+  global[STORE_KEY] = { data: store };
 }
 
-const singleton = {}
+const singleton = {};
 
 Object.defineProperty(singleton, "instance", {
   get: function () {
-    return global[STORE_KEY]
-  }
-})
+    return global[STORE_KEY];
+  },
+});
 
-module.exports = singleton
+module.exports = singleton;

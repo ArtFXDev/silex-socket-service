@@ -1,4 +1,4 @@
-const logger = require("../../../plugins/logger")
+const logger = require("../../../plugins/logger");
 
 /**
  * /dcc/action initialization
@@ -7,16 +7,16 @@ const logger = require("../../../plugins/logger")
  */
 const initialization = (socket) => {
   socket.on("initialization", (dccContext, callback) => {
-    logger.infoReceiveMessage("/dcc/action", "initialization", dccContext.uuid)
+    logger.infoReceiveMessage("/dcc/action", "initialization", dccContext.uuid);
 
     // Make the socket join a room with its id
-    socket.join(dccContext.uuid)
+    socket.join(dccContext.uuid);
 
     callback({
       status: 200, // ok
-      msg: "Ok"
-    })
-  })
-}
+      msg: "Ok",
+    });
+  });
+};
 
-module.exports = initialization
+module.exports = initialization;

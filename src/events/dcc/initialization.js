@@ -1,6 +1,6 @@
-const store = require("../../store")
-const { uiRoomTo } = require("../../rooms/ui")
-const logger = require("../../plugins/logger")
+const store = require("../../store");
+const { uiRoomTo } = require("../../rooms/ui");
+const logger = require("../../plugins/logger");
 
 /**
  * /dcc initialization
@@ -10,30 +10,30 @@ const logger = require("../../plugins/logger")
  */
 const initialization = (socket, io) => {
   socket.on("initialization", (dccContext, callback) => {
-    logger.infoReceiveMessage("/dcc", "initialization", dccContext.uuid)
+    logger.infoReceiveMessage("/dcc", "initialization", dccContext.uuid);
 
     // Make the socket join a room with its id
-    socket.join(dccContext.uuid)
+    socket.join(dccContext.uuid);
 
     // Add that new client to the store
-    store.instance.data.dccs[dccContext.uuid] = dccContext
+    store.instance.data.dccs[dccContext.uuid] = dccContext;
 
     // Store its uuid in the socket data itself (for reuse later)
-    socket.data.uuid = dccContext.uuid
+    socket.data.uuid = dccContext.uuid;
 
     // Broadcast that event to the UIs
-    logger.infoSendMessage("/ui", "dccConnect", dccContext.uuid)
+    logger.infoSendMessage("/ui", "dccConnect", dccContext.uuid);
     uiRoomTo(io).emit("dccConnect", {
       data: {
-        context: dccContext
-      }
-    })
+        context: dccContext,
+      },
+    });
 
     callback({
       status: 200, // ok
-      msg: "Ok"
-    })
-  })
-}
+      msg: "Ok",
+    });
+  });
+};
 
-module.exports = initialization
+module.exports = initialization;

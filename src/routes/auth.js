@@ -1,11 +1,11 @@
-const axios = require("axios").default
-const store = require("../store")
-const express = require("express")
-const logger = require("../plugins/logger")
-const { persistStore } = require("../store/persistence")
-const authRouter = express.Router()
+const axios = require("axios").default;
+const store = require("../store");
+const express = require("express");
+const logger = require("../plugins/logger");
+const { persistStore } = require("../store/persistence");
+const authRouter = express.Router();
 
-const { zouAPIURL } = require("../utils/zou")
+const { zouAPIURL } = require("../utils/zou");
 
 /**
  * POST /auth/login
@@ -15,7 +15,7 @@ const { zouAPIURL } = require("../utils/zou")
  * for the dcc to have access to authentication.
  */
 authRouter.post("/login", async (req, res) => {
-  logger.infoHTTPMessage("POST", "/auth/login")
+  logger.infoHTTPMessage("POST", "/auth/login");
 
   /**
    * Login to the backend API
@@ -23,60 +23,60 @@ authRouter.post("/login", async (req, res) => {
   const login = async () => {
     try {
       const response = await axios.post(zouAPIURL("auth/login"), req.body, {
-        timeout: 1500
-      })
+        timeout: 1500,
+      });
 
       // Store the token
-      store.instance.data.access_token = response.data.access_token
-      store.instance.data.refresh_token = response.data.refresh_token
+      store.instance.data.access_token = response.data.access_token;
+      store.instance.data.refresh_token = response.data.refresh_token;
 
       // Save the store
-      persistStore()
+      persistStore();
 
       // Return the data
-      res.json(response.data)
+      res.json(response.data);
 
-      logger.info("Logging successful!")
+      logger.info("Logging successful!");
     } catch (err) {
-      logger.error(`/auth/login error: ${err}`)
-      res.status(404)
-      res.json(err)
+      logger.error(`/auth/login error: ${err}`);
+      res.status(404);
+      res.json(err);
     }
-  }
+  };
 
   // Get the access token in the store
-  const storedAccessToken = store.instance.data.access_token
+  const storedAccessToken = store.instance.data.access_token;
 
   // If there is a token in the store, try to check if auth works with this token
   if (storedAccessToken) {
     try {
       await axios.get(zouAPIURL("auth/authenticated"), {
         headers: {
-          Authorization: `Bearer ${storedAccessToken}`
-        }
-      })
+          Authorization: `Bearer ${storedAccessToken}`,
+        },
+      });
 
-      logger.info("Token from the store is valid, we are authenticated")
+      logger.info("Token from the store is valid, we are authenticated");
 
-      res.json("Token from store is valid")
+      res.json("Token from store is valid");
     } catch (err) {
-      logger.error("Token is invalid, logging directly...")
-      logger.error(err)
+      logger.error("Token is invalid, logging directly...");
+      logger.error(err);
 
       // Clear that token
-      store.instance.data.access_token = undefined
+      store.instance.data.access_token = undefined;
 
       // Write it to the store
-      persistStore()
+      persistStore();
 
       // If not, login with email password
-      await login()
+      await login();
     }
   } else {
-    logger.warn("There is no token saved in the store, logging...")
-    await login()
+    logger.warn("There is no token saved in the store, logging...");
+    await login();
   }
-})
+});
 
 /**
  * POST /auth/logout
@@ -84,16 +84,16 @@ authRouter.post("/login", async (req, res) => {
  * Logout route that clear the tokens from the store
  */
 authRouter.post("/logout", async () => {
-  logger.infoHTTPMessage("POST", "/auth/logout")
+  logger.infoHTTPMessage("POST", "/auth/logout");
 
   // Clear both tokens
-  logger.info("Clearing access_token and refresh_token from the store")
-  store.instance.data.access_token = undefined
-  store.instance.data.refresh_token = undefined
+  logger.info("Clearing access_token and refresh_token from the store");
+  store.instance.data.access_token = undefined;
+  store.instance.data.refresh_token = undefined;
 
   // Write changes to the store file
-  persistStore()
-})
+  persistStore();
+});
 
 /**
  * POST /auth/refresh-token
@@ -101,26 +101,26 @@ authRouter.post("/logout", async () => {
  * Logout route that clear the tokens from the store
  */
 authRouter.post("/refresh-token", async (req, res) => {
-  logger.infoHTTPMessage("POST", "/auth/refresh-token")
+  logger.infoHTTPMessage("POST", "/auth/refresh-token");
 
   // Refresh the access token from the API
   const response = await axios.get(zouAPIURL("auth/refresh-token"), {
     headers: {
-      Authorization: `Bearer ${store.instance.data.refresh_token}`
-    }
-  })
+      Authorization: `Bearer ${store.instance.data.refresh_token}`,
+    },
+  });
 
-  logger.info("Setting a new access_token...")
-  store.instance.data.access_token = response.data.access_token
+  logger.info("Setting a new access_token...");
+  store.instance.data.access_token = response.data.access_token;
 
   // Write changes to store
-  persistStore()
+  persistStore();
 
   // Return the new access_token
   res.json({
-    access_token: store.instance.data.access_token
-  })
-})
+    access_token: store.instance.data.access_token,
+  });
+});
 
 /**
  * GET /auth/token
@@ -128,25 +128,25 @@ authRouter.post("/refresh-token", async (req, res) => {
  * Return the access_token from the store
  */
 authRouter.get("/token", async (req, res) => {
-  logger.infoHTTPMessage("GET", "/auth/token")
+  logger.infoHTTPMessage("GET", "/auth/token");
 
   // Get that token
-  const token = store.instance.data.access_token
+  const token = store.instance.data.access_token;
 
   if (!token) {
-    const message = "There is no token saved in the store"
-    logger.error(message)
+    const message = "There is no token saved in the store";
+    logger.error(message);
 
-    res.status(404)
-    res.send(message)
+    res.status(404);
+    res.send(message);
 
-    return
+    return;
   }
 
   // Send the token
   res.json({
-    access_token: token
-  })
-})
+    access_token: token,
+  });
+});
 
-module.exports = authRouter
+module.exports = authRouter;

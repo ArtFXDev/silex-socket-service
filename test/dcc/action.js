@@ -1,68 +1,68 @@
-const Client = require("socket.io-client")
-const assert = require("chai").assert
-const { it, describe, before, after } = require("mocha")
+const Client = require("socket.io-client");
+const assert = require("chai").assert;
+const { it, describe, before, after } = require("mocha");
 
 /** test cases */
 describe("silex_socket_service_dcc", () => {
-  let clientSocket
-  const port = 5118
+  let clientSocket;
+  const port = 5118;
 
   before((done) => {
-    clientSocket = new Client(`http://localhost:${port}/dcc/action`)
+    clientSocket = new Client(`http://localhost:${port}/dcc/action`);
     clientSocket.on("connect", () => {
       // done()    <-- todo : need to find why this not work
-    })
-    done()
-  })
+    });
+    done();
+  });
 
   after(() => {
-    clientSocket.close()
-  })
+    clientSocket.close();
+  });
 
   it("Test action query", (done) => {
     clientSocket.emit(
       "query",
       {
-        myData: "undefined"
+        myData: "undefined",
       },
       (response) => {
-        assert.equal(response.status, 200) // validate reception
-        done()
+        assert.equal(response.status, 200); // validate reception
+        done();
       }
-    )
-  })
+    );
+  });
 
   it("Test action request", (done) => {
     clientSocket.emit(
       "request",
       {
         uuid: "uuid",
-        myData: "undefined"
+        myData: "undefined",
       },
       (response) => {
-        assert.equal(response.status, 200) // validate reception
-        done()
+        assert.equal(response.status, 200); // validate reception
+        done();
       }
-    )
-  })
+    );
+  });
 
   it("Test action clearAction", (done) => {
     clientSocket.emit("clearAction", { uuid: "uuid" }, (response) => {
-      assert.equal(response.status, 200) // validate reception
-      done()
-    })
-  })
+      assert.equal(response.status, 200); // validate reception
+      done();
+    });
+  });
 
   it("Test action update", (done) => {
     clientSocket.emit(
       "update",
       {
-        myData: "undefined"
+        myData: "undefined",
       },
       (response) => {
-        assert.equal(response.status, 200) // validate reception
-        done()
+        assert.equal(response.status, 200); // validate reception
+        done();
       }
-    )
-  })
-})
+    );
+  });
+});
