@@ -4,7 +4,11 @@
     "commonjs": true,
     "es2021": true
   },
-  "extends": ["eslint:recommended", "plugin:node/recommended", "plugin:require-path-exists/recommended"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:node/recommended",
+    "plugin:require-path-exists/recommended"
+  ],
   "plugins": ["require-path-exists"],
   "parserOptions": {
     "ecmaVersion": 2020

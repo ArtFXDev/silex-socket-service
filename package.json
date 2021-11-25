@@ -4,7 +4,7 @@
     "type": "git",
     "url": "https://github.com/ArtFXDev/silex-socket-service"
   },
-  "version": "1.4.5",
+  "version": "1.4.6",
   "description": "",
   "main": "src/index.js",
   "scripts": {
@@ -28,6 +28,7 @@
     "axios": "^0.24.0",
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
+    "deep-object-diff": "^1.1.0",
     "deepmerge": "^4.2.2",
     "express": "^4.17.1",
     "pino": "^7.1.0",

@@ -1,24 +1,32 @@
-const dccActionsNamespace = require("../../namespaces/dcc/action")
-const logger = require("../../plugins/logger")
+const store = require("../../store");
+const dccActionNamespace = require("../../namespaces/dcc/action");
+const logger = require("../../plugins/logger");
 
+/**
+ * /ui clearAction
+ *
+ * Sent by the UI to clear a specific running action
+ */
 const clearAction = (socket, io) => {
   socket.on("clearAction", (data, callback) => {
-    logger.info(" => [RECEIVED on /ui clearAction]")
-    if (typeof data === "string" || data instanceof String) {
-      data = JSON.parse(data)
-    }
+    logger.infoReceiveMessage("/ui", "clearAction", `${data.uuid}`);
 
-    dccActionsNamespace(io).emit("clear", data)
-    logger.info(" <= [SEND data] to /dcc/actions clearAction]")
+    // Get the dcc client uuid
+    const { context_metadata } = store.instance.data.runningActions[data.uuid];
+    const clientUuid = context_metadata.uuid;
 
-    if (!callback) {
-      return
-    }
+    // Clear the action in the store
+    delete store.instance.data.runningActions[data.uuid];
+
+    // Forward the message to the dcc using its uuid
+    logger.infoSendMessage("/dcc/action", "clear", `Sent to dcc: ${data.uuid}`);
+    dccActionNamespace(io).to(clientUuid).emit("clear", data);
 
     callback({
       status: 200,
-      msg: "Action cleared"
-    })
-  })
-}
-module.exports = clearAction
+      msg: "Action cleared",
+    });
+  });
+};
+
+module.exports = clearAction;

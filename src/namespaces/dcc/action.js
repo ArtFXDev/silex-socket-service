@@ -1,5 +1,8 @@
-const actions = (io) => {
-  return io.of("/dcc/action")
-}
+/**
+ * Shorthand for the action namespace
+ */
+const action = (io) => {
+  return io.of("/dcc/action");
+};
 
-module.exports = actions
+module.exports = action;
