@@ -25,6 +25,7 @@ const httpServer = http.createServer(app);
 
 // Initialize socket.io on that server
 const io = socketio(httpServer, {
+  // Only allow silex front as a valid origin
   cors: { origins: [process.env.SILEX_FRONT_URL] },
 });
 
