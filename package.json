@@ -16,12 +16,12 @@
   },
   "keywords": [],
   "author": "ArtFX TDs",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/ArtFXDev/Silex_Socket_Service/issues"
   },
   "engines": {
-    "node": ">15"
+    "node": ">=16.10.0"
   },
   "homepage": "https://github.com/ArtFXDev/Silex_Socket_Service#readme",
   "dependencies": {
