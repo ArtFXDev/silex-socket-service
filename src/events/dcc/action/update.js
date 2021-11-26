@@ -15,11 +15,10 @@ const update = (socket, io) => {
 
     logger.infoReceiveMessage("/dcc/action", "update", uuid);
 
+    const currentAction = store.instance.data.runningActions[uuid];
+
     // Apply the diff to the proper action
-    const mergedAction = merge(
-      store.instance.data.runningActions[uuid],
-      actionDiff
-    );
+    const mergedAction = merge(currentAction, actionDiff);
 
     // Save it in the store
     store.instance.data.runningActions[uuid] = mergedAction;
@@ -29,10 +28,6 @@ const update = (socket, io) => {
     uiNamespace(io).emit("actionUpdate", {
       data: actionDiff,
     });
-
-    if (!callback) {
-      return;
-    }
 
     callback({
       status: 200,
