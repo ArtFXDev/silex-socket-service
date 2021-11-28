@@ -26,6 +26,9 @@ const update = (socket, io) => {
     // Manually add the uuid for the backend to identify
     actionDiff.uuid = updatedAction.uuid;
 
+    // Store the updated version
+    store.instance.data.runningActions[updatedAction.uuid] = updatedAction;
+
     // Send that diff to the dcc
     dccActionNamespace(io).to(clientUuid).emit("update", actionDiff);
 
