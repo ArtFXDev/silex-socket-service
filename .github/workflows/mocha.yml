@@ -27,7 +27,7 @@ jobs:
       - uses: actions/setup-node@v2
       # Runs a single command using the runners shell
       - name: Init project
-        run: npm i
+        run: yarn install --frozen-lockfile
 
       - name: Create .env file
         run: |
@@ -38,4 +38,4 @@ jobs:
 
       - name: Run test Mocha
         run: |
-          npm run mocha
+          yarn test

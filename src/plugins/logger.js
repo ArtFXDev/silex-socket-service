@@ -11,6 +11,7 @@ if (!fs.existsSync(process.env.SILEX_LOG_DIR)) {
 // The main logger
 const logger = pino(
   {
+    enabled: process.env.NODE_ENV === "test" ? false : true,
     prettyPrint: true,
     colorize: process.env.NODE_ENV === "development",
     translateTime: true, // Put real time instead of timestamp

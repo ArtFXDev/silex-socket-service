@@ -11,17 +11,23 @@ const merge = require("deepmerge");
  */
 const update = (socket, io) => {
   socket.on("update", (actionDiff, callback) => {
-    const { uuid } = actionDiff;
+    logger.infoReceiveMessage("/dcc/action", "update", actionDiff.uuid);
 
-    logger.infoReceiveMessage("/dcc/action", "update", uuid);
+    if (
+      !actionDiff.uuid ||
+      !store.instance.data.runningActions[actionDiff.uuid]
+    ) {
+      callback({ status: 400, msg: `Can't update action ${actionDiff.uuid}` });
+      return;
+    }
 
-    const currentAction = store.instance.data.runningActions[uuid];
+    const currentAction = store.instance.data.runningActions[actionDiff.uuid];
 
     // Apply the diff to the proper action
     const mergedAction = merge(currentAction, actionDiff);
 
     // Save it in the store
-    store.instance.data.runningActions[uuid] = mergedAction;
+    store.instance.data.runningActions[actionDiff.uuid] = mergedAction;
 
     // Forward the update to the UI
     logger.infoSendMessage("/ui", "actionUpdate", actionDiff.uuid);
@@ -31,7 +37,7 @@ const update = (socket, io) => {
 
     callback({
       status: 200,
-      msg: "Ok",
+      msg: `Updated action ${actionDiff.uuid}`,
     });
   });
 };

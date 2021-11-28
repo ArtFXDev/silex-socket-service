@@ -11,8 +11,7 @@
     "format": "npx prettier --write .",
     "start": "cross-env NODE_ENV=development node src/index.js",
     "lint": "eslint --ext js .",
-    "mocha": "mocha --recursive 'test/**/*.js' --exit",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "cross-env NODE_ENV=test mocha --recursive 'test/**/*.js' --exit"
   },
   "keywords": [],
   "author": "ArtFX TDs",

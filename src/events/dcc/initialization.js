@@ -12,7 +12,15 @@ const initialization = (socket, io) => {
   socket.on("initialization", (dccContext, callback) => {
     logger.infoReceiveMessage("/dcc", "initialization", dccContext.uuid);
 
-    // Make the socket join a room with its id
+    if (!dccContext.uuid) {
+      callback({
+        status: 400,
+        msg: "The context needs to have an uuid in order to join the room",
+      });
+      return;
+    }
+
+    // Make the socket join a room with its uuid
     socket.join(dccContext.uuid);
 
     // Add that new client to the store
@@ -30,8 +38,8 @@ const initialization = (socket, io) => {
     });
 
     callback({
-      status: 200, // ok
-      msg: "Ok",
+      status: 200,
+      msg: `dcc ${dccContext.uuid} initialized`,
     });
   });
 };

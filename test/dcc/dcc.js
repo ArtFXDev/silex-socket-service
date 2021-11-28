@@ -1,56 +1,85 @@
 const Client = require("socket.io-client");
-const assert = require("chai").assert;
-const { it, describe, before, after } = require("mocha");
+const { expect } = require("chai");
+const { it, describe, before, beforeEach } = require("mocha");
+const store = require("../../src/store");
 
-/** test cases */
-describe("silex_socket_service_dcc", () => {
-  let clientSocket;
+describe("Namespace /dcc", () => {
+  let dccNamespace;
   const port = 5118;
 
   before((done) => {
-    clientSocket = new Client(`http://localhost:${port}/dcc`);
-    clientSocket.on("connect", () => {
-      // done()    <-- todo : need to find why this not work
+    dccNamespace = new Client(`http://localhost:${port}/dcc`);
+
+    dccNamespace.on("connect", () => {
+      done();
     });
-    done();
   });
 
-  after(() => {
-    clientSocket.close();
+  beforeEach(() => {
+    store.instance.data.runningActions = {};
+    store.instance.data.dccs = {};
   });
 
-  it("Test dcc initialization ok", (done) => {
-    clientSocket.emit(
-      "initialization",
-      {
-        name: "untilted",
-        dcc: "undefined",
-        user: "undefined",
-        project: "undefined",
-        asset: "undefined",
-        uuid: -1,
-      },
-      (response) => {
-        assert.equal(response.status, 200); // validate reception
+  describe("initialization", () => {
+    it("Returns an error when no uuid is given", (done) => {
+      dccNamespace.emit("initialization", { data: 0 }, (response) => {
+        expect(response.status).to.equal(400);
         done();
-      }
-    );
+      });
+    });
+
+    it("Initializes the dcc", (done) => {
+      const context = { uuid: "blender", pid: 5689 };
+
+      dccNamespace.emit("initialization", context, (response) => {
+        expect(response.status).to.equal(200);
+        expect(store.instance.data.dccs["blender"]).to.deep.equal(context);
+        done();
+      });
+    });
   });
 
-  it("Test dcc initialization error", (done) => {
-    clientSocket.emit(
-      "initialization",
-      {
-        name: "untilted",
-        dcc: "undefined",
-        user: "undefined",
-        project: "undefined",
-        asset: "undefined",
-      },
-      (response) => {
-        assert.equal(response.status, 500); // validate reception
-        done();
-      }
-    );
+  describe("disconnect", () => {
+    it("Removes all actions associated with that dcc", (done) => {
+      const context = { uuid: "blender" };
+
+      dccNamespace.on("disconnect", () => {
+        setTimeout(() => {
+          expect(store.instance.data.runningActions).to.deep.equal({
+            b: { uuid: "b", context_metadata: { uuid: "houdini" } },
+          });
+          done();
+        }, 100);
+      });
+
+      dccNamespace.emit("initialization", context, () => {
+        expect(store.instance.data.dccs["blender"]).to.exist;
+
+        const dccActionNamespace = new Client(
+          `http://localhost:${port}/dcc/action`
+        );
+
+        function actionPromise(action) {
+          return new Promise((resolve) =>
+            dccActionNamespace.emit("query", action, () => resolve())
+          );
+        }
+
+        const actions = [
+          { uuid: "a", context_metadata: context },
+          { uuid: "b", context_metadata: { uuid: "houdini" } },
+          { uuid: "c", context_metadata: context },
+        ];
+
+        dccActionNamespace.on("connect", () => {
+          Promise.all(actions.map((a) => actionPromise(a))).then(() => {
+            expect(
+              Object.values(store.instance.data.runningActions)
+            ).to.deep.equal(actions);
+            dccNamespace.disconnect();
+          });
+        });
+      });
+    });
   });
 });
