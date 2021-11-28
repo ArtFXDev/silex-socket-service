@@ -21,7 +21,7 @@ const disconnect = (socket, io) => {
     for (const [runningUuid, action] of Object.entries(
       store.instance.data.runningActions
     )) {
-      if (action.context_metadata.uuid === uuid) {
+      if (action.context_metadata && action.context_metadata.uuid === uuid) {
         delete store.instance.data.runningActions[runningUuid];
       }
     }
