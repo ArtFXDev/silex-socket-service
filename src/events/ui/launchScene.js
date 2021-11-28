@@ -14,7 +14,7 @@ const launchScene = (socket) => {
     // ex: rez env silex_houdini -- silex launch --task-id id --dcc houdini
     let args = [
       "env",
-      `silex_${data.dcc}`,
+      `silex_${data.dcc}${data.mode ? "-" + data.mode : ""}`,
       data.projectName.toLowerCase(),
       "--",
       "silex",

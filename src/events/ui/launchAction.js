@@ -11,7 +11,10 @@ const launchAction = (socket) => {
     logger.infoReceiveMessage("/ui", "launchAction", data);
 
     // Add prod or beta package
-    const rez_requires = ["env", "silex_client"];
+    const rez_requires = [
+      "env",
+      `silex_client${data.mode ? "-" + data.mode : ""}`,
+    ];
 
     // Add a dcc if we are launching the action from a dcc
     if (data.dcc) rez_requires.push(data.dcc);
