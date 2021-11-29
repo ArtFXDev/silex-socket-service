@@ -11,6 +11,19 @@ const query = (socket, io) => {
   socket.on("query", (newAction, callback) => {
     logger.infoReceiveMessage("/dcc/action", "query", `${newAction.uuid}`);
 
+    if (!newAction.uuid) {
+      callback({ status: 400, msg: "The action needs to have an uuid" });
+      return;
+    }
+
+    if (!newAction.context_metadata || !newAction.context_metadata.uuid) {
+      callback({
+        status: 400,
+        msg: "The action needs to have a context associated to it",
+      });
+      return;
+    }
+
     // Storing the action in a dict
     store.instance.data.runningActions[newAction.uuid] = newAction;
 
@@ -20,7 +33,7 @@ const query = (socket, io) => {
 
     callback({
       status: 200,
-      msg: "Ok",
+      msg: `Action ${newAction.uuid} stored`,
     });
   });
 };

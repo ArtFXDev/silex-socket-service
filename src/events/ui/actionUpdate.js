@@ -1,6 +1,6 @@
 const dccActionNamespace = require("../../namespaces/dcc/action");
 const logger = require("../../plugins/logger");
-const { diff } = require("deep-object-diff");
+const diff = require("../../utils/diff");
 const store = require("../../store");
 
 /**
@@ -13,19 +13,32 @@ const update = (socket, io) => {
   socket.on("actionUpdate", (updatedAction, callback) => {
     logger.infoReceiveMessage("/ui", "actionUpdate", updatedAction.uuid);
 
-    // Get the dcc client uuid
-    const { context_metadata } =
+    if (
+      !updatedAction.uuid ||
+      !store.instance.data.runningActions[updatedAction.uuid]
+    ) {
+      callback({
+        status: 400,
+        msg: `Can't update action ${updatedAction.uuid}`,
+      });
+      return;
+    }
+
+    const currentAction =
       store.instance.data.runningActions[updatedAction.uuid];
+
+    // Get the dcc client uuid
+    const { context_metadata } = currentAction;
     const clientUuid = context_metadata.uuid;
 
     // Compute the diff between new action and old action
-    const actionDiff = diff(
-      store.instance.data.runningActions[updatedAction.uuid],
-      updatedAction
-    );
+    const actionDiff = diff(currentAction, updatedAction);
 
-    // Manually add the uuid for the backend to identify
+    // Manually add the uuid for the python client to identify
     actionDiff.uuid = updatedAction.uuid;
+
+    // Store the updated version
+    store.instance.data.runningActions[updatedAction.uuid] = updatedAction;
 
     // Send that diff to the dcc
     dccActionNamespace(io).to(clientUuid).emit("update", actionDiff);

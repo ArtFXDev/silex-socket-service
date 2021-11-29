@@ -11,6 +11,11 @@ const clearAction = (socket, io) => {
   socket.on("clearAction", (data, callback) => {
     logger.infoReceiveMessage("/ui", "clearAction", `${data.uuid}`);
 
+    if (!data.uuid || !store.instance.data.runningActions[data.uuid]) {
+      callback({ status: 400, msg: `Can't clear action ${data.uuid}` });
+      return;
+    }
+
     // Get the dcc client uuid
     const { context_metadata } = store.instance.data.runningActions[data.uuid];
     const clientUuid = context_metadata.uuid;

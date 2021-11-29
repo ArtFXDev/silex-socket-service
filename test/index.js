@@ -1,5 +1,5 @@
 const { describe } = require("mocha");
 
-describe("silex_socket_service_init_server", () => {
+describe("Starting the server", () => {
   require("../src/index").run();
 });

@@ -12,6 +12,14 @@ const clearAction = (socket, io) => {
   socket.on("clearAction", (data, callback) => {
     logger.infoReceiveMessage("/dcc/action", "clearAction", `${data.uuid}`);
 
+    if (!data.uuid || !store.instance.data.runningActions[data.uuid]) {
+      callback({
+        status: 400,
+        msg: `Action ${data.uuid} does not exist in the store`,
+      });
+      return;
+    }
+
     // Delete the action from the store
     delete store.instance.data.runningActions[data.uuid];
 
@@ -21,7 +29,7 @@ const clearAction = (socket, io) => {
 
     callback({
       status: 200,
-      msg: "ok",
+      msg: `Action ${data.uuid} cleared`,
     });
   });
 };
