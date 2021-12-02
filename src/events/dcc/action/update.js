@@ -1,7 +1,7 @@
 const store = require("../../../store");
 const uiNamespace = require("../../../namespaces/ui/ui");
 const logger = require("../../../plugins/logger");
-const merge = require("deepmerge");
+const merge = require("../../../utils/merge");
 
 /**
  * /dcc/action - update
