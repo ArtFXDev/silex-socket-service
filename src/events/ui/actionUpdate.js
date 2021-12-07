@@ -45,7 +45,9 @@ const update = (socket, io) => {
 
     callback({
       status: 200,
-      msg: "Empty clients !",
+      msg: `Action ${
+        store.instance.data.runningActions[updatedAction.uuid].name
+      } updated!`,
     });
   });
 };
