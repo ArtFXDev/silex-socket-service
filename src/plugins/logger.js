@@ -8,16 +8,19 @@ if (!fs.existsSync(process.env.SILEX_LOG_DIR)) {
   fs.mkdirSync(process.env.SILEX_LOG_DIR, { recursive: true });
 }
 
+const isInDev = process.env.NODE_ENV === "development";
+
 // The main logger
 const logger = pino(
   {
+    level: isInDev ? "debug" : process.env.LOG_LEVEL || "warn",
     enabled: process.env.NODE_ENV === "test" ? false : true,
     prettyPrint: true,
-    colorize: process.env.NODE_ENV === "development",
+    colorize: isInDev,
     translateTime: true, // Put real time instead of timestamp
   },
   // Only log to a file when in production
-  process.env.NODE_ENV === "development"
+  isInDev
     ? undefined
     : path.join(process.env.SILEX_LOG_DIR, ".silex_socket_service_log")
 );
