@@ -1,8 +1,7 @@
 const logger = require("../../plugins/logger");
 const zou = require("../../utils/zou");
+const fg = require("fast-glob");
 const fs = require("fs");
-const path = require("path");
-const os = require("os");
 
 /**
  * /ui getWorkingFilesForTask
@@ -19,26 +18,39 @@ const getWorkingFilesForTask = (socket) => {
       .then((response) => {
         let folderPath = response.data.path;
 
-        // If we are on UNIX use /home/user/...
-        if (["linux", "darwin"].includes(process.platform)) {
-          folderPath = path.join(
-            os.homedir(),
-            folderPath.slice(folderPath.indexOf("/") + 1)
-          );
+        logger.info(`Looking recursively for working files in ${folderPath}`);
+
+        if (!fs.existsSync(folderPath)) {
+          callback({
+            status: 404,
+            msg: `The work directory doesn't exist yet, click Software > Open to start a new scene in that context`,
+          });
+          return;
         }
 
-        logger.info(`Looking for working files in ${folderPath}`);
-
         // Read the files in the folder
-        const files = fs.readdirSync(folderPath);
+        // Only get the useful extensions
+        const files = fg.sync(
+          folderPath + "/" + `**/*.(${request.searchExtensions.join("|")})`,
+          { stats: true }
+        );
+
+        const filteredFiles = files
+          .filter((f) => f.dirent.isFile())
+          .map((f) => {
+            const { mtime } = f.stats;
+            return { name: f.name, path: f.path, mtime };
+          });
 
         callback({
           status: 200,
           msg: "Ok",
-          data: { path: folderPath, files },
+          data: { path: folderPath, files: filteredFiles },
         });
       })
-      .catch((err) => callback({ status: 500, msg: err.message }));
+      .catch((err) => {
+        callback({ status: 500, msg: err.message });
+      });
   });
 };
 
