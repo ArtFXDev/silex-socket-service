@@ -1,6 +1,5 @@
 const logger = require("../../plugins/logger");
 const { spawn } = require("child_process");
-const path = require("path");
 
 /**
  * /ui launchScene
@@ -26,8 +25,8 @@ const launchScene = (socket) => {
     ];
 
     // If we pass a file
-    if (data.scene && data.path) {
-      args = args.concat(["--file", path.join(data.path, data.scene)]);
+    if (data.scene) {
+      args = args.concat(["--file", data.scene]);
     }
 
     // Spawn a rez subprocess

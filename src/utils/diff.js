@@ -1,8 +1,7 @@
 /**
  * Taken from https://stackoverflow.com/questions/25456013/javascript-deepequal-comparison/25456134
  */
-function deepEqual(x, y, debug = false) {
-  if (debug) console.log(x, y);
+function deepEqual(x, y) {
   if (
     typeof x === "object" &&
     x !== null &&
