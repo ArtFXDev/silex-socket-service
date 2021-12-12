@@ -1,4 +1,5 @@
 const logger = require("../../utils/logger");
+const store = require("../../store");
 const { spawn } = require("child_process");
 
 /**
@@ -10,11 +11,11 @@ const launchScene = (socket) => {
   socket.on("launchScene", (data, callback) => {
     logger.debugReceiveMessage("/ui", "launchScene", data);
 
-    // ex: rez env silex_houdini -- silex launch --task-id id --dcc houdini
+    // Construct the rez command parameters
     let args = [
       "env",
-      `silex_${data.dcc}${data.mode ? "-" + data.mode : ""}`,
-      data.projectName.toLowerCase(),
+      `silex_${data.dcc}-${store.instance.data.rezPackagesMode}`, // silex_client-{prod,beta,dev}
+      data.projectName.toLowerCase(), // Add the project package
       "--",
       "silex",
       "launch",
@@ -24,7 +25,7 @@ const launchScene = (socket) => {
       data.dcc,
     ];
 
-    // If we pass a file
+    // If we want to open a file with that dcc
     if (data.scene) {
       args = args.concat(["--file", data.scene]);
     }

@@ -1,4 +1,5 @@
 const logger = require("../../utils/logger");
+const store = require("../../store");
 const { spawn } = require("child_process");
 
 /**
@@ -10,10 +11,9 @@ const launchAction = (socket) => {
   socket.on("launchAction", (data) => {
     logger.debugReceiveMessage("/ui", "launchAction", data);
 
-    // Add prod or beta package
     const rez_requires = [
       "env",
-      `silex_client${data.mode ? "-" + data.mode : ""}`,
+      `silex_client-${store.instance.data.rezPackagesMode}`,
     ];
 
     // Add a dcc if we are launching the action from a dcc
@@ -36,6 +36,7 @@ const launchAction = (socket) => {
     const action = spawn("rez", args);
     logger.info(`Launching action with command: rez ${args.join(" ")}`);
 
+    // Capture program output
     action.stdout.on("data", (data) => {
       logger.info(`stdout: ${data}`);
     });
