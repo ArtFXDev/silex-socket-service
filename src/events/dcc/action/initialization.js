@@ -7,7 +7,11 @@ const logger = require("../../../utils/logger");
  */
 const initialization = (socket) => {
   socket.on("initialization", (dccContext, callback) => {
-    logger.infoReceiveMessage("/dcc/action", "initialization", dccContext.uuid);
+    logger.debugReceiveMessage(
+      "/dcc/action",
+      "initialization",
+      dccContext.uuid
+    );
 
     if (!dccContext.uuid) {
       callback({

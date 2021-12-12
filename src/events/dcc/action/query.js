@@ -9,7 +9,7 @@ const logger = require("../../../utils/logger");
  */
 const query = (socket, io) => {
   socket.on("query", (newAction, callback) => {
-    logger.infoReceiveMessage("/dcc/action", "query", `${newAction.uuid}`);
+    logger.debugReceiveMessage("/dcc/action", "query", `${newAction.uuid}`);
 
     if (!newAction.uuid) {
       callback({ status: 400, msg: "The action needs to have an uuid" });
@@ -28,7 +28,7 @@ const query = (socket, io) => {
     store.instance.data.runningActions[newAction.uuid] = newAction;
 
     // Send that action to the UI
-    logger.infoSendMessage("/ui", "actionQuery", newAction.uuid);
+    logger.debugSendMessage("/ui", "actionQuery", newAction.uuid);
     uiNamespace(io).emit("actionQuery", { data: newAction });
 
     callback({

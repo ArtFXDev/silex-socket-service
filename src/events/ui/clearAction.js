@@ -9,7 +9,7 @@ const logger = require("../../utils/logger");
  */
 const clearAction = (socket, io) => {
   socket.on("clearAction", (data, callback) => {
-    logger.infoReceiveMessage("/ui", "clearAction", `${data.uuid}`);
+    logger.debugReceiveMessage("/ui", "clearAction", `${data.uuid}`);
 
     if (!data.uuid || !store.instance.data.runningActions[data.uuid]) {
       callback({ status: 400, msg: `Can't clear action ${data.uuid}` });
@@ -24,7 +24,11 @@ const clearAction = (socket, io) => {
     delete store.instance.data.runningActions[data.uuid];
 
     // Forward the message to the dcc using its uuid
-    logger.infoSendMessage("/dcc/action", "clear", `Sent to dcc: ${data.uuid}`);
+    logger.debugSendMessage(
+      "/dcc/action",
+      "clear",
+      `Sent to dcc: ${data.uuid}`
+    );
     dccActionNamespace(io).to(clientUuid).emit("clear", data);
 
     callback({

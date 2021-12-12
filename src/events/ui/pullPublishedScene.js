@@ -10,7 +10,7 @@ const fs = require("fs");
  */
 const pullPublishedScene = (socket) => {
   socket.on("pullPublishedScene", (request, callback) => {
-    logger.infoReceiveMessage("/ui", "pullPublishedScene", request);
+    logger.debugReceiveMessage("/ui", "pullPublishedScene", request);
 
     // Get the working file path from the API
     zou

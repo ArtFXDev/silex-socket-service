@@ -10,7 +10,7 @@ const fs = require("fs");
  */
 const getWorkingFilesForTask = (socket) => {
   socket.on("getWorkingFilesForTask", (request, callback) => {
-    logger.infoReceiveMessage("/ui", "getWorkingFilesForTask", request);
+    logger.debugReceiveMessage("/ui", "getWorkingFilesForTask", request);
 
     // Get the working file path from the API
     zou

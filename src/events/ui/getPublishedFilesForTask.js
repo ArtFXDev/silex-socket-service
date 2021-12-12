@@ -34,7 +34,7 @@ function readDirRecursive(dir, isDirectory) {
  */
 const getPublishedFilesForTask = (socket) => {
   socket.on("getPublishedFilesForTask", (request, callback) => {
-    logger.infoReceiveMessage("/ui", "getPublishedFilesForTask", request);
+    logger.debugReceiveMessage("/ui", "getPublishedFilesForTask", request);
 
     // Get the working file path and replace it with publish
     zou

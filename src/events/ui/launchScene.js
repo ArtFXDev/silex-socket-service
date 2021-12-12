@@ -8,7 +8,7 @@ const { spawn } = require("child_process");
  */
 const launchScene = (socket) => {
   socket.on("launchScene", (data, callback) => {
-    logger.infoReceiveMessage("/ui", "launchScene", data);
+    logger.debugReceiveMessage("/ui", "launchScene", data);
 
     // ex: rez env silex_houdini -- silex launch --task-id id --dcc houdini
     let args = [

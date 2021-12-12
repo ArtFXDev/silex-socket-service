@@ -7,7 +7,7 @@ const logger = require("../../utils/logger");
  */
 const disconnect = (socket) => {
   socket.on("disconnect", () => {
-    logger.infoReceiveMessage("/ui", "disconnect", socket.data.uuid);
+    logger.debugReceiveMessage("/ui", "disconnect", socket.data.uuid);
   });
 };
 

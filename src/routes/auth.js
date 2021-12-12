@@ -15,7 +15,7 @@ const { zouAPIURL } = require("../utils/zou");
  * for the dcc to have access to authentication.
  */
 authRouter.post("/login", async (req, res) => {
-  logger.infoHTTPMessage("POST", "/auth/login");
+  logger.debugHTTPMessage("POST", "/auth/login");
 
   /**
    * Login to the backend API
@@ -84,7 +84,7 @@ authRouter.post("/login", async (req, res) => {
  * Logout route that clear the tokens from the store
  */
 authRouter.post("/logout", async () => {
-  logger.infoHTTPMessage("POST", "/auth/logout");
+  logger.debugHTTPMessage("POST", "/auth/logout");
 
   // Clear both tokens
   logger.info("Clearing access_token and refresh_token from the store");
@@ -101,7 +101,7 @@ authRouter.post("/logout", async () => {
  * Logout route that clear the tokens from the store
  */
 authRouter.get("/refresh-token", async (req, res) => {
-  logger.infoHTTPMessage("GET", "/auth/refresh-token");
+  logger.debugHTTPMessage("GET", "/auth/refresh-token");
 
   // Refresh the access token from the API
   const response = await axios.get(zouAPIURL("auth/refresh-token"), {
@@ -126,7 +126,7 @@ authRouter.get("/refresh-token", async (req, res) => {
  * Return the access_token from the store
  */
 authRouter.get("/token", async (req, res) => {
-  logger.infoHTTPMessage("GET", "/auth/token");
+  logger.debugHTTPMessage("GET", "/auth/token");
 
   // Get that token
   const token = store.instance.data.access_token;

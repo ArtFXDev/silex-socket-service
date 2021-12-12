@@ -8,7 +8,7 @@ const { spawn } = require("child_process");
  */
 const launchAction = (socket) => {
   socket.on("launchAction", (data) => {
-    logger.infoReceiveMessage("/ui", "launchAction", data);
+    logger.debugReceiveMessage("/ui", "launchAction", data);
 
     // Add prod or beta package
     const rez_requires = [
