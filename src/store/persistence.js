@@ -1,6 +1,6 @@
 const fs = require("fs");
 const merge = require("deepmerge");
-const logger = require("../plugins/logger");
+const logger = require("../utils/logger");
 const store = require("./index");
 const path = require("path");
 const os = require("os");

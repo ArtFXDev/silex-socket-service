@@ -1,4 +1,4 @@
-const logger = require("../../plugins/logger");
+const logger = require("../../utils/logger");
 const zou = require("../../utils/zou");
 const fg = require("fast-glob");
 const fs = require("fs");

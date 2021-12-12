@@ -1,7 +1,7 @@
 const axios = require("axios").default;
 const store = require("../store");
 const express = require("express");
-const logger = require("../plugins/logger");
+const logger = require("../utils/logger");
 const { persistStore } = require("../store/persistence");
 const authRouter = express.Router();
 

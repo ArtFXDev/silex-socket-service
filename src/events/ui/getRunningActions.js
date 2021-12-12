@@ -1,5 +1,5 @@
 const store = require("../../store");
-const logger = require("../../plugins/logger");
+const logger = require("../../utils/logger");
 
 /**
  * /ui getRunningActions

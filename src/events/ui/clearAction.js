@@ -1,6 +1,6 @@
 const store = require("../../store");
 const dccActionNamespace = require("../../namespaces/dcc/action");
-const logger = require("../../plugins/logger");
+const logger = require("../../utils/logger");
 
 /**
  * /ui clearAction

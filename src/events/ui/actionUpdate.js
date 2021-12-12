@@ -1,5 +1,5 @@
 const dccActionNamespace = require("../../namespaces/dcc/action");
-const logger = require("../../plugins/logger");
+const logger = require("../../utils/logger");
 const diff = require("../../utils/diff");
 const store = require("../../store");
 

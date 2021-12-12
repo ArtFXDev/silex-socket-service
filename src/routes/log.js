@@ -2,7 +2,7 @@ const express = require("express");
 const fs = require("fs");
 const path = require("path");
 const logRouter = express.Router();
-const logger = require("../plugins/logger");
+const logger = require("../utils/logger");
 
 // List of allowed log files
 const ALLOWED_LOG_FILES = [".silex_desktop_log", ".silex_socket_service_log"];

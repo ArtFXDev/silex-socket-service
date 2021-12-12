@@ -1,6 +1,6 @@
 const store = require("../../store");
 const { uiRoomTo } = require("../../rooms/ui");
-const logger = require("../../plugins/logger");
+const logger = require("../../utils/logger");
 
 /**
  * /dcc initialization

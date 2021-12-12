@@ -1,4 +1,4 @@
-const logger = require("../../plugins/logger");
+const logger = require("../../utils/logger");
 
 /**
  * /ui initialization

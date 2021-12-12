@@ -1,6 +1,6 @@
 const store = require("../../../store");
 const uiNamespace = require("../../../namespaces/ui/ui");
-const logger = require("../../../plugins/logger");
+const logger = require("../../../utils/logger");
 const merge = require("../../../utils/merge");
 
 /**
