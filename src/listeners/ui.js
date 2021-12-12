@@ -12,6 +12,7 @@ const launchScene = require("../events/ui/launchScene");
 const actionUpdate = require("../events/ui/actionUpdate");
 const clearAction = require("../events/ui/clearAction");
 const getPublishedFilesForTask = require("../events/ui/getPublishedFilesForTask");
+const pullPublishedScene = require("../events/ui/pullPublishedScene");
 
 // Rooms
 const { uiRoomJoin } = require("../rooms/ui");
@@ -25,6 +26,7 @@ module.exports = function (io) {
     disconnectEvent(socket, io);
     getWorkingFilesForTask(socket);
     getPublishedFilesForTask(socket);
+    pullPublishedScene(socket);
     launchAction(socket);
     launchScene(socket);
     getRunningActions(socket);
