@@ -1,6 +1,6 @@
 // Set environment variables (must be called at first)
-require("./plugins/set-env");
-const logger = require("./plugins/logger");
+require("./utils/set-env");
+const logger = require("./utils/logger");
 
 const express = require("express");
 const cors = require("cors");
