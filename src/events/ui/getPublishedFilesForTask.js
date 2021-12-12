@@ -1,4 +1,4 @@
-const logger = require("../../plugins/logger");
+const logger = require("../../utils/logger");
 const zou = require("../../utils/zou");
 const fs = require("fs");
 const path = require("path");
@@ -57,7 +57,11 @@ const getPublishedFilesForTask = (socket) => {
 
         const publishStructure = readDirRecursive(publishPath, true);
 
-        callback({ status: 200, data: { publishStructure }, msg: "Ok" });
+        callback({
+          status: 200,
+          data: { path: publishPath, publishStructure },
+          msg: "Ok",
+        });
       })
       .catch((err) => {
         callback({ status: 500, msg: err.message });
