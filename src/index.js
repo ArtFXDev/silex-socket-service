@@ -8,6 +8,7 @@ const http = require("http");
 const socketio = require("socket.io");
 
 const initListeners = require("./listeners");
+const store = require("./store");
 const { persistStore, restoreStore } = require("./store/persistence");
 
 // Express HTTP Routes
@@ -41,8 +42,8 @@ function registerRoutes(baseURL, routes) {
  * Main function, runs the server
  */
 const run = async () => {
-  // Restore the store if any
   restoreStore();
+  persistStore();
 
   // Initialize socketio event listeners
   initListeners(io);
@@ -69,5 +70,6 @@ if (require.main === module) {
 
 module.exports = {
   run,
+  store,
   persistStore,
 };
