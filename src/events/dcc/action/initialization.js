@@ -1,4 +1,4 @@
-const logger = require("../../../plugins/logger");
+const logger = require("../../../utils/logger");
 
 /**
  * /dcc/action initialization
@@ -7,7 +7,11 @@ const logger = require("../../../plugins/logger");
  */
 const initialization = (socket) => {
   socket.on("initialization", (dccContext, callback) => {
-    logger.infoReceiveMessage("/dcc/action", "initialization", dccContext.uuid);
+    logger.debugReceiveMessage(
+      "/dcc/action",
+      "initialization",
+      dccContext.uuid
+    );
 
     if (!dccContext.uuid) {
       callback({

@@ -1,6 +1,6 @@
 const store = require("../../store");
 const { uiRoomTo } = require("../../rooms/ui");
-const logger = require("../../plugins/logger");
+const logger = require("../../utils/logger");
 
 /**
  * /dcc initialization
@@ -10,7 +10,7 @@ const logger = require("../../plugins/logger");
  */
 const initialization = (socket, io) => {
   socket.on("initialization", (dccContext, callback) => {
-    logger.infoReceiveMessage("/dcc", "initialization", dccContext.uuid);
+    logger.debugReceiveMessage("/dcc", "initialization", dccContext.uuid);
 
     if (!dccContext.uuid) {
       callback({
@@ -30,7 +30,7 @@ const initialization = (socket, io) => {
     socket.data.uuid = dccContext.uuid;
 
     // Broadcast that event to the UIs
-    logger.infoSendMessage("/ui", "dccConnect", dccContext.uuid);
+    logger.debugSendMessage("/ui", "dccConnect", dccContext.uuid);
     uiRoomTo(io).emit("dccConnect", {
       data: {
         context: dccContext,

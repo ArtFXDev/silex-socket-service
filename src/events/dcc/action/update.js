@@ -1,6 +1,6 @@
 const store = require("../../../store");
 const uiNamespace = require("../../../namespaces/ui/ui");
-const logger = require("../../../plugins/logger");
+const logger = require("../../../utils/logger");
 const merge = require("../../../utils/merge");
 
 /**
@@ -11,7 +11,7 @@ const merge = require("../../../utils/merge");
  */
 const update = (socket, io) => {
   socket.on("update", (actionDiff, callback) => {
-    logger.infoReceiveMessage("/dcc/action", "update", actionDiff.uuid);
+    logger.debugReceiveMessage("/dcc/action", "update", actionDiff.uuid);
 
     if (
       !actionDiff.uuid ||
@@ -30,7 +30,7 @@ const update = (socket, io) => {
     store.instance.data.runningActions[actionDiff.uuid] = mergedAction;
 
     // Forward the update to the UI
-    logger.infoSendMessage("/ui", "actionUpdate", actionDiff.uuid);
+    logger.debugSendMessage("/ui", "actionUpdate", actionDiff.uuid);
     uiNamespace(io).emit("actionUpdate", {
       data: actionDiff,
     });

@@ -1,6 +1,6 @@
 const store = require("../../store");
 const { uiRoomTo } = require("../../rooms/ui");
-const logger = require("../../plugins/logger");
+const logger = require("../../utils/logger");
 
 /**
  * /dcc disconnect
@@ -9,7 +9,7 @@ const logger = require("../../plugins/logger");
  */
 const disconnect = (socket, io) => {
   socket.on("disconnect", () => {
-    logger.infoReceiveMessage("/dcc", "disconnect", socket.data.uuid);
+    logger.debugReceiveMessage("/dcc", "disconnect", socket.data.uuid);
 
     // Get socket connection uuid
     const { uuid } = socket.data;
@@ -27,7 +27,7 @@ const disconnect = (socket, io) => {
     }
 
     // Forward the event to UI
-    logger.infoSendMessage("/ui", "dccDisconnect", socket.data.uuid);
+    logger.debugSendMessage("/ui", "dccDisconnect", socket.data.uuid);
     uiRoomTo(io).emit("dccDisconnect", { data: { uuid: socket.data.uuid } });
   });
 };

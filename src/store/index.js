@@ -13,6 +13,9 @@ const store = {
 
   /** Refresh token for refreshing the auth token */
   refresh_token: undefined,
+
+  /** Rez packages mode: prod / beta / dev */
+  rezPackagesMode: "prod",
 };
 
 // ----------------------------------------------------

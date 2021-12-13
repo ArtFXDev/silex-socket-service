@@ -1,5 +1,5 @@
 const dccActionNamespace = require("../../namespaces/dcc/action");
-const logger = require("../../plugins/logger");
+const logger = require("../../utils/logger");
 const diff = require("../../utils/diff");
 const store = require("../../store");
 
@@ -11,7 +11,7 @@ const store = require("../../store");
  */
 const update = (socket, io) => {
   socket.on("actionUpdate", (updatedAction, callback) => {
-    logger.infoReceiveMessage("/ui", "actionUpdate", updatedAction.uuid);
+    logger.debugReceiveMessage("/ui", "actionUpdate", updatedAction.uuid);
 
     if (
       !updatedAction.uuid ||

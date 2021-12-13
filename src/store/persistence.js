@@ -1,6 +1,6 @@
 const fs = require("fs");
 const merge = require("deepmerge");
-const logger = require("../plugins/logger");
+const logger = require("../utils/logger");
 const store = require("./index");
 const path = require("path");
 const os = require("os");
@@ -14,12 +14,12 @@ const storeFile = path.join(
  * Write the store in json format on the disk
  */
 const persistStore = () => {
-  const { access_token, refresh_token } = store.instance.data;
+  const { access_token, refresh_token, rezPackagesMode } = store.instance.data;
 
   try {
     fs.writeFileSync(
       storeFile,
-      JSON.stringify({ access_token, refresh_token })
+      JSON.stringify({ access_token, refresh_token, rezPackagesMode })
     );
     logger.info(`Written store to ${storeFile}`);
   } catch (err) {

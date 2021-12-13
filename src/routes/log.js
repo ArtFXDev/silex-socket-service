@@ -2,7 +2,7 @@ const express = require("express");
 const fs = require("fs");
 const path = require("path");
 const logRouter = express.Router();
-const logger = require("../plugins/logger");
+const logger = require("../utils/logger");
 
 // List of allowed log files
 const ALLOWED_LOG_FILES = [".silex_desktop_log", ".silex_socket_service_log"];
@@ -48,7 +48,7 @@ logRouter.get("/:file", (req, res) => {
  * Clears the content of a log file
  */
 logRouter.delete("/:file", (req, res) => {
-  logger.infoHTTPMessage("DELETE", `/log/${req.params.file}`);
+  logger.debugHTTPMessage("DELETE", `/log/${req.params.file}`);
 
   if (!ALLOWED_LOG_FILES.includes(req.params.file)) {
     res.status(404).json("The log file is invalid, can't delete it");

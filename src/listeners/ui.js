@@ -6,12 +6,13 @@ const initializationEvent = require("../events/ui/initialization");
 const getConnectedDccs = require("../events/ui/getConnectedDccs");
 const disconnectEvent = require("../events/ui/disconnect");
 const getRunningActions = require("../events/ui/getRunningActions");
-const getWorkingFilesForTask = require("../events/ui/getWorkingFilesForTask");
+const searchDirRecursive = require("../events/ui/searchDirRecursive");
 const launchAction = require("../events/ui/launchAction");
 const launchScene = require("../events/ui/launchScene");
 const actionUpdate = require("../events/ui/actionUpdate");
 const clearAction = require("../events/ui/clearAction");
-const getPublishedFilesForTask = require("../events/ui/getPublishedFilesForTask");
+const pullPublishedScene = require("../events/ui/pullPublishedScene");
+const readDir = require("../events/ui/readDir");
 
 // Rooms
 const { uiRoomJoin } = require("../rooms/ui");
@@ -23,8 +24,9 @@ module.exports = function (io) {
     initializationEvent(socket, io);
     getConnectedDccs(socket);
     disconnectEvent(socket, io);
-    getWorkingFilesForTask(socket);
-    getPublishedFilesForTask(socket);
+    searchDirRecursive(socket);
+    readDir(socket);
+    pullPublishedScene(socket);
     launchAction(socket);
     launchScene(socket);
     getRunningActions(socket);

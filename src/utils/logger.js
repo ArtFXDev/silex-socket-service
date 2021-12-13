@@ -13,7 +13,7 @@ const isInDev = process.env.NODE_ENV === "development";
 // The main logger
 const logger = pino(
   {
-    level: isInDev ? "debug" : process.env.LOG_LEVEL || "warn",
+    level: process.env.LOG_LEVEL || (isInDev ? "debug" : "info"),
     enabled: process.env.NODE_ENV === "test" ? false : true,
     prettyPrint: true,
     colorize: isInDev,
@@ -26,36 +26,36 @@ const logger = pino(
 );
 
 /**
- * Logging a message when sending or receiving a socket message
+ * Logging a message when sending or receiving a network message
  */
-logger.infoNetworkMessage = (send, route, message, content) => {
+logger.debugNetworkMessage = (send, route, message, content) => {
   let str = `${send ? "<-" : "->"} [${route}${message ? " - " + message : ""}]`;
   if (content)
     str = `${str}: ${
       typeof content === "string" ? content : JSON.stringify(content)
     }`;
-  logger.info(str);
+  logger.debug(str);
 };
 
 /**
  * Receiving a message
  */
-logger.infoReceiveMessage = (route, message, content) => {
-  logger.infoNetworkMessage(false, route, message, content);
+logger.debugReceiveMessage = (route, message, content) => {
+  logger.debugNetworkMessage(false, route, message, content);
 };
 
 /**
  * Sending a message
  */
-logger.infoSendMessage = (route, message, content) => {
-  logger.infoNetworkMessage(true, route, message, content);
+logger.debugSendMessage = (route, message, content) => {
+  logger.debugNetworkMessage(true, route, message, content);
 };
 
 /**
  * Receiving or sending a HTTP message
  */
-logger.infoHTTPMessage = (method, route) => {
-  logger.infoNetworkMessage(false, `${method} ${route}`);
+logger.debugHTTPMessage = (method, route) => {
+  logger.debugNetworkMessage(false, `${method} ${route}`);
 };
 
 module.exports = logger;
