@@ -1,0 +1,47 @@
+const logger = require("../../utils/logger");
+const fs = require("fs");
+const path = require("path");
+
+/**
+ * /ui readDir
+ *
+ * Read files and folders inside the given path
+ */
+const readDir = (socket) => {
+  socket.on("readDir", (request, callback) => {
+    logger.debugReceiveMessage("/ui", "readDir", request);
+
+    if (!fs.existsSync(request.path)) {
+      callback({
+        status: 404,
+        msg: `Folder ${request.path} doesn't exist...`,
+      });
+    }
+
+    try {
+      const children = fs.readdirSync(request.path);
+
+      const entries = children.map((child) => {
+        const childPath = path.join(request.path, child);
+        const stat = fs.statSync(childPath);
+
+        return {
+          path: childPath,
+          name: child,
+          mtime: stat.mtime,
+          isDirectory: stat.isDirectory(),
+        };
+      });
+
+      callback({
+        status: 200,
+        msg: "Ok",
+        data: { entries },
+      });
+    } catch (err) {
+      callback({ status: 500, msg: JSON.stringify(err) });
+    }
+  });
+};
+
+module.exports = readDir;
