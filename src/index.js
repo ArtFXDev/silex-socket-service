@@ -26,6 +26,9 @@ const httpServer = http.createServer(app);
 
 // Initialize socket.io on that server
 const io = socketio(httpServer, {
+  // Limit the maximum data it can receive
+  // See: https://stackoverflow.com/questions/51069316/nodejs-socket-io-disconnects-when-sending-large-json
+  maxHttpBufferSize: 1e8,
   // Only allow silex front as a valid origin
   cors: { origins: [process.env.SILEX_FRONT_URL] },
 });
