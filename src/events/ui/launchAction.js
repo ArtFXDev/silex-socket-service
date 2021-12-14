@@ -11,13 +11,16 @@ const launchAction = (socket) => {
   socket.on("launchAction", (data) => {
     logger.debugReceiveMessage("/ui", "launchAction", data);
 
-    const rez_requires = [
-      "env",
-      `silex_client-${store.instance.data.rezPackagesMode}`,
-    ];
+    const rez_requires = ["env"];
 
     // Add a dcc if we are launching the action from a dcc
-    if (data.dcc) rez_requires.push(data.dcc);
+    if (data.dcc) {
+      rez_requires.push(
+        `silex_${data.dcc}-${store.instance.data.rezPackagesMode}`
+      );
+    } else {
+      rez_requires.push(`silex_client-${store.instance.data.rezPackagesMode}`);
+    }
 
     // Same for the project
     if (data.projectName) rez_requires.push(data.projectName.toLowerCase());
