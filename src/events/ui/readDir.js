@@ -1,6 +1,7 @@
 const logger = require("../../utils/logger");
 const fs = require("fs");
 const path = require("path");
+const { isJunk } = require("../../utils/junk");
 
 /**
  * /ui readDir
@@ -21,17 +22,20 @@ const readDir = (socket) => {
     try {
       const children = fs.readdirSync(request.path);
 
-      const entries = children.map((child) => {
-        const childPath = path.join(request.path, child);
-        const stat = fs.statSync(childPath);
+      // Filter hidden and junk files
+      const entries = children
+        .filter((filename) => request.includeHiddenFiles || !isJunk(filename))
+        .map((child) => {
+          const childPath = path.join(request.path, child);
+          const stat = fs.statSync(childPath);
 
-        return {
-          path: childPath,
-          name: child,
-          mtime: stat.mtime,
-          isDirectory: stat.isDirectory(),
-        };
-      });
+          return {
+            path: childPath,
+            name: child,
+            mtime: stat.mtime,
+            isDirectory: stat.isDirectory(),
+          };
+        });
 
       callback({
         status: 200,
