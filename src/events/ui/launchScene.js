@@ -19,10 +19,9 @@ const launchScene = (socket) => {
       "--",
       "silex",
       "launch",
+      data.dcc,
       "--task-id",
       data.taskId,
-      "--dcc",
-      data.dcc,
     ];
 
     // If we want to open a file with that dcc
