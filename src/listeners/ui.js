@@ -13,6 +13,7 @@ const actionUpdate = require("../events/ui/actionUpdate");
 const clearAction = require("../events/ui/clearAction");
 const pullPublishedScene = require("../events/ui/pullPublishedScene");
 const readDir = require("../events/ui/readDir");
+const killProcess = require("../events/ui/killProcess");
 
 // Rooms
 const { uiRoomJoin } = require("../rooms/ui");
@@ -21,15 +22,17 @@ module.exports = function (io) {
   // Register /ui listeners
   uiNamespace(io).on("connection", function (socket) {
     uiRoomJoin(socket);
-    initializationEvent(socket, io);
     getConnectedDccs(socket);
-    disconnectEvent(socket, io);
     searchDirRecursive(socket);
     readDir(socket);
     pullPublishedScene(socket);
     launchAction(socket);
     launchScene(socket);
     getRunningActions(socket);
+    killProcess(socket);
+
+    initializationEvent(socket, io);
+    disconnectEvent(socket, io);
     actionUpdate(socket, io);
     clearAction(socket, io);
   });
