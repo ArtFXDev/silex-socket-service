@@ -41,12 +41,16 @@ function registerRoutes(baseURL, routes) {
   app.use(baseURL, routes);
 }
 
-/**
- * Main function, runs the server
- */
-const run = async () => {
-  restoreStore();
+function setLogLevel(newLogLevel) {
+  logger.level = newLogLevel;
   persistStore();
+}
+
+/**
+ * Initialize the store and the listeners
+ */
+function initialize() {
+  restoreStore();
 
   // Initialize socketio event listeners
   initListeners(io);
@@ -54,7 +58,12 @@ const run = async () => {
   // Register HTTP routes
   registerRoutes("/auth", authRoutes);
   registerRoutes("/log", logRoutes);
+}
 
+/**
+ * Main function, runs the server
+ */
+function run() {
   // Start listening
   httpServer.listen(process.env.PORT, () => {
     logger.info(`Server listening on port ${process.env.PORT}...`);
@@ -64,15 +73,18 @@ const run = async () => {
   httpServer.on("error", (err) => {
     logger.error(`Server error: ${err}`);
   });
-};
+}
 
-// When this module is run directly from the command line
+// When this module is run directly from the command line run it
 if (require.main === module) {
+  initialize();
   run();
 }
 
 module.exports = {
+  initialize,
   run,
   store,
   persistStore,
+  setLogLevel,
 };
