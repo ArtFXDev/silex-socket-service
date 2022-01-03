@@ -9,8 +9,6 @@ const runningActions = (socket) => {
   socket.on("runningActions", (runningActions, callback) => {
     logger.debugReceiveMessage("/dcc/action", "runningActions");
 
-    console.log(runningActions);
-
     callback({
       status: 200,
     });
