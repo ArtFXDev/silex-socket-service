@@ -11,23 +11,29 @@ const copyFile = (socket) => {
   socket.on("copyFile", (request, callback) => {
     logger.debugReceiveMessage("/ui", "copyFile", request);
 
-    const destDir = path.dirname(request.destination);
+    const source = path.resolve(request.source);
+    const destination = path.resolve(request.destination);
+    const destDir = path.dirname(destination);
 
-    fs.mkdir(destDir, { recursive: true }, (err) => {
-      if (err) callback({ status: 500, msg: err });
+    try {
+      if (!fs.existsSync(destDir)) {
+        fs.mkdirSync(destDir, { recursive: true });
+      }
 
-      fs.copyFile(request.source, request.destination, (err) => {
-        if (err) {
-          callback({ status: 500, msg: err });
-        }
+      fs.copyFileSync(
+        source,
+        destination,
+        request.errorOnDestExist ? fs.constants.COPYFILE_EXCL : undefined
+      );
 
-        callback({
-          status: 200,
-          msg: "Ok",
-          data: { destination: request.destination },
-        });
+      callback({
+        status: 200,
+        msg: "Ok",
+        data: { destination: destination },
       });
-    });
+    } catch (err) {
+      callback({ status: 500, msg: err });
+    }
   });
 };
 
