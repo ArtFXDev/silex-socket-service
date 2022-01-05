@@ -17,7 +17,7 @@ const isInDev = process.env.NODE_ENV === "development";
 const logger = pino(
   {
     level: process.env.SILEX_LOG_LEVEL || (isInDev ? "debug" : "info"),
-    enabled: process.env.NODE_ENV === "test" ? false : true,
+    enabled: !(process.env.NODE_ENV === "test"),
     prettyPrint: {
       colorize: isInDev,
       translateTime: "mm/dd/yyyy - HH:MM:ss",

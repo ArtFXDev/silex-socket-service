@@ -1,5 +1,7 @@
 const { describe } = require("mocha");
+const socketService = require("../src/index");
 
 describe("Starting the server", () => {
-  require("../src/index").run();
+  socketService.initialize();
+  socketService.run();
 });

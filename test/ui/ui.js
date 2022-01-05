@@ -4,12 +4,12 @@ const { expect } = require("chai");
 const { it, describe, before, after, beforeEach } = require("mocha");
 const store = require("../../src/store");
 
-/** test cases */
 describe("Namespace /ui", () => {
   let uiNamespace;
   const port = 5118;
 
   before((done) => {
+    console.log("ui");
     uiNamespace = new Client(`http://localhost:${port}/ui`);
     uiNamespace.on("connect", () => done());
   });

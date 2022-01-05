@@ -8,8 +8,8 @@ describe("Namespace /dcc/action", () => {
   const port = 5118;
 
   before((done) => {
+    console.log("action");
     dccActionNamespace = new Client(`http://localhost:${port}/dcc/action`);
-
     dccActionNamespace.on("connect", () => {
       done();
     });
