@@ -1,4 +1,5 @@
 const logger = require("../../../utils/logger");
+const store = require("../../../store");
 
 /**
  * /dcc/action runningActions
@@ -8,6 +9,12 @@ const logger = require("../../../utils/logger");
 const runningActions = (socket) => {
   socket.on("runningActions", (runningActions, callback) => {
     logger.debugReceiveMessage("/dcc/action", "runningActions");
+
+    // Merge both actions dicts
+    store.instance.data.runningActions = {
+      ...store.instance.data.runningActions,
+      ...runningActions,
+    };
 
     callback({
       status: 200,
