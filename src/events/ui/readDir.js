@@ -15,7 +15,7 @@ const readDir = (socket) => {
     if (!fs.existsSync(request.path)) {
       callback({
         status: 404,
-        msg: `Folder ${request.path} doesn't exist...`,
+        msg: `Folder ${request.path.split("/").slice(-1)[0]} doesn't exist...`,
       });
     }
 
@@ -30,7 +30,7 @@ const readDir = (socket) => {
           const stat = fs.statSync(childPath);
 
           return {
-            path: childPath,
+            path: childPath.replaceAll("\\", "/"),
             name: child,
             mtime: stat.mtime,
             isDirectory: stat.isDirectory(),

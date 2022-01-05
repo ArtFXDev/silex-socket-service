@@ -1,6 +1,9 @@
 const pino = require("pino");
 const path = require("path");
 const fs = require("fs");
+const homedir = require("os").homedir();
+
+process.env.SILEX_LOG_DIR = path.join(homedir, "silex");
 
 // Creates the log dir if doesn't exist
 // Runs only once because node caches requires
@@ -13,11 +16,14 @@ const isInDev = process.env.NODE_ENV === "development";
 // The main logger
 const logger = pino(
   {
-    level: process.env.LOG_LEVEL || (isInDev ? "debug" : "info"),
-    enabled: process.env.NODE_ENV === "test" ? false : true,
-    prettyPrint: true,
-    colorize: isInDev,
-    translateTime: true, // Put real time instead of timestamp
+    level: process.env.SILEX_LOG_LEVEL || (isInDev ? "debug" : "info"),
+    enabled: !(process.env.NODE_ENV === "test"),
+    prettyPrint: {
+      colorize: isInDev,
+      translateTime: "mm/dd/yyyy - HH:MM:ss",
+      ignore: "pid,hostname",
+      messageFormat: "[silex-socket-service] {msg}",
+    },
   },
   // Only log to a file when in production
   isInDev

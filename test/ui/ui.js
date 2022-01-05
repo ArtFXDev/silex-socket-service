@@ -3,19 +3,25 @@ const Client = require("socket.io-client");
 const { expect } = require("chai");
 const { it, describe, before, after, beforeEach } = require("mocha");
 const store = require("../../src/store");
+const socketService = require("../../src/index");
+const fs = require("fs");
+const path = require("path");
 
-/** test cases */
 describe("Namespace /ui", () => {
   let uiNamespace;
   const port = 5118;
 
   before((done) => {
+    socketService.initialize();
+    socketService.run();
+
     uiNamespace = new Client(`http://localhost:${port}/ui`);
     uiNamespace.on("connect", () => done());
   });
 
   after(() => {
     uiNamespace.disconnect();
+    socketService.close();
   });
 
   beforeEach(() => {
@@ -94,6 +100,60 @@ describe("Namespace /ui", () => {
         expect(store.instance.data.runningActions["submit"]).to.not.exist;
         done();
       });
+    });
+  });
+
+  describe("copyFile", () => {
+    it("Can't copy a file that doesn't exist", (done) => {
+      uiNamespace.emit(
+        "copyFile",
+        { source: "./dddd", destination: "./hello" },
+        (response) => {
+          expect(response.status).to.equal(500);
+          expect(response.msg.code).to.equal("ENOENT");
+          done();
+        }
+      );
+    });
+
+    it("Can't copy a file to a destination that doesn't exist", (done) => {
+      const filename = "./sfhsgjksrjk.txt";
+      fs.closeSync(fs.openSync(filename, "w"));
+
+      uiNamespace.emit(
+        "copyFile",
+        { source: filename, destination: "./cbskberfkbsfr.txt" },
+        (response) => {
+          expect(response.status).to.equal(500);
+          expect(response.msg.code).to.equal("ENOENT");
+
+          done();
+        }
+      );
+
+      fs.rmSync(filename);
+    });
+
+    it.only("Copy a file from source to destination", (done) => {
+      const filename = "./sfhsgjksrjk.txt";
+      const destination = "./ghsgjkh.txt";
+      fs.closeSync(fs.openSync(filename, "w"));
+
+      uiNamespace.emit(
+        "copyFile",
+        { source: filename, destination },
+        (response) => {
+          console.log(response.msg);
+          expect(response.status).to.equal(200);
+
+          fs.rmSync(destination, { recursive: true });
+
+          done();
+        }
+      );
+
+      fs.rmSync(filename);
+      done();
     });
   });
 

@@ -4,14 +4,14 @@
     "type": "git",
     "url": "https://github.com/ArtFXDev/silex-socket-service"
   },
-  "version": "1.4.13",
+  "version": "1.4.14",
   "description": "",
   "main": "src/index.js",
   "scripts": {
     "format": "npx prettier --write .",
     "start": "cross-env NODE_ENV=development node src/index.js",
     "lint": "eslint --ext js .",
-    "test": "cross-env NODE_ENV=test mocha --recursive 'test/**/*.js' --exit"
+    "test": "cross-env NODE_ENV=test mocha --recursive \"test/**/*.js\" --exit --bail"
   },
   "keywords": [],
   "author": "ArtFX TDs",

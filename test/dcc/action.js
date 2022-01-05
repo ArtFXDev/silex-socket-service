@@ -2,14 +2,17 @@ const Client = require("socket.io-client");
 const { expect } = require("chai");
 const { it, describe, before, after, beforeEach } = require("mocha");
 const store = require("../../src/store");
+const socketService = require("../../src/index");
 
 describe("Namespace /dcc/action", () => {
   let dccActionNamespace;
   const port = 5118;
 
   before((done) => {
-    dccActionNamespace = new Client(`http://localhost:${port}/dcc/action`);
+    socketService.initialize();
+    socketService.run();
 
+    dccActionNamespace = new Client(`http://localhost:${port}/dcc/action`);
     dccActionNamespace.on("connect", () => {
       done();
     });
@@ -17,6 +20,7 @@ describe("Namespace /dcc/action", () => {
 
   after(() => {
     dccActionNamespace.disconnect();
+    socketService.close();
   });
 
   // Clear the store before each test
