@@ -37,6 +37,7 @@ const restoreStore = () => {
     logger.info(`Loaded store from ${storeFile}`);
   } catch (err) {
     logger.error(`Error when reading back the store: ${err}`);
+    persistStore();
   }
 };
 

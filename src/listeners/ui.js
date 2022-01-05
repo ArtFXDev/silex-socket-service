@@ -14,6 +14,7 @@ const clearAction = require("../events/ui/clearAction");
 const pullPublishedScene = require("../events/ui/pullPublishedScene");
 const readDir = require("../events/ui/readDir");
 const killProcess = require("../events/ui/killProcess");
+const copyFile = require("../events/ui/copyFile");
 
 // Rooms
 const { uiRoomJoin } = require("../rooms/ui");
@@ -30,6 +31,7 @@ module.exports = function (io) {
     launchScene(socket);
     getRunningActions(socket);
     killProcess(socket);
+    copyFile(socket);
 
     initializationEvent(socket, io);
     disconnectEvent(socket, io);
