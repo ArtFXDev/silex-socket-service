@@ -1,6 +1,6 @@
 const Client = require("socket.io-client");
 const { expect } = require("chai");
-const { it, describe, before, beforeEach } = require("mocha");
+const { it, describe, before, beforeEach, after } = require("mocha");
 const store = require("../../src/store");
 const socketService = require("../../src/index");
 
@@ -9,7 +9,6 @@ describe("Namespace /dcc", () => {
   const port = 5118;
 
   before((done) => {
-    console.log("dcc");
     socketService.initialize();
     socketService.run();
 
@@ -17,6 +16,11 @@ describe("Namespace /dcc", () => {
     dccNamespace.on("connect", () => {
       done();
     });
+  });
+
+  after(() => {
+    dccNamespace.disconnect();
+    socketService.close();
   });
 
   beforeEach(() => {

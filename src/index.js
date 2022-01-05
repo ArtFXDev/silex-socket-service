@@ -64,7 +64,6 @@ function initialize() {
  * Main function, runs the server
  */
 function run() {
-  console.log("before run");
   // Start listening
   httpServer.listen(process.env.PORT, () => {
     logger.info(`Server listening on port ${process.env.PORT}...`);
@@ -74,8 +73,11 @@ function run() {
   httpServer.on("error", (err) => {
     logger.error(`Server error: ${err}`);
   });
+}
 
-  console.log("after run");
+function close() {
+  io.close();
+  httpServer.close();
 }
 
 // When this module is run directly from the command line run it
@@ -87,6 +89,7 @@ if (require.main === module) {
 module.exports = {
   initialize,
   run,
+  close,
   store,
   persistStore,
   setLogLevel,

@@ -3,19 +3,23 @@ const Client = require("socket.io-client");
 const { expect } = require("chai");
 const { it, describe, before, after, beforeEach } = require("mocha");
 const store = require("../../src/store");
+const socketService = require("../../src/index");
 
 describe("Namespace /ui", () => {
   let uiNamespace;
   const port = 5118;
 
   before((done) => {
-    console.log("ui");
+    socketService.initialize();
+    socketService.run();
+
     uiNamespace = new Client(`http://localhost:${port}/ui`);
     uiNamespace.on("connect", () => done());
   });
 
   after(() => {
     uiNamespace.disconnect();
+    socketService.close();
   });
 
   beforeEach(() => {
