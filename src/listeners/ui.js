@@ -15,6 +15,7 @@ const pullPublishedScene = require("../events/ui/pullPublishedScene");
 const readDir = require("../events/ui/readDir");
 const killProcess = require("../events/ui/killProcess");
 const copyFile = require("../events/ui/copyFile");
+const undoLastCommand = require("../events/ui/undoLastCommand");
 
 // Rooms
 const { uiRoomJoin } = require("../rooms/ui");
@@ -37,5 +38,6 @@ module.exports = function (io) {
     disconnectEvent(socket, io);
     actionUpdate(socket, io);
     clearAction(socket, io);
+    undoLastCommand(socket, io);
   });
 };
