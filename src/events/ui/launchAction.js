@@ -37,15 +37,16 @@ const launchAction = (socket) => {
 
     // Spawn a rez env with a silex action
     const action = spawn("rez", args);
-    logger.info(`Launching action with command: rez ${args.join(" ")}`);
+    const fullCommand = `rez ${args.join(" ")}`;
+    logger.info(`Launching action with command: ${fullCommand}`);
 
     // Capture program output
     action.stdout.on("data", (data) => {
-      logger.info(`stdout: ${data}`);
+      logger.info(`-> [${fullCommand}]: ${data}`);
     });
 
     action.stderr.on("data", (data) => {
-      logger.error(`stderr: ${data}`);
+      logger.error(`-> [${fullCommand}]: ${data}`);
     });
   });
 };
