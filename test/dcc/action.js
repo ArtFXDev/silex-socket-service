@@ -172,8 +172,11 @@ describe("Namespace /dcc/action", () => {
 
         dccActionNamespace.emit("update", diff, (response) => {
           expect(response.status).to.equal(200);
-          expect(store.instance.data.runningActions[action.uuid]).to.deep.equal(
-            {
+
+          setTimeout(() => {
+            expect(
+              store.instance.data.runningActions[action.uuid]
+            ).to.deep.equal({
               uuid: "conform",
               context_metadata: { uuid: "blender" },
               steps: {
@@ -184,8 +187,8 @@ describe("Namespace /dcc/action", () => {
                 },
                 b: { name: "b", status: 3 },
               },
-            }
-          );
+            });
+          }, parseInt(process.env.SILEX_UPDATE_THRESHOLD) || 10);
 
           done();
         });
