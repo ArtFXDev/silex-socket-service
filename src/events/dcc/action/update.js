@@ -49,14 +49,14 @@ const update = (socket, io) => {
         data: diffBuffer,
       });
 
+      callback({
+        status: 200,
+        msg: `Updated action ${actionDiff.uuid}`,
+      });
+
       // Clear the buffer
       diffBuffer = undefined;
     }, UPDATE_BATCH_THRESHOLD);
-
-    callback({
-      status: 200,
-      msg: `Updated action ${actionDiff.uuid}`,
-    });
   });
 };
 

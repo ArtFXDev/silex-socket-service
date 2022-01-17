@@ -39,7 +39,7 @@ describe("Namespace /dcc", () => {
     it("Initializes the dcc", (done) => {
       const context = { uuid: "blender", pid: 5689 };
 
-      dccNamespace.emit("initialization", context, (response) => {
+      dccNamespace.emit("initialization", { context }, (response) => {
         expect(response.status).to.equal(200);
         expect(store.instance.data.dccs["blender"]).to.deep.equal(context);
         done();
@@ -60,7 +60,7 @@ describe("Namespace /dcc", () => {
         }, 100);
       });
 
-      dccNamespace.emit("initialization", context, () => {
+      dccNamespace.emit("initialization", { context }, () => {
         expect(store.instance.data.dccs["blender"]).to.exist;
 
         const dccActionNamespace = new Client(
