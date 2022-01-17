@@ -3,9 +3,6 @@ const uiNamespace = require("../../../namespaces/ui/ui");
 const logger = require("../../../utils/logger");
 const merge = require("../../../utils/merge");
 
-// Amount of ms between batched updates that will be sent to the UI
-const UPDATE_BATCH_THRESHOLD = 50;
-
 /**
  * /dcc/action - update
  *
@@ -15,6 +12,7 @@ const UPDATE_BATCH_THRESHOLD = 50;
 const update = (socket, io) => {
   let updateTimer;
   let diffBuffer = undefined;
+  let lastUpdateTime = 0;
 
   socket.on("update", (actionDiff, callback) => {
     logger.debugReceiveMessage("/dcc/action", "update", actionDiff.uuid);
@@ -29,6 +27,10 @@ const update = (socket, io) => {
 
     // Apply the diff to the buffer
     diffBuffer = diffBuffer ? merge(diffBuffer, actionDiff) : actionDiff;
+
+    const currentTime = new Date().getTime();
+    logger.debug(`Update diff: ${currentTime - lastUpdateTime}ms`);
+    lastUpdateTime = currentTime;
 
     // Reset the timer
     clearTimeout(updateTimer);
@@ -49,14 +51,14 @@ const update = (socket, io) => {
         data: diffBuffer,
       });
 
-      callback({
-        status: 200,
-        msg: `Updated action ${actionDiff.uuid}`,
-      });
-
       // Clear the buffer
       diffBuffer = undefined;
-    }, UPDATE_BATCH_THRESHOLD);
+    }, parseInt(process.env.SILEX_UPDATE_THRESHOLD) || 10);
+
+    callback({
+      status: 200,
+      msg: `Updated action ${actionDiff.uuid}`,
+    });
   });
 };
 
