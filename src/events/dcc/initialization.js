@@ -10,15 +10,15 @@ const logger = require("../../utils/logger");
  */
 const initialization = (socket, io) => {
   socket.on("initialization", (data, callback) => {
-    logger.debugReceiveMessage("/dcc", "initialization", data.context.uuid);
-
-    if (!data.context.uuid) {
+    if (!data.context || !data.context.uuid) {
       callback({
         status: 400,
         msg: "The context needs to have an uuid in order to join the room",
       });
       return;
     }
+
+    logger.debugReceiveMessage("/dcc", "initialization", data.context.uuid);
 
     // Make the socket join a room with its uuid
     socket.join(data.context.uuid);

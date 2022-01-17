@@ -133,28 +133,6 @@ describe("Namespace /ui", () => {
 
       fs.rmSync(filename);
     });
-
-    it.only("Copy a file from source to destination", (done) => {
-      const filename = "./sfhsgjksrjk.txt";
-      const destination = "./ghsgjkh.txt";
-      fs.closeSync(fs.openSync(filename, "w"));
-
-      uiNamespace.emit(
-        "copyFile",
-        { source: filename, destination },
-        (response) => {
-          console.log(response.msg);
-          expect(response.status).to.equal(200);
-
-          fs.rmSync(destination, { recursive: true });
-
-          done();
-        }
-      );
-
-      fs.rmSync(filename);
-      done();
-    });
   });
 
   describe("getConnectedDccs", () => {
