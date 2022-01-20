@@ -16,6 +16,9 @@ const store = {
 
   /** Rez packages mode: prod / beta / dev */
   rezPackagesMode: "prod",
+
+  /** list of subprocess */
+  subprocess: [],
 };
 
 // ----------------------------------------------------
