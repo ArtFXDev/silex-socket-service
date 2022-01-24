@@ -9,6 +9,7 @@ const logger = require("../../utils/logger");
 const getRunningActions = (socket) => {
   socket.on("getRunningActions", (callback) => {
     logger.debugReceiveMessage("/ui", "getRunningActions");
+    logger.debugSendMessage("/ui", "getRunningActions");
 
     // Send the stored actions to the UI
     callback({
