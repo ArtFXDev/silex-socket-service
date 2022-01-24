@@ -33,8 +33,12 @@ authRouter.post("/login", async (req, res) => {
       // Save the store
       persistStore();
 
-      // Return the data
-      res.json(response.data);
+      // Filter out the tokens
+      // eslint-disable-next-line no-unused-vars
+      const { access_token, refresh_token, ...rest } = response.data;
+
+      // Return the rest of the data
+      res.json(rest);
 
       logger.info("Logging successful!");
     } catch (err) {
