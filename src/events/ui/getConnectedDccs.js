@@ -9,8 +9,8 @@ const logger = require("../../utils/logger");
 const getConnectedDccs = (socket) => {
   socket.on("getConnectedDccs", (callback) => {
     logger.debugReceiveMessage("/ui", "getConnectedDccs");
-
     logger.debugSendMessage("/ui", "getConnectedDccs");
+
     callback({
       status: 200, // ok
       data: store.instance.data.dccs,
