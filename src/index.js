@@ -9,7 +9,7 @@ const socketio = require("socket.io");
 
 const initListeners = require("./listeners");
 const store = require("./store");
-const { persistStore, restoreStore } = require("./store/persistence");
+const {persistStore, restoreStore} = require("./store/persistence");
 
 // Express HTTP Routes
 const authRoutes = require("./routes/auth");
@@ -18,7 +18,7 @@ const logRoutes = require("./routes/log");
 // Create the express app
 const app = express();
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({extended: true}));
 app.use(cors());
 
 // Create the http server
@@ -30,7 +30,7 @@ const io = socketio(httpServer, {
   // See: https://stackoverflow.com/questions/51069316/nodejs-socket-io-disconnects-when-sending-large-json
   maxHttpBufferSize: 1e8,
   // Only allow silex front as a valid origin
-  cors: { origins: [process.env.SILEX_FRONT_URL] },
+  cors: {origins: [process.env.SILEX_FRONT_URL]},
 });
 
 /**
@@ -88,6 +88,7 @@ if (require.main === module) {
 
 module.exports = {
   initialize,
+  app,
   run,
   close,
   store,
