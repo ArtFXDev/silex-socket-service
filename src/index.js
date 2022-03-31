@@ -88,6 +88,7 @@ if (require.main === module) {
 
 module.exports = {
   initialize,
+  app,
   run,
   close,
   store,
