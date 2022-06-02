@@ -6,6 +6,7 @@ const fs = require("fs");
  * /ui searchDirRecursive
  *
  * Search for files recursively in a directory
+ * Used to display work scenes in the interface
  */
 const searchDirRecursive = (socket) => {
   socket.on("searchDirRecursive", (request, callback) => {
@@ -13,10 +14,9 @@ const searchDirRecursive = (socket) => {
 
     let folderPath = request.path;
 
+    const extensionsFmt = request.extensions.join(", ");
     logger.debug(
-      `Recursively searching files in ${folderPath} with extensions ${request.extensions.join(
-        ", "
-      )}`
+      `Recursively searching files in ${folderPath} with extensions ${extensionsFmt}`
     );
 
     if (!fs.existsSync(folderPath)) {
@@ -28,13 +28,17 @@ const searchDirRecursive = (socket) => {
     }
 
     try {
+      const extensionGlob =
+        folderPath + "/" + `**/*.(${request.extensions.join("|")})`;
+
       // Read the files in the folder
       // Only get the useful extensions
-      const files = fg.sync(
-        folderPath + "/" + `**/*.(${request.extensions.join("|")})`,
-        { stats: true, ignore: request.ignore }
-      );
+      const files = fg.sync(extensionGlob, {
+        stats: true,
+        ignore: request.ignore,
+      });
 
+      // Filter out files
       const filteredFiles = files
         .filter((f) => f.dirent.isFile())
         .map((f) => {
