@@ -33,6 +33,8 @@ $ yarn install # Install the dependencies
 
 - 🚀 `yarn start` -> Start the HTTP server with WS and Express routes listeners
 
+- 🧪 `yarn test` -> Run unit tests
+
 ## Libraries
 
 Here are the main libraries and packages used:
