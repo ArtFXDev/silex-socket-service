@@ -1,6 +1,5 @@
 const logger = require("../../utils/logger");
 const fs = require("fs");
-const path = require("path");
 const { isJunk } = require("../../utils/junk");
 const { findSequencesIn } = require("../../utils/fileseq");
 
