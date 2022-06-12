@@ -29,7 +29,9 @@ const searchDirRecursive = (socket) => {
 
     try {
       const extensionGlob =
-        folderPath + "/" + `**/*.(${request.extensions.join("|")})`;
+        folderPath.replace(/\\/g, "/") +
+        "/" +
+        `**/*.(${request.extensions.join("|")})`;
 
       // Read the files in the folder
       // Only get the useful extensions
