@@ -75,6 +75,23 @@ describe("Fileseq", () => {
       ).to.deep.equal([
         { name: "b", extension: "txt", isSequence: true, start: 1, end: 5 },
       ]);
+
+      expect(
+        findSequencesIn([
+          "render_s03_p260_body_layer.1000.ass",
+          "render_s03_p260_body_layer.1001.ass",
+          "render_s03_p260_body_layer.1002.ass",
+          "render_s03_p260_body_layer.1003.ass",
+        ])
+      ).to.deep.equal([
+        {
+          name: "render_s03_p260_body_layer",
+          extension: "ass",
+          isSequence: true,
+          start: 1000,
+          end: 1003,
+        },
+      ]);
     });
 
     it("Finds a file sequence with other files", () => {
