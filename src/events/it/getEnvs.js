@@ -11,7 +11,7 @@ const getEnvs = (socket) => {
     logger.debugReceiveMessage("/it", "getEnvs");
     logger.debugSendMessage("/it", "getEnvs");
 
-    // todo need to find another way to avoir os dependency
+    // todo need to find another way to avoid os dependency
     try {
       process.exec(
         'powershell.exe "Get-ChildItem env: | Select-Object -Property Key,value | ConvertTo-Json"',
