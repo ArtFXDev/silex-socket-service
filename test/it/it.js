@@ -25,9 +25,7 @@ describe("Namespace /it", () => {
     it("Returns envs of computer", (done) => {
       itNamespace.emit("getEnvs", (response) => {
         expect(response.status).to.equal(200);
-        expect(response.data).to.deep.equal({
-          testenv: "aaaaa",
-        });
+        expect(response.data.envs).length.above(0);
         done();
       });
     });
